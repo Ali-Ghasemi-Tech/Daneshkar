@@ -2,6 +2,7 @@
 binary search
 
 """
+#for finding the index
 def find_numebr(target: int , list: list , start:int , end:int ) -> int:
     if start > end:
         return "the target number does not exist in this list"
@@ -17,12 +18,15 @@ def find_numebr(target: int , list: list , start:int , end:int ) -> int:
             return find_numebr(target , list , start , mid-1)
         else:
             return mid
-        
+#for making a target and list
 def binary_search(desired_number:int , *list:list ):
     index = find_numebr(desired_number , list , start= 0 , end=len(list)-1)
     return index
  
     
-
-
-print(binary_search(7 , 1, 2, 3, 7, 9, 11 ,13))
+#app start
+answer = binary_search(4 , 1, 2, 3, 7, 9, 11 ,13)
+if type(answer) == 'int':
+    print(f"your target number is at index: {answer}")
+else:
+    print(answer)
