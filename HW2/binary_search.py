@@ -3,18 +3,20 @@ binary search
 
 """
 def find_numebr(target: int , list: list , start:int , end:int ) -> int:
-    answer = 0
     if start > end:
         return "the target number does not exist in this list"
     else:
+        if target == list[start]:
+            return start
+        elif target == list[end]:
+            return end
         mid :int = (start + end )// 2 
         if target > list[mid]:
-            find_numebr(target , list , mid , end)
+            return find_numebr(target , list , mid +1 , end)
         elif target < list[mid]:
-            find_numebr(target , list , start , mid-1)
+            return find_numebr(target , list , start , mid-1)
         else:
-            answer = mid
-    return answer
+            return mid
         
 def binary_search(desired_number:int , *list:list ):
     index = find_numebr(desired_number , list , start= 0 , end=len(list)-1)
@@ -23,4 +25,4 @@ def binary_search(desired_number:int , *list:list ):
     
 
 
-print(binary_search(9 , 1, 2, 3, 7, 9, 11 ,13))
+print(binary_search(7 , 1, 2, 3, 7, 9, 11 ,13))
