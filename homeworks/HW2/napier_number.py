@@ -42,3 +42,5 @@ napier = napier_number(number_of_sentences, power_of_e)
 
 #app finish
 print(decimal_numbers(napier))
+
+#keep in mind the more sentences you use , the more accurate it gets but it will be slower.

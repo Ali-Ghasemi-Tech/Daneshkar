@@ -19,14 +19,14 @@ def find_numebr(target: int , list: list , start:int , end:int ) -> int:
         else:
             return mid
 #for making a target and list
-def binary_search(desired_number:int , *list:list ):
+def binary_search(desired_number:int , *list:list ) -> int | str:
     index = find_numebr(desired_number , list , start= 0 , end=len(list)-1)
     return index
  
     
 #app start
-answer = binary_search(4 , 1, 2, 3, 7, 9, 11 ,13)
-if type(answer) == 'int':
+answer = binary_search(3 , 1, 2, 3, 7, 9, 11 ,13 )
+if type(answer) == int:
     print(f"your target number is at index: {answer}")
 else:
     print(answer)
