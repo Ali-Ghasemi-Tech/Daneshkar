@@ -64,3 +64,7 @@ class Bank:
 
 b1 = Bank()
 
+ali = Bank()
+acc = ali.create_account("ali" , 1000 , "ali_pass")
+
+print(acc)

@@ -75,21 +75,21 @@ class Account:
         return f"{self.name} {self.get_balance()}"
 
 
-a1 = Account("Joe", 100, "joe_pass")
-a2 = Account("Mary", 12345, "mary_pass")
+# a1 = Account("Joe", 100, "joe_pass")
+# a2 = Account("Mary", 12345, "mary_pass")
 
-print(a1)
-print(a2)
-
-
-a1.deposit(100, "joe_pass")
-print(a1)
-
-a2.block_balance(100)
-# Open back gateway
+# print(a1)
+# print(a2)
 
 
-# response from bank
-a2.withdraw(100, "mary_pass")
-print(a2)
+# a1.deposit(100, "joe_pass")
+# print(a1)
+
+# a2.block_balance(100)
+# # Open back gateway
+
+
+# # response from bank
+# a2.withdraw(100, "mary_pass")
+# print(a2)
 
