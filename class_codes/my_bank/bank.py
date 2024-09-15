@@ -5,10 +5,10 @@ import re
 class Bank:
     loan_budget = 1_000_000
 
-    def __init__(self ):
+    def __init__(self):
         self._accounts = {}
         self._accounts_id_dict = {}
-        # self.loan_budget = loan_budget
+
     def _account_id(self) -> int:
         while True:
             id: int = randint(10_000 , 999_999)

@@ -91,6 +91,7 @@ class Account:
     def reopen_account(self, password : str) -> bool:
         self.is_closed = False
         return True
+ 
         
     def __str__(self) -> str:
         return f'Account({self.name} , {self._balance} , {self.password} , {self.account_id})'
