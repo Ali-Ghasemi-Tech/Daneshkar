@@ -1,8 +1,7 @@
-total_matches = int(input("please enter the number of total matches: "))
 
 def game(total_matches):
     total = total_matches
-    while total >0:
+    while total > 0:
         player1_input = int(input("how many matches do you want to remove from the stack as player1: "))
         if player1_input >= 4:
             print('the maximum number of matches you can remove is 3')
@@ -25,4 +24,6 @@ def game(total_matches):
             print("player2 lost")
             total =0
 
-game(total_matches)
+if __name__ == "__main__":
+    total_matches = int(input("please enter the number of total matches: "))
+    game(total_matches)
