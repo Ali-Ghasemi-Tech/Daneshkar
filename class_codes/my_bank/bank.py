@@ -3,12 +3,12 @@ from random import randint
 import re
 
 class Bank:
-    loan_budget= 1_000_000
+    loan_budget = 1_000_000
 
-    def __init__(self):
+    def __init__(self ):
         self._accounts = {}
         self._accounts_id_dict = {}
- 
+        # self.loan_budget = loan_budget
     def _account_id(self) -> int:
         while True:
             id: int = randint(10_000 , 999_999)
@@ -23,6 +23,7 @@ class Bank:
         self._accounts[account.account_number]  = account
         self._accounts_id_dict[account_id] = account
         print(account)
+        print()
         return account
 
     
@@ -41,10 +42,10 @@ class Bank:
     def close_account(self) -> None:
         print("**** Close Account ****")
 
-        account_number = int(input("Enter account number: "))
+        account_id = int(input("Enter account id: "))
         password = input("Enter password: ")
 
-        account = self._accounts.get(account_number)
+        account = self._accounts_id_dict.get(account_id)
 
         if not (account):
             print("Account does not exist")
@@ -55,28 +56,29 @@ class Bank:
 
     def diposit(self) -> None:
         print("*** diposit ***")
-        account_number = int(input("Enter account number: "))
+        account_id = int(input("Enter account id: "))
         amount = int(input("Enter amount: "))
         password = input("Enter password: ")
+        print()
 
-
-        account = self._accounts.get(account_number)
+        account = self._accounts_id_dict.get(account_id)
 
         if not account:
             print("Account does not exists")
             return
         
-        account.deposit(amount, password)
+        account.diposit(amount, password)
         
 
     def withdraw(self) -> None:
         print("*** withdraw ***")
-        account_number = int(input("Enter account number: "))
+        account_id = int(input("Enter account id: "))
         amount = int(input("Enter amount: "))
         password = input("Enter password: ")
+        print()
 
 
-        account = self._accounts.get(account_number)
+        account = self._accounts_id_dict.get(account_id)
 
         if not account:
             print("Account does not exists")
@@ -88,16 +90,16 @@ class Bank:
     def balance(self) -> None:
         """this will show the balance of an account"""
         print("*** Balance ***")
-        account_number = int(input("Enter account number: "))
-
-
-        account = self._accounts.get(account_number)
+        account_id = int(input("Enter account id: "))
+        print()
+        account = self._accounts_id_dict.get(account_id)
 
         if not account:
             print("Account does not exists")
             return
         
         account.get_balance()
+        
 
     def show_account(self) -> dict:
         """this will show you the details of an account"""
@@ -116,5 +118,24 @@ class Bank:
 
 
 meli = Bank()
-meli.open_account()
-meli.balance()
+blue = Bank()
+
+#meli bank
+print(f"the load budget for this bank is: {meli.loan_budget}")
+print()
+meli.create_account("ali", 1253 , "ali_pass")
+# meli.create_account("mmd", 2564 , "mmd_pass")
+# meli.create_account("amir", 256 , "amir_pass")
+# meli.create_account("kiyan", 9862 , "kiyan_pass")
+# print(meli.balance())
+meli.close_account()
+
+#blue bank
+# blue.loan_budget = 5_000_000
+# print(f"the load budget for this bank is: {blue.loan_budget}")
+# print()
+# blue.create_account("ali", 1253 , "ali_pass")
+# blue.create_account("mmd", 2564 , "mmd_pass")
+# blue.create_account("amir", 256 , "amir_pass")
+# blue.create_account("kiyan", 9862 , "kiyan_pass")
+
