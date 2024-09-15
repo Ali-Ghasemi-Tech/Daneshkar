@@ -1,69 +1,120 @@
 from account import Account
+from random import randint
+import re
 
 class Bank:
-    _accounts = {}
+    loan_budget= 1_000_000
 
     def __init__(self):
-        pass
+        self._accounts = {}
+        self._accounts_id_dict = {}
+ 
+    def _account_id(self) -> int:
+        while True:
+            id: int = randint(10_000 , 999_999)
+            if not id in self._accounts_id_dict:
+                return id
+            continue
 
-    def deposit(self):
-        print("*** deposit ***")
-        account_number = int(input("enter the account number you want to deposit to: "))
-        password = input("please enter the password of the account you want to deposit to: ")
-        amount = int(input("please enter the amount you want to deposit: "))
-        acc = self._accounts.get(account_number)
-        if not acc:
-            print("this account does not exist")
-            return
-        acc.deposit(amount , password)
-
-    def withdraw(self):
-        print("*** withdraw ***")
-        account_number = int(input("enter the account number you want to withdraw from: "))
-        password = input("please enter the password of the account you want to withdraw from: ")
-        amount = int(input("please enter the amount you want to withdraw from this account: "))
-        acc = self._accounts.get(account_number)
-        if not acc:
-            print("this account does not exist")
-            return
-        acc.withdraw(amount , password)
-
-    def close_acc(self):
-        print("*** closing account ***")
-        account_number = int(input("enter the account number you want to block: "))
-        password = input("please enter the password of the account you want to block: ")
-        acc =self._accounts.get(account_number)
-        if not acc :
-            print('this account does not exist')
-            return
-        acc.close_account(password)
-
-    def open_acc(self):
-        print("*** opening account ***")
-        user_name = input("please enter a username for your account: ")
-        user_pass = input("please enter a passowrd for your account: ")
-        starting_amount = int(input("please enter a starting amount for your account: "))
-        self.create_acc(user_name , user_pass , starting_amount)
-
-    def create_acc(self, user_name , user_pass , starting_amount):
+    def create_account(self, account_name:str, starting_amount: int | float, password : str) -> Account:
         print("*** account creation ***")
-        account = Account(user_name , user_pass , starting_amount)
+        account_id : int = self._account_id()
+        account = Account(account_name , starting_amount, password , account_id)
         self._accounts[account.account_number]  = account
+        self._accounts_id_dict[account_id] = account
+        print(account)
+        return account
 
-        print(self._accounts)
+    
 
-    def loan():
-        pass
+    def open_account(self) -> None:
+        print("*** Open account ***")
+        user_name = input("What is the name for the new user account? ")
+        start_amount = int(input("What is the starting amount of this account? "))
+        user_pass = input("Enter a password for this account: ")
+
+        user_account = self.create_account(user_name, start_amount, user_pass)
+        print(f"Your new account number is: {user_account.account_number}\n" )
+        print(f"Your account id is : {user_account.account_id}")
+        return
+
+    def close_account(self) -> None:
+        print("**** Close Account ****")
+
+        account_number = int(input("Enter account number: "))
+        password = input("Enter password: ")
+
+        account = self._accounts.get(account_number)
+
+        if not (account):
+            print("Account does not exist")
+            return
+
+        account.close_account(password)
 
 
-ali = Bank()
-behnam = Bank()
-
-acc = ali.create_acc("ali" , "ali_pass" , 1000)
-acc2 = behnam.create_acc('behnam' , 'behnam_pass' ,2000)
-
-
-behnam.deposit()
+    def diposit(self) -> None:
+        print("*** diposit ***")
+        account_number = int(input("Enter account number: "))
+        amount = int(input("Enter amount: "))
+        password = input("Enter password: ")
 
 
+        account = self._accounts.get(account_number)
 
+        if not account:
+            print("Account does not exists")
+            return
+        
+        account.deposit(amount, password)
+        
+
+    def withdraw(self) -> None:
+        print("*** withdraw ***")
+        account_number = int(input("Enter account number: "))
+        amount = int(input("Enter amount: "))
+        password = input("Enter password: ")
+
+
+        account = self._accounts.get(account_number)
+
+        if not account:
+            print("Account does not exists")
+            return
+        
+        account.withdraw(amount, password)
+
+
+    def balance(self) -> None:
+        """this will show the balance of an account"""
+        print("*** Balance ***")
+        account_number = int(input("Enter account number: "))
+
+
+        account = self._accounts.get(account_number)
+
+        if not account:
+            print("Account does not exists")
+            return
+        
+        account.get_balance()
+
+    def show_account(self) -> dict:
+        """this will show you the details of an account"""
+        check_account = int(input("please enter a account id you want to monitor: "))
+        if self._accounts_id_dict[check_account]:
+            account = self._accounts_id_dict.get(check_account)
+            account_string = re.split(r'[()]', str(account))
+            detail_string = re.split(',' , account_string[1])
+            return {'name':detail_string[0].strip()
+                    , "balance":detail_string[1].strip()
+                    , "password": detail_string[2].strip()
+                    , "account_id" : detail_string[3].strip()}
+
+        return "the account id you entered does not exist"
+
+
+
+meli = Bank()
+meli.open_account()
+meli.balance()
