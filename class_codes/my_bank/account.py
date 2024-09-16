@@ -1,3 +1,6 @@
+from datetime import datetime 
+import typing
+
 class Account:
     number_of_created_account = 0
 
@@ -8,6 +11,9 @@ class Account:
         self.password = password
         self.account_id = account_id
         Account.number_of_created_account += 1
+        self._creation_date = datetime.now()
+        self._credit = 0
+        self._debt = 0
 
 
         self.is_closed = False
@@ -91,6 +97,16 @@ class Account:
     def reopen_account(self, password : str) -> bool:
         self.is_closed = False
         return True
+    
+    def check_credit(self):
+        account_age = datetime.now().day - self._creation_date.day
+        if account_age > 30:
+            if self._balance > 1000 : 
+                self._credit = 1
+            else:
+                print("insufficient balance for getting credit")
+        else:
+            print(f"too new for getting credit. try again in {30 - account_age} day(s)")
  
         
     def __str__(self) -> str:
@@ -101,3 +117,5 @@ class Account:
 
 
 
+ali = Account("ali" , 1000 , "ali_pass" , 10001)
+ali.check_credit()
