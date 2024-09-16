@@ -99,12 +99,14 @@ class Account:
         return True
     
     def check_credit(self):
-        account_age = datetime.now().day - self._creation_date.day
+        account_age = 31
         if account_age > 30:
             if self._balance > 1000 : 
                 self._credit = 1
+                return self._credit
             else:
                 print("insufficient balance for getting credit")
+                return self._credit
         else:
             print(f"too new for getting credit. try again in {30 - account_age} day(s)")
  
@@ -117,5 +119,3 @@ class Account:
 
 
 
-ali = Account("ali" , 1000 , "ali_pass" , 10001)
-ali.check_credit()
