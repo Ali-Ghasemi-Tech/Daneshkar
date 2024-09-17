@@ -26,7 +26,6 @@ class Account:
             if args[-1] != args[0].password:
                 print("Sorry! incorrect password")
                 return False
-            print("password = ok")
             return func(*args)
         return wraper
         
@@ -35,7 +34,6 @@ class Account:
             if args[1] < 0:
                 print("You can not use negative amount")
                 return False
-            print("amount = ok")
             return func(*args)
         return wraper
 
@@ -44,7 +42,6 @@ class Account:
             if args[0].is_closed:
                 print("Sorry your account is blocked.")
                 return False
-            print("close = ok")
             return func(*args)
 
             
@@ -60,9 +57,8 @@ class Account:
 
 
     @_check_closed
-    @_check_password
     @_check_amount
-    def withdraw(self, amount: int, password: str) -> bool:
+    def withdraw(self, amount: int) -> bool:
 
         self._blocked_balance -= amount
         self._balance -= amount

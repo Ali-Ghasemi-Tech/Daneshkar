@@ -5,15 +5,16 @@ import re
 class Bank:
     loan_budget = 1_000_000
 
-    def __init__(self):
+    def __init__(self, name):
+        self.bank_name = name
         self._accounts = {}
-        self._accounts_id_dict = {}
+        self.accounts_id_dict = {}
 
 
     def get_account(self) -> str:
         account_id = int(input("please enter a the account id: "))
-        if self._accounts_id_dict.get(account_id):
-            return self._accounts_id_dict.get(account_id)
+        if self.accounts_id_dict.get(account_id):
+            return self.accounts_id_dict.get(account_id)
         else:
             return "this account does not exist"
         
@@ -21,7 +22,7 @@ class Bank:
     def _generate_id(self) -> int:
         while True:
             id: int = randint(10_000 , 999_999)
-            if not id in self._accounts_id_dict:
+            if not id in self.accounts_id_dict:
                 return id
             continue
 
@@ -30,7 +31,7 @@ class Bank:
         account_id : int = self._generate_id()
         account = Account(account_name , starting_amount, password , account_id)
         self._accounts[account.account_number]  = account
-        self._accounts_id_dict[account_id] = account
+        self.accounts_id_dict[account_id] = account
         print(account)
         print()
         return account
@@ -54,7 +55,7 @@ class Bank:
         account_id = int(input("Enter account id: "))
         password = input("Enter password: ")
 
-        account = self._accounts_id_dict.get(account_id)
+        account = self.accounts_id_dict.get(account_id)
 
         if not (account):
             print("Account does not exist")
@@ -70,7 +71,7 @@ class Bank:
         password = input("Enter password: ")
         print()
 
-        account = self._accounts_id_dict.get(account_id)
+        account = self.accounts_id_dict.get(account_id)
 
         if not account:
             print("Account does not exists")
@@ -83,17 +84,16 @@ class Bank:
         print("*** withdraw ***")
         account_id = int(input("Enter account id: "))
         amount = int(input("Enter amount: "))
-        password = input("Enter password: ")
         print()
 
 
-        account = self._accounts_id_dict.get(account_id)
+        account = self.accounts_id_dict.get(account_id)
 
         if not account:
             print("Account does not exists")
             return
         
-        account.withdraw(amount, password)
+        account.withdraw(amount)
 
 
     def balance(self) -> None:
@@ -101,7 +101,7 @@ class Bank:
         print("*** Balance ***")
         account_id = int(input("Enter account id: "))
         print()
-        account = self._accounts_id_dict.get(account_id)
+        account = self.accounts_id_dict.get(account_id)
 
         if not account:
             print("Account does not exists")
@@ -136,6 +136,7 @@ class Bank:
         if quilified:
             print("your account is quilified for a loan")
             print(f"the amount you can get as a loan is : {loan_amount}")
+            
         else:
             print("you are not qulified for a loan")
         
@@ -143,18 +144,18 @@ class Bank:
 
 
 
-meli = Bank()
-blue = Bank()
+meli = Bank("meli")
+blue = Bank("blue")
 
 #meli bank
 print(f"the load budget for this bank is: {meli.loan_budget}")
 print()
 meli.create_account("ali", 1253 , "ali_pass")
-# meli.create_account("mmd", 2564 , "mmd_pass")
-# meli.create_account("amir", 256 , "amir_pass")
-# meli.create_account("kiyan", 9862 , "kiyan_pass")
+meli.create_account("mmd", 2564 , "mmd_pass")
+meli.create_account("amir", 256 , "amir_pass")
+meli.create_account("kiyan", 9862 , "kiyan_pass")
+# meli.loan() 
 # print(meli.balance())
-meli.loan() 
 
 #blue bank
 # blue.loan_budget = 5_000_000
