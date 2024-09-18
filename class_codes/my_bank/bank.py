@@ -64,8 +64,8 @@ class Bank:
         account.close_account(password)
 
 
-    def diposit(self) -> None:
-        print("*** diposit ***")
+    def deposit(self) -> None:
+        print("*** deposit ***")
         account_id = int(input("Enter account id: "))
         amount = int(input("Enter amount: "))
         password = input("Enter password: ")
@@ -77,7 +77,7 @@ class Bank:
             print("Account does not exists")
             return
         
-        account.diposit(amount, password)
+        account.deposit(amount, password)
         
 
     def withdraw(self) -> None:
@@ -96,10 +96,9 @@ class Bank:
         account.withdraw(amount)
 
 
-    def balance(self) -> None:
+    def balance(self , account_id) -> None:
         """this will show the balance of an account"""
         print("*** Balance ***")
-        account_id = int(input("Enter account id: "))
         print()
         account = self.accounts_id_dict.get(account_id)
 
@@ -144,25 +143,6 @@ class Bank:
 
 
 
-meli = Bank("meli")
-blue = Bank("blue")
 
-#meli bank
-print(f"the load budget for this bank is: {meli.loan_budget}")
-print()
-meli.create_account("ali", 1253 , "ali_pass")
-meli.create_account("mmd", 2564 , "mmd_pass")
-meli.create_account("amir", 256 , "amir_pass")
-meli.create_account("kiyan", 9862 , "kiyan_pass")
-# meli.loan() 
-# print(meli.balance())
 
-#blue bank
-# blue.loan_budget = 5_000_000
-# print(f"the load budget for this bank is: {blue.loan_budget}")
-# print()
-# blue.create_account("ali", 1253 , "ali_pass")
-# blue.create_account("mmd", 2564 , "mmd_pass")
-# blue.create_account("amir", 256 , "amir_pass")
-# blue.create_account("kiyan", 9862 , "kiyan_pass")
 

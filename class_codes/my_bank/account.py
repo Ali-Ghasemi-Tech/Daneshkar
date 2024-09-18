@@ -20,14 +20,14 @@ class Account:
         self.account_number = Account.number_of_created_account
         self.account_id = account_id
 
-
-    def _check_password(func) -> bool:
-        def wraper(*args):
-            if args[-1] != args[0].password:
-                print("Sorry! incorrect password")
-                return False
-            return func(*args)
-        return wraper
+    # the password will be checked when user has logged in , and admin does't need user's password
+    # def _check_password(func) -> bool:
+    #     def wraper(*args):
+    #         if args[-1] != args[0].password:
+    #             print("Sorry! incorrect password")
+    #             return False
+    #         return func(*args)
+    #     return wraper
         
     def _check_amount(func) -> bool:
         def wraper(*args):
@@ -48,11 +48,9 @@ class Account:
         return wraper   
     
     @_check_closed
-    @_check_password
     @_check_amount
-    def diposit(self, amount: int, password:str) -> bool:
+    def deposit(self, amount: int) -> bool:
         self._balance += amount
-        print(self._balance)
         return True
 
 
@@ -66,9 +64,8 @@ class Account:
 
     
     @_check_closed
-    @_check_password
     @_check_amount
-    def block_balance(self, amount: int, password: str) -> bool:
+    def block_balance(self, amount: int) -> bool:
 
         self._blocked_balance += amount
         return True
@@ -81,16 +78,14 @@ class Account:
         
 
     @_check_closed
-    @_check_password
-    def close_account(self, password: str) -> bool:
+    def close_account(self) -> bool:
        
         self.is_closed = True
         print(f"the following account has been blocked: {self}")
         return True
 
     @_check_closed
-    @_check_password
-    def reopen_account(self, password : str) -> bool:
+    def reopen_account(self) -> bool:
         self.is_closed = False
         return True
     
