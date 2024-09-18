@@ -3,12 +3,14 @@ from random import randint
 import re
 
 class Bank:
-    loan_budget = 1_000_000
 
-    def __init__(self, name):
+    def __init__(self, name , loan_intreast):
+        self.loan_intreast = int(loan_intreast)
         self.bank_name = name
         self._accounts = {}
         self.accounts_id_dict = {}
+        self.loan_budget = 1_000_000
+
 
 
     def get_account(self) -> str:
@@ -41,7 +43,11 @@ class Bank:
     def open_account(self) -> None:
         print("*** Open account ***")
         user_name = input("What is the name for the new user account? ")
-        start_amount = int(input("What is the starting amount of this account? "))
+        try:
+            start_amount = int(input("What is the starting amount of this account? "))
+        except ValueError:
+            print("please enter a number for starting amount next time , thank you")
+            return
         user_pass = input("Enter a password for this account: ")
 
         user_account = self.create_account(user_name, start_amount, user_pass)
@@ -51,8 +57,11 @@ class Bank:
 
     def close_account(self) -> None:
         print("**** Close Account ****")
-
-        account_id = int(input("Enter account id: "))
+        try:
+            account_id = int(input("Enter account id: "))
+        except ValueError:
+            print("please enter a number next time")
+            return
         password = input("Enter password: ")
 
         account = self.accounts_id_dict.get(account_id)
@@ -123,19 +132,44 @@ class Bank:
         return account
         
 
-    def loan(self):
+    def loan(self , account):
         print("*** loan page ***")
-        account = self.get_account()
         credit = account.check_credit()
         if credit == 1:
             quilified = True
         else:
             quilified = False
+        
         loan_amount = account._balance * 1.5
+        if loan_amount > self.loan_budget:
+            loan_amount = self.loan_budget
         if quilified:
             print("your account is quilified for a loan")
             print(f"the amount you can get as a loan is : {loan_amount}")
-            
+            while True:
+                procced = input("do you want to continue (y/n)? ")
+                if procced.lower() == 'y':
+                    print(f"take note that the loan intreast is {self.loan_intreast}%")
+                    try:
+                        money_request = int(input("how much money do you request for your loan: "))
+                    except ValueError:
+                        print("please enter a number next time")
+                        continue
+                    if money_request > loan_amount:
+                        print(f"your max debt can be {loan_amount}")
+                    else:
+                        account.deposit(money_request)
+                        account._debt = money_request * (1 +(self.loan_intreast / 100))
+                        self.loan_budget -= money_request
+                        print(f'your loan has been confirmed. your account balance is {account._balance}')
+                        print(f"your account debt is {account._debt}")
+                        print("thanks for choosing our bank")
+                        break
+                elif procced.lower() == 'n':
+                    break
+                else:
+                    print("incorect input")
+                    continue
         else:
             print("you are not qulified for a loan")
         

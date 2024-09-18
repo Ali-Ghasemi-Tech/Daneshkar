@@ -51,16 +51,20 @@ class Account:
     @_check_amount
     def deposit(self, amount: int) -> bool:
         self._balance += amount
+        print("your deposit was succesful\n")
         return True
 
 
     @_check_closed
     @_check_amount
     def withdraw(self, amount: int) -> bool:
-
-        self._blocked_balance -= amount
-        self._balance -= amount
-        return True
+        if self._balance - amount > 10:
+            self._blocked_balance -= amount
+            self._balance -= amount
+            print("your withdraw was succesful\n")
+            return True
+        print("could't withdraw\n")
+        return False
 
     
     @_check_closed
