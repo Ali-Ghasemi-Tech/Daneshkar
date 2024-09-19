@@ -14,7 +14,7 @@ class Bank:
 
 
     def get_account(self) -> str:
-        account_id = int(input("please enter a the account id: "))
+        account_id = int(input("please enter an account id: "))
         if self.accounts_id_dict.get(account_id):
             return self.accounts_id_dict.get(account_id)
         else:
@@ -28,9 +28,15 @@ class Bank:
                 return id
             continue
 
-    def create_account(self, account_name:str, starting_amount: int | float, password : str) -> Account:
+    def create_account(self, account_name:str, starting_amount: int | float, password : str , account_id = 0) -> Account:
         print("*** account creation ***")
-        account_id : int = self._generate_id()
+        if account_id == 0:
+            try:
+                account_id : int = self._generate_id()
+            except ValueError:
+                print("enter a number next time")
+                return
+        
         account = Account(account_name , starting_amount, password , account_id)
         self._accounts[account.account_number]  = account
         self.accounts_id_dict[account_id] = account
@@ -119,10 +125,11 @@ class Bank:
         
 
     def show_account(self) -> dict:
-        """this will show you the details of an account"""
-        check_account = int(input("please enter a account id you want to monitor: "))
-        
-        account = self.get_account(check_account)
+        """this will show you the details of an account"""        
+        account = self.get_account()
+        if account == "this account does not exist":
+            print("wrong account id")
+            return
         account_string = re.split(r'[()]', str(account))
         detail_string = re.split(',' , account_string[1])
         print ({'name':detail_string[0].strip()

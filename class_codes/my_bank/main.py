@@ -1,6 +1,6 @@
 from bank import Bank
 from user import User
-
+import re
 banks = {
     "meli": Bank("meli", 22), 
     "blue" : Bank("blue" , 20)
@@ -8,26 +8,16 @@ banks = {
 
 meli = banks.get("meli")
 blue = banks.get("blue")
-
-#meli bank
-print(f"the load budget for this bank is: {meli.loan_budget}")
-print()
-
-meli.create_account("ali", 1253 , "ali_pass")
-meli.create_account("mmd", 2564 , "mmd_pass")
-meli.create_account("amir", 256 , "amir_pass")
-meli.create_account("kiyan", 9862 , "kiyan_pass")
-# meli.loan() 
-# print(meli.balance())
-
-#blue bank
-# blue.loan_budget = 5_000_000
-# print(f"the load budget for this bank is: {blue.loan_budget}")
-# print()
-blue.create_account("ali", 1253 , "ali_pass")
-blue.create_account("mmd", 2564 , "mmd_pass")
-blue.create_account("amir", 256 , "amir_pass")
-blue.create_account("kiyan", 9862 , "kiyan_pass")
+meli.create_account("ali" , 1000 , "ali_pass" , 420420)
+with open("./DB/meli_DB.txt" , "r+") as file:
+    for line in file:
+        account_string = re.split(r'[()]', line)
+        try:
+          detail_string = re.split(',' , account_string[1])
+        except IndexError:
+            continue
+        meli.create_account(detail_string[0].strip() , int(detail_string[1].strip()) ,detail_string[2].strip() , int(detail_string[3].strip()))
+                        
 
 print("*** welcome to the best bank manager of your life *** \n")
 
@@ -106,3 +96,15 @@ while True:
             case _:
                 print("your command was not found")
                 continue
+
+with open("./DB/meli_DB.txt" , "w+") as file:
+    data_dict = meli.accounts_id_dict
+    for account in data_dict:
+        file.write(str(data_dict.get(account)) + "\n")
+    file.close()
+
+with open("./DB/blue_DB.txt" , "w") as file:
+    data_dict = blue.accounts_id_dict
+    for account in data_dict:
+        file.write(str(data_dict.get(account)) + "\n")
+    file.close()

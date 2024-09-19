@@ -1,5 +1,4 @@
 from datetime import datetime 
-import typing
 
 class Account:
     number_of_created_account = 0
