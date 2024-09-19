@@ -19,14 +19,8 @@ class Account:
         self.account_number = Account.number_of_created_account
         self.account_id = account_id
 
-    # the password will be checked when user has logged in , and admin does't need user's password
-    # def _check_password(func) -> bool:
-    #     def wraper(*args):
-    #         if args[-1] != args[0].password:
-    #             print("Sorry! incorrect password")
-    #             return False
-    #         return func(*args)
-    #     return wraper
+    # the password will be checked when user has logged in .
+
         
     def _check_amount(func) -> bool:
         def wraper(*args):
@@ -84,7 +78,7 @@ class Account:
     def close_account(self) -> bool:
        
         self.is_closed = True
-        print(f"the following account has been blocked: {self}")
+        print(f"the following account has been closed: {self}")
         return True
 
     @_check_closed
@@ -93,9 +87,10 @@ class Account:
         return True
     
     def check_credit(self):
+        # hard coded this account age so you can see the loan method in action
         account_age = 31
         if account_age > 30:
-            if self._balance > 1000 : 
+            if self._balance > 1000 and self._debt == 0 : 
                 self._credit = 1
                 return self._credit
             else:

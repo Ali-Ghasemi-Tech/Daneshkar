@@ -8,7 +8,8 @@ banks = {
 
 meli = banks.get("meli")
 blue = banks.get("blue")
-meli.create_account("ali" , 1000 , "ali_pass" , 420420)
+
+"""this will get all the account from the database and initiate them into the app"""
 with open("./DB/meli_DB.txt" , "r+") as file:
     for line in file:
         account_string = re.split(r'[()]', line)
@@ -17,7 +18,15 @@ with open("./DB/meli_DB.txt" , "r+") as file:
         except IndexError:
             continue
         meli.create_account(detail_string[0].strip() , int(detail_string[1].strip()) ,detail_string[2].strip() , int(detail_string[3].strip()))
-                        
+
+with open("./DB/blue_DB.txt" , "r+") as file:
+    for line in file:
+        account_string = re.split(r'[()]', line)
+        try:
+          detail_string = re.split(',' , account_string[1])
+        except IndexError:
+            continue
+        blue.create_account(detail_string[0].strip() , int(detail_string[1].strip()) ,detail_string[2].strip() , int(detail_string[3].strip()))
 
 print("*** welcome to the best bank manager of your life *** \n")
 
@@ -64,7 +73,7 @@ while True:
             case 4:
                 user.req_loan()
                 continue
-            case 5:
+            case 5:  
                 user.logout()
                 continue
             case _:

@@ -13,8 +13,13 @@ class Bank:
 
 
 
-    def get_account(self) -> str:
-        account_id = int(input("please enter an account id: "))
+    def get_account(self) -> str | bool:
+        """get the accounts object"""
+        try:
+            account_id = int(input("please enter an account id: "))
+        except ValueError:
+            print("enter a number next time")
+            return False
         if self.accounts_id_dict.get(account_id):
             return self.accounts_id_dict.get(account_id)
         else:
@@ -22,6 +27,7 @@ class Bank:
         
 
     def _generate_id(self) -> int:
+        """generate a random id for account between 10_000 and 999_999"""
         while True:
             id: int = randint(10_000 , 999_999)
             if not id in self.accounts_id_dict:
@@ -29,6 +35,7 @@ class Bank:
             continue
 
     def create_account(self, account_name:str, starting_amount: int | float, password : str , account_id = 0) -> Account:
+        """create an account based on the name password and then initiate an id to it"""
         print("*** account creation ***")
         if account_id == 0:
             try:
@@ -47,6 +54,7 @@ class Bank:
     
 
     def open_account(self) -> None:
+        """open an account from the user's request"""
         print("*** Open account ***")
         user_name = input("What is the name for the new user account? ")
         for account_id in self.accounts_id_dict:
@@ -68,14 +76,9 @@ class Bank:
         print(f"Your account id is : {user_account.account_id}")
         return
 
-    def close_account(self) -> None:
+    def close_account(self , account_id) -> None:
+        """close the account by it's id"""
         print("**** Close Account ****")
-        try:
-            account_id = int(input("Enter account id: "))
-        except ValueError:
-            print("please enter a number next time")
-            return
-        password = input("Enter password: ")
 
         account = self.accounts_id_dict.get(account_id)
 
@@ -83,14 +86,27 @@ class Bank:
             print("Account does not exist")
             return
 
-        account.close_account(password)
+        account.close_account()
+    
+    def reopen_account(self, account_id) -> None:
+        """reopen account with it's id"""
+        print("*** reopening account ***")
+        account = self.accounts_id_dict.get(account_id)
+        if not (account):
+            print("Account does not exist")
+            return
+
+        account.reopen_account()
 
 
-    def deposit(self) -> None:
+    def deposit(self, account_id) -> None:
+        """deposit requested money into account"""
         print("*** deposit ***")
-        account_id = int(input("Enter account id: "))
-        amount = int(input("Enter amount: "))
-        password = input("Enter password: ")
+        try:
+            amount = int(input("Enter amount you want to deposit: "))
+        except ValueError:
+            print("enter a number next time ")
+            return
         print()
 
         account = self.accounts_id_dict.get(account_id)
@@ -99,13 +115,17 @@ class Bank:
             print("Account does not exists")
             return
         
-        account.deposit(amount, password)
+        account.deposit(amount)
         
 
-    def withdraw(self) -> None:
+    def withdraw(self, account_id) -> None:
+        """withdraw the amount of money from the account"""
         print("*** withdraw ***")
-        account_id = int(input("Enter account id: "))
-        amount = int(input("Enter amount: "))
+        try:
+            amount = int(input("Enter amount you want to withdraw: "))
+        except ValueError:
+            print("enter a number next time ")
+            return
         print()
 
 
@@ -114,7 +134,7 @@ class Bank:
         if not account:
             print("Account does not exists")
             return
-        
+        account.block_balance(amount)
         account.withdraw(amount)
 
 
@@ -147,6 +167,7 @@ class Bank:
         
 
     def loan(self , account):
+        """check user's credit and give loan suggestion based on balance"""
         print("*** loan page ***")
         credit = account.check_credit()
         if credit == 1:
