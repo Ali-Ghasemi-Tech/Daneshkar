@@ -49,6 +49,13 @@ class Bank:
     def open_account(self) -> None:
         print("*** Open account ***")
         user_name = input("What is the name for the new user account? ")
+        for account_id in self.accounts_id_dict:
+            account =self.accounts_id_dict.get(account_id)
+            account_string = re.split(r'[()]', str(account))
+            detail_string = re.split(',' , account_string[1])
+            if detail_string[0].strip() == user_name:
+                print("this user name already exist in this bank")
+                return
         try:
             start_amount = int(input("What is the starting amount of this account? "))
         except ValueError:
