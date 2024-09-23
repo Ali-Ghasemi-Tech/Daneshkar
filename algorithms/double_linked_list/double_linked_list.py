@@ -49,6 +49,12 @@ class LinkedList:
                 return
             current = current.next
         raise IndexError("list assignment index out of range")
+    
+    def get(self, index , default = None):
+        try:
+            return self.__getitem__(index)
+        except IndexError:
+            return default
 
     def get_size(self):
         print(self.size)
@@ -63,9 +69,7 @@ linked_list.append(6)
 
 
 linked_list[0] = "changed value"
-linked_list[1] = "changed value"
-linked_list[2] = "changed value"
-linked_list[3] = "changed value"
 
+print(linked_list.get(2))
 for item in linked_list.iter():
     print(item) 
