@@ -26,6 +26,7 @@ class LinkedList:
             self.tail = node
             self.head = node
 
+
     def iter(self):
         current = self.tail
         while current:
@@ -38,8 +39,16 @@ class LinkedList:
             if current.index == index:
                 return current.data
             current = current.next
-        raise IndexError
-            
+        raise IndexError("index out of range")
+        
+    def __setitem__(self,index, value):
+        current = self.tail
+        while current:
+            if current.index == index:
+                current.data = value
+                return
+            current = current.next
+        raise IndexError("list assignment index out of range")
 
     def get_size(self):
         print(self.size)
@@ -52,7 +61,11 @@ linked_list.append("hello")
 linked_list.append("m,e")
 linked_list.append(6)
 
-print(linked_list[4])
+
+linked_list[0] = "changed value"
+linked_list[1] = "changed value"
+linked_list[2] = "changed value"
+linked_list[3] = "changed value"
+
 for item in linked_list.iter():
     print(item) 
-
