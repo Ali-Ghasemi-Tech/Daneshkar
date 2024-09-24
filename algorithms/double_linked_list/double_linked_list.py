@@ -37,7 +37,8 @@ class LinkedList:
         current = self.tail
         while current.next:
             if current.index == index:
-                return current.data
+                print(current.data)
+                return current
             current = current.next
         raise IndexError("index out of range")
         
@@ -113,6 +114,33 @@ class LinkedList:
                 current = current.next 
                 
 
+    def __delitem__(self , key):
+        current = self.tail
+        after_current = None
+        befor_current = None
+        while current:
+            if current.index == key:
+                
+                if current == self.head and current == self.tail:
+                    current.next = None
+                    current.prev = None
+                    self.tail = None
+                elif current == self.tail:
+                    after_current = current.next
+                    after_current.prev = None
+                    self.tail = after_current
+                elif current == self.head:
+                    befor_current = current.prev
+                    befor_current.next = None
+                    self.head = befor_current
+                else:
+                    after_current = current.next
+                    befor_current = current.prev
+                    befor_current.next = after_current
+                    after_current.prev = befor_current
+                break
+            else:
+                current = current.next
 
     def get_size(self):
         print(self.size)
@@ -130,8 +158,8 @@ linked_list.append("hello")
 
 
 
-
-linked_list.remove_all("hello")
+del linked_list[3]
+del linked_list[7]
 
 for item in linked_list.iter():
     print(item) 
