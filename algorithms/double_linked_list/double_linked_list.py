@@ -142,6 +142,14 @@ class LinkedList:
             else:
                 current = current.next
 
+    def find(self , value):
+        current = self.tail
+        while current:
+            if current.data == value:
+                return current.index
+            else: 
+                current = current.next
+
     def get_size(self):
         print(self.size)
 
@@ -157,9 +165,9 @@ linked_list.append("hello")
 linked_list.append("hello")
 
 
-
+print(linked_list.find(5))
 del linked_list[3]
 del linked_list[7]
 
-for item in linked_list.iter():
-    print(item) 
+# for item in linked_list.iter():
+#     print(item) 
