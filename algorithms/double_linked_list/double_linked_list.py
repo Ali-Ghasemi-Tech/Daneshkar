@@ -84,6 +84,35 @@ class LinkedList:
             else:
                 current = current.next
 
+    def remove_all(self, value):
+        current = self.tail
+        after_current = None
+        befor_current = None
+        while current:
+            if current.data == value:
+                
+                if current == self.head and current == self.tail:
+                    current.next = None
+                    current.prev = None
+                    self.tail = None
+                elif current == self.tail:
+                    after_current = current.next
+                    after_current.prev = None
+                    self.tail = after_current
+                elif current == self.head:
+                    befor_current = current.prev
+                    befor_current.next = None
+                    self.head = befor_current
+                else:
+                    after_current = current.next
+                    befor_current = current.prev
+                    befor_current.next = after_current
+                    after_current.prev = befor_current
+                current = befor_current.next
+            else:
+                current = current.next 
+                
+
 
     def get_size(self):
         print(self.size)
@@ -96,13 +125,13 @@ linked_list.append("hello")
 linked_list.append("m,e")
 linked_list.append(6)
 linked_list.append("hello")
+linked_list.append("hello")
+linked_list.append("hello")
 
 
 
-linked_list.remove(1)
-linked_list.remove("hello")
-linked_list.remove("m,e")
-linked_list.remove(6)
+
+linked_list.remove_all("hello")
 
 for item in linked_list.iter():
     print(item) 
