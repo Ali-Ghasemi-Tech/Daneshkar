@@ -24,7 +24,7 @@ class LinkedList:
             self.head= node
         else:
             self.tail = node
-            self.head = node
+            self.head = self.tail
 
 
     def iter(self):
@@ -35,9 +35,8 @@ class LinkedList:
 
     def __getitem__(self, index):
         current = self.tail
-        while current.next:
+        while current:
             if current.index == index:
-                print(current.data)
                 return current
             current = current.next
         raise IndexError("index out of range")
@@ -150,6 +149,90 @@ class LinkedList:
             else: 
                 current = current.next
 
+    def swap(self , index1 , index2):
+        node1 = self.get(index1)
+        node2 = self.get(index2)
+    #     if index2 - index1 == 1 and node1 != self.tail and node2 != self.head:
+    #         node1.prev.next = node2
+    #         node2.next.prev = node1
+    #         node1.next , node2.next= node2.next , node1
+    #         node1.prev , node2.prev = node2 , node1.prev
+    #     elif index1 - index2 == 1 and node2 != self.tail and node1 != self.head:
+    #         node2.prev.next = node1
+    #         node1.next.prev = node2
+    #         node2.next , node1.next= node1.next , node2
+    #         node1.prev , node1.prev = node1 , node2.prev
+    #     else:
+    #         if node1 == self.tail and node2 == self.head:
+    #             node1.next.prev = node2
+    #             node2.prev.next = node1
+    #             node2.next = node1.next
+    #             node1.prev = node2.prev
+    #             node1.next = None
+    #             node2.prev = None
+    #             self.tail = node2
+    #             self.head = node1
+    #         elif node2 == self.tail and node1 == self.head:
+    #             node2.next.prev = node1
+    #             node1.prev.next = node2
+    #             node1.next = node2.next
+    #             node2.prev = node1.prev
+    #             node1.prev = None
+    #             node2.next = None
+    #         elif node1 == self.tail and node2 != self.head:
+    #             node2.prev = None
+    #             node2.next = node1.next
+    #             node1.next.prev = node2
+    #         elif node1 == self.head and node2 != self.tail:
+    #             node2.next = None
+    #             node2.prev = node1.prev
+    #             node1.prev.next = node2
+    #         elif node2 == self.tail and node1 != self.head:
+    #             node1.prev = None
+    #             node1.next = node2.next
+    #             node2.next.prev = node1
+    #         elif node2 == self.head and node1 != self.tail:
+    #             node1.next = None
+    #             node1.prev = node2.prev
+    #             node2.prev.next = node1
+    #         else:
+    #             node1.next.prev = node2
+    #             node1.prev.next = node2
+    #             node2.next.prev = node1
+    #             node2.prev.next = node1
+    #             node1.next , node2.next= node2.next , node1.next
+    #             node1.prev , node2.prev = node2.prev , node1.prev 
+    pass
+
+    def pop(self, number = 1):
+        index = self.size-1
+        while number > 0:
+            self.__delitem__(index)
+            index -= 1
+            number -= 1
+    def insert(self , index , value):
+        node = Node(value)
+        next_index = index
+        old_node = self.__getitem__(index)
+        temp = old_node.prev
+        old_node.prev = node
+        node.next = old_node
+        node.prev = temp
+        node.index = index
+        if old_node == self.tail:
+            self.tail = node
+        else:
+            temp.next = node
+
+            
+
+
+        while next_index != self.size:
+            old_node_index = self.__getitem__(next_index).index
+            old_node_index += 1
+            next_index += 1
+        
+
     def get_size(self):
         print(self.size)
 
@@ -157,17 +240,10 @@ class LinkedList:
 linked_list = LinkedList()
 
 linked_list.append(1)
-linked_list.append("hello")
-linked_list.append("m,e")
-linked_list.append(6)
-linked_list.append("hello")
-linked_list.append("hello")
-linked_list.append("hello")
+linked_list.append(2)
+linked_list.append(3)
+linked_list.insert(2 , "hello")
 
 
-print(linked_list.find(5))
-del linked_list[3]
-del linked_list[7]
-
-# for item in linked_list.iter():
-#     print(item) 
+for item in linked_list.iter():
+    print(item) 
