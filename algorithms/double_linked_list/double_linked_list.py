@@ -206,10 +206,17 @@ class LinkedList:
 
     def pop(self, number = 1):
         index = self.size-1
+        poped_values = []
         while number > 0:
+            poped_node = self.__getitem__(index)
+            poped_values.append(poped_node.data)
             self.__delitem__(index)
             index -= 1
             number -= 1
+        print(poped_values)
+        return poped_values
+
+
     def insert(self , index , value):
         node = Node(value)
         next_index = index
@@ -219,13 +226,11 @@ class LinkedList:
         node.next = old_node
         node.prev = temp
         node.index = index
+
         if old_node == self.tail:
             self.tail = node
         else:
             temp.next = node
-
-            
-
 
         while next_index != self.size:
             old_node_index = self.__getitem__(next_index).index
@@ -242,7 +247,7 @@ linked_list = LinkedList()
 linked_list.append(1)
 linked_list.append(2)
 linked_list.append(3)
-linked_list.insert(2 , "hello")
+linked_list.pop(2)
 
 
 for item in linked_list.iter():
