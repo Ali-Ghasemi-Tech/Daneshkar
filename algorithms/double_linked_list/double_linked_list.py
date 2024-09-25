@@ -150,59 +150,80 @@ class LinkedList:
                 current = current.next
 
     def swap(self , index1 , index2):
+        if index1 >index2:
+            print("enter the swaping indexs in assending order")
+            return
+        if index2 == index1:
+            return
         node1 = self.get(index1)
         node2 = self.get(index2)
-    #     if index2 - index1 == 1 and node1 != self.tail and node2 != self.head:
-    #         node1.prev.next = node2
-    #         node2.next.prev = node1
-    #         node1.next , node2.next= node2.next , node1
-    #         node1.prev , node2.prev = node2 , node1.prev
-    #     elif index1 - index2 == 1 and node2 != self.tail and node1 != self.head:
-    #         node2.prev.next = node1
-    #         node1.next.prev = node2
-    #         node2.next , node1.next= node1.next , node2
-    #         node1.prev , node1.prev = node1 , node2.prev
-    #     else:
-    #         if node1 == self.tail and node2 == self.head:
-    #             node1.next.prev = node2
-    #             node2.prev.next = node1
-    #             node2.next = node1.next
-    #             node1.prev = node2.prev
-    #             node1.next = None
-    #             node2.prev = None
-    #             self.tail = node2
-    #             self.head = node1
-    #         elif node2 == self.tail and node1 == self.head:
-    #             node2.next.prev = node1
-    #             node1.prev.next = node2
-    #             node1.next = node2.next
-    #             node2.prev = node1.prev
-    #             node1.prev = None
-    #             node2.next = None
-    #         elif node1 == self.tail and node2 != self.head:
-    #             node2.prev = None
-    #             node2.next = node1.next
-    #             node1.next.prev = node2
-    #         elif node1 == self.head and node2 != self.tail:
-    #             node2.next = None
-    #             node2.prev = node1.prev
-    #             node1.prev.next = node2
-    #         elif node2 == self.tail and node1 != self.head:
-    #             node1.prev = None
-    #             node1.next = node2.next
-    #             node2.next.prev = node1
-    #         elif node2 == self.head and node1 != self.tail:
-    #             node1.next = None
-    #             node1.prev = node2.prev
-    #             node2.prev.next = node1
-    #         else:
-    #             node1.next.prev = node2
-    #             node1.prev.next = node2
-    #             node2.next.prev = node1
-    #             node2.prev.next = node1
-    #             node1.next , node2.next= node2.next , node1.next
-    #             node1.prev , node2.prev = node2.prev , node1.prev 
-    pass
+    
+        if self.tail == node1:
+            self.tail = node2
+        elif self.tail == node2:
+            self.tail == node1
+        if self.head == node1:
+            self.head = node2
+        elif self.head == node2:
+            self.head = node1
+        
+        if node1.prev == None and node2.next == None:
+            node1.next.prev = node2
+            node2.prev.next = node1
+            node2.next = node1.next
+            node1.prev = node2.prev
+            node1.next = None
+            node2.prev = None
+        elif node1.prev == None and node2.prev == node1:
+            node1.prev = node2
+            node2.prev = None
+            node1.next = node2.next
+            node2.next = node1
+            node2.next.prev = node1
+        elif node2.next == None and node1.next == node2:
+            node2.next = node1
+            node2.prev = node1.prev
+            node1.next = None
+            node1.prev.next = node2
+            node1.prev = node2
+        elif node1.prev == None:
+            temp = node1.next
+            node1.next = node2.next
+            node1.prev = node2.prev
+            node2.prev.next = node1
+            node2.next.prev = node1
+            node2.next = temp
+            node2.prev = None
+        elif node2.next == None:
+            temp = node2.prev
+            node2.prev.next = node1
+            node2.next = node1.next
+            node2.prev = node1.prev
+            node1.prev.next = node2
+            node1.next.prev = node2
+            node1.next = None
+            node1.prev = temp
+        elif node2.prev == node1:
+            temp = node2.next
+            node2.next.prev = node1
+            node1.prev.next = node2
+            node2.next = node1
+            node1.next = temp
+            temp = node1.prev 
+            node1.prev = node2
+            node2.prev = temp
+        else:
+            node1.next.prev = node2
+            node1.prev.next = node2
+            node2.next.prev = node1
+            node2.prev.next = node1
+            temp = node1.next
+            node1.next = node2.next
+            node2.next = temp
+            temp = node1.prev
+            node1.prev = node2.prev
+            node2.prev = temp            
+
 
     def pop(self, number = 1):
         index = self.size-1
@@ -247,7 +268,9 @@ linked_list = LinkedList()
 linked_list.append(1)
 linked_list.append(2)
 linked_list.append(3)
-linked_list.pop(2)
+linked_list.append(4)
+
+linked_list.swap(1,2)
 
 
 for item in linked_list.iter():
