@@ -3,13 +3,25 @@ import uuid
 import hashlib
 from typing import Optional
 
+
+def login(func):
+    def wraper(self, *args , **kwargs):
+        if self.logged_in:
+            return func(self, *args, **kwargs)
+        else:
+            print("you are not logged in")
+            return self.login()
+
+    return wraper
+
+
 class User:
 
     users = {}
 
     id = 0
     def __init__(self) -> None:
-
+        self.logged_in =False
         self.id = self.id_generator()
 
     def id_generator(self):   
@@ -34,9 +46,29 @@ class User:
         user = {"user_name": user_name , "user_pass": self.hash_password(user_pass) , "user_phone": user_phone}
         User.users[self.id] = user
         return user
-       
     
+    def login(self):
+        user_name = input("please enter your username: ")
+        user_pass = getpass("please enter your passwrod: ")
+        hashed_pass = self.hash_password(user_pass)
+        for id in User.users:
+            if User.users[id]["user_name"] == user_name and User.users[id]["user_pass"] == hashed_pass:
+                self.logged_in = True
+                print(f"you are loggen into this account {self.show_account(id)}")
+                return True
+            else:
+                print("your user_name or password is wrong")
+                return False
+            
+    def show_account(slef , id):
+        try:
+            return User.users[id]
+        except Exception:
+            print(Exception)
 
+    def __str__(self , pram):
+        return  str(pram)
+    
 # ali = User("ali" , "ali_pass")
 
 # ali.id_generator()
