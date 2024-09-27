@@ -1,6 +1,8 @@
 
 from users import User
 from getpass import getpass
+
+
 user_account = None
 new_user = User()
 
@@ -22,7 +24,7 @@ while True:
                 continue
             case 2:
                 print("***changing account info***")
-                new_user_name = input("please enter your new user_name here: ")
+                new_user_name = new_user.get_user_name()
                 user_account["user_name"] = new_user_name
                 new_user_phone = input("please enter your new phone number here: ")
                 user_account["user_phone"] = new_user_phone
@@ -38,7 +40,7 @@ while True:
                     repeat_new_pass = getpass("repeat new password: ")
                     if new_pass == repeat_new_pass:
                         hashed_new_pass = new_user.hash_password(new_pass)
-                        user_account["user_pass"] = hashed_new_pass
+                        new_user.update_pass(hashed_new_pass , id)
                         print("your password has been changed succesfully")
                     else:
                         print("the passwords don't match!")
@@ -52,6 +54,13 @@ while True:
                 print("invalid input")
                 continue
     else: 
+        print("""Hello, you are not logged in what do you want to do?
+              
+              0. exit program
+              1. create account
+              2. login
+              
+              """)
         user_choice = int(input("please enter the number of task you want to execute: "))
         match user_choice:
             case 0:
