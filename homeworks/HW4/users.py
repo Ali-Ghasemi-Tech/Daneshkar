@@ -41,7 +41,7 @@ class User:
     
     def create_user(self):
         user_name = input("please enter your username: ")
-        user_pass = getpass("please enter your passwrod: ")
+        user_pass = self.get_password()
         user_phone = input("please enter your phone number (optional): ")
         user = {"user_name": user_name , "user_pass": self.hash_password(user_pass) , "user_phone": user_phone}
         User.users[self.id] = user
@@ -54,10 +54,10 @@ class User:
         for id in User.users:
             if User.users[id]["user_name"] == user_name and User.users[id]["user_pass"] == hashed_pass:
                 self.logged_in = True
-                print(f"you are loggen into this account {self.show_account(id)}")
+                print(f"you are loggen into this account {self.show_account(id)}\n")
                 return True
             else:
-                print("your user_name or password is wrong")
+                print("your user_name or password is wrong\n")
                 return False
             
     def show_account(slef , id):
@@ -68,6 +68,19 @@ class User:
 
     def __str__(self , pram):
         return  str(pram)
+    
+    def get_password(self):
+        user_pass = getpass("please enter your passwrod: ")
+        valid_pass = self.check_password(user_pass)
+        if not valid_pass:
+            print("your password should be atleast 4 charecters long!")
+            return self.get_password()
+        return user_pass
+     
+    def check_password(self , passwrod):
+        if len(list(passwrod)) < 4:
+            return False
+        return True
     
 # ali = User("ali" , "ali_pass")
 
