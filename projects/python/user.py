@@ -1,8 +1,8 @@
 from getpass import getpass
 import uuid
-import hashlib
 from datetime import datetime
 import jdatetime
+from modules import password
 
 
 def check_login(func):
@@ -37,23 +37,14 @@ class User:
                 return str(id)
     
     
-    def hash_password(self , password) -> str:
-       """this is a function for getting password as input and then hashes it using hashlib 
-       
-        gets password
-
-       returns string"""
-       encode_password = password.encode('utf-8')
-       hash_object = hashlib.sha256(encode_password)
-       hex_dig = hash_object.hexdigest()
-       return hex_dig
+    
     
     def create_user(self) -> dict:
         """when called it asks user for user_name and password , it creates a dict with this information and also adds a random id to it then pushes it to the users dict 
         
         returns dict"""
         user_name = self.get_user_name()
-        user_pass = self.get_password()
+        user_pass = password.get_password()
         user_phone = input("please enter your phone number (optional): ")
         user_birth = self.get_birthdate()
         age = self.calculate_age(user_birth)
@@ -65,7 +56,7 @@ class User:
 
         user = {
                 "user_name": user_name ,
-                "user_pass": self.hash_password(user_pass) ,
+                "user_pass": password.hash_password(user_pass) ,
                 "user_phone": user_phone , "user_id": id ,
                 "date_of_birth" : user_birth ,
                 "age" : age ,
@@ -129,27 +120,6 @@ class User:
             print("\nthis user_name already exists , please enter another user_name! (╥‸╥) \n")
             return self.get_user_name()
         return user_name
-
-    
-    def get_password(self) -> str :
-        """handels getting password from user and checking it. if the password is not valid then it returns itself
-        
-        returns string"""
-        user_pass: str = getpass("please enter passwrod: ")
-        valid_pass: function = self._check_password(user_pass)
-
-        if not valid_pass:
-            print("\nyour password should be atleast 4 charecters long! –_–)#\n")
-            return self.get_password()
-        return user_pass
-     
-    def _check_password(self , passwrod) -> bool:
-        """checking if password is atleast 4 charectors long
-        
-        returns boolian"""
-        if len(list(passwrod)) < 4:
-            return False
-        return True
     
     def _check_username(self , new_user_name) -> bool:
         """check if the user_name exist in the users
