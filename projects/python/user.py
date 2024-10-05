@@ -61,7 +61,17 @@ class User:
         if len(list(user_phone)) == 0:
             user_phone = None
 
-        user = {"user_name": user_name , "user_pass": self.hash_password(user_pass) , "user_phone": user_phone , "user_id": id , "date_of_birth" : user_birth , "age" : age}
+        creation_date = datetime.now().date()
+
+        user = {
+                "user_name": user_name ,
+                "user_pass": self.hash_password(user_pass) ,
+                "user_phone": user_phone , "user_id": id ,
+                "date_of_birth" : user_birth ,
+                "age" : age ,
+                "creation_date" : creation_date,
+                "bank_accounts" : []
+                }
 
         User.users[id] = user
         self.logged_in = True
