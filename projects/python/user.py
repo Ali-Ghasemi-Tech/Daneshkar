@@ -150,7 +150,3 @@ class User:
         returns string"""
         return  f"user_name: {account["user_name"]}\n user_phone: {account["user_phone"]}\n user_id:{account["user_id"]}"
     
-ali = User()
-ali.create_user()
-ali.create_user()
-print(ali.users)

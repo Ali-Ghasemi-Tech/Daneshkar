@@ -2,7 +2,7 @@ from datetime import datetime
 
 class BankAccount:
 
-    def __init__(self, name, balance, password , cvv2):
+    def __init__(self,bank ,name, balance, password , cvv2):
         self.name = name
         self._balance = balance
         self._blocked_balance = 0
@@ -11,6 +11,7 @@ class BankAccount:
         self._creation_date = datetime.now()
         self._credit = 0
         self._debt = 0
+        self.bank = bank
 
 
         self.is_closed = False
@@ -97,9 +98,9 @@ class BankAccount:
  
         
     def __str__(self) -> str:
-        return f'Account({self.name} , {self._balance} , {self.password} )'
+        return f'Account({self.bank},{self.name!r} , {self._balance!r} , {self.password!r} , {self.cvv2})'
 
     def __repr__(self) -> str:
-        return f'Account({self.name!r} , {self._balance!r} , {self.password!r})'
+        return f'Account({self.bank!r},{self.name!r} , {self._balance!r} , {self.password!r} , {self.cvv2})'
 
 
