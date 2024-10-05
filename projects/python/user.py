@@ -182,3 +182,5 @@ class User:
     
 ali = User()
 ali.create_user()
+ali.create_user()
+print(ali.users)
