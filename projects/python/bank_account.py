@@ -101,6 +101,6 @@ class BankAccount:
         return f'Account({self.bank},{self.name!r} , {self._balance!r} , {self.password!r} , {self.cvv2})'
 
     def __repr__(self) -> str:
-        return f'Account({self.bank!r},{self.name!r} , {self._balance!r} , {self.password!r} , {self.cvv2})'
+        return f'Account({self.bank!r},{self.name!r} , {self._balance!r} , {self.password!r} , {self.cvv2!r})'
 
 

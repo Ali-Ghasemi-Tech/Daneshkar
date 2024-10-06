@@ -74,7 +74,7 @@ class User:
         returns dict"""
         user_name = input("please enter your username: ")
         user_pass = getpass("please enter your passwrod: ")
-        hashed_pass = self.hash_password(user_pass)
+        hashed_pass = password.hash_password(user_pass)
 
         for id in User.users:
             if User.users[id]["user_name"] == user_name and User.users[id]["user_pass"] == hashed_pass:

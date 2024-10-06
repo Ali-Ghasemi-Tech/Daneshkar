@@ -15,13 +15,7 @@ class Manager:
         starting_amount = isDigit.get_initial_amount()
         cvv2 = isDigit.get_cvv2()
 
-        new_bank_account = BankAccount(bank , self.user_account , starting_amount , hased_pass , cvv2)
+        new_bank_account = BankAccount(bank , self.user_account["user_name"] , starting_amount , hased_pass , cvv2)
 
-        updated_bank_accounts = self.bank_accounts.append(new_bank_account)
-
-        return updated_bank_accounts
-    
-ali = Manager("ali" , [])
-ali.create_account()
-ali.create_account()
-print(ali.bank_accounts)
+        self.bank_accounts.append(new_bank_account)
+        return new_bank_account
