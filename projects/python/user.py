@@ -2,7 +2,7 @@ from getpass import getpass
 import uuid
 from datetime import datetime
 import jdatetime
-from modules import password
+from Modules import password
 
 
 def check_login(func):
@@ -61,7 +61,9 @@ class User:
                 "date_of_birth" : user_birth ,
                 "age" : age ,
                 "creation_date" : creation_date,
-                "bank_accounts" : []
+                "bank_accounts" : [],
+                "wallet_balance" : 0,
+                "subscription" : "bronze",
                 }
 
         User.users[id] = user
@@ -148,5 +150,5 @@ class User:
         gets account
 
         returns string"""
-        return  f"user_name: {account["user_name"]}\n user_phone: {account["user_phone"]}\n user_id:{account["user_id"]}"
+        return  f"user_name: {account["user_name"]}\n user_phone: {account["user_phone"]}\n user_id:{account["user_id"]}\n wallet_balance: {account["wallet_balance"]}"
     

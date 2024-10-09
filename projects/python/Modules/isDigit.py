@@ -11,3 +11,10 @@ def get_cvv2():
     except ValueError:
         print("please enter a number!!!")
         return get_cvv2()
+    
+def number_valid(number):
+    try:
+        return int(number)
+    except ValueError:
+        print("please enter a number!!!")
+        return number_valid(number)

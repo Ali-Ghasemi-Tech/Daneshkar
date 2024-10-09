@@ -1,8 +1,9 @@
 
 from user import User
 from getpass import getpass
-from modules import password
+from Modules import password
 from manager import Manager
+from Modules import isDigit
 
 
 temp_user_account = None
@@ -20,18 +21,15 @@ while True:
         print("""what do you want to do?
             1. show bank accounts
             2. create a new bank account
-            3. leave page
+            3. add funds to wallet
+            4. leave page
             """)
         user_choice = input("enter the number of the task you want to do: (=^ ◡ ^=)\n")
-
-        if user_choice.isdigit():
-            user_choice = int(user_choice)
-        else:
-            print("\n\n!!!!!please enter a number!!!!!! ( ｡ •̀ ᴖ •́ ｡)💢 *#!&\n\n")
-            continue
+        user_choice = isDigit.number_valid(user_choice)
         match user_choice:
             case 1:
                 print(temp_user_account["bank_accounts"])
+
                 continue
             case 2:
                 print("creating new bank account")
@@ -39,7 +37,14 @@ while True:
                 temp_user_account["bank_accounts"] = manager.bank_accounts
                 print("your new account has been created")
                 continue
+            
             case 3:
+                print("*** adding funds to wallet ***")
+                manager.wallet_funds()
+                print("funds have been added to your wallet")
+                continue
+            
+            case 4:
                 manager_active = False
                 continue
     
