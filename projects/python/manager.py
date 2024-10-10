@@ -29,9 +29,9 @@ class Manager:
         for i in self.bank_accounts:
             if i.bank == bank_choice:
                 Manager.selected_bank_account = i
-                return True
+                return i
         print("this bank account does not exist!")
-        return False
+        return self.get_bank_account()
     
     def wallet_funds(self) -> None:
         if self.get_bank_account():

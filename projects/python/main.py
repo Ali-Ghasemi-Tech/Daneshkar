@@ -4,13 +4,15 @@ from getpass import getpass
 from Modules import password
 from manager import Manager
 from Modules import isDigit
-
+from subscribe import Subscribe
 
 temp_user_account = None
 user_obj = User()
 second_run = False
 run_login = False
 manager_active = False
+
+selected_bank_account =None
 while True:
     if not second_run:
         print("\n\nWelcome to this awsome user mangament program   (≧ᗜ≦)\n\n")
@@ -22,7 +24,8 @@ while True:
             1. show bank accounts
             2. create a new bank account
             3. add funds to wallet
-            4. leave page
+            4. upgrade your subscription plan
+            5. leave page
             """)
         user_choice = input("enter the number of the task you want to do: (=^ ◡ ^=)\n")
         user_choice = isDigit.number_valid(user_choice)
@@ -45,6 +48,13 @@ while True:
                 continue
             
             case 4:
+                selected_bank_account = manager.get_bank_account()     
+                sub = Subscribe(temp_user_account , selected_bank_account)
+                upgrade = sub.plan()
+                temp_user_account = upgrade[0]
+                selected_bank_account = upgrade[1]
+
+            case 5:
                 manager_active = False
                 continue
     

@@ -2,14 +2,20 @@ import unittest
 from Modules import input_getter
 from subscribe import Subscribe
 from bank_account import BankAccount
+from unittest.mock import patch
 
-sub = Subscribe({"subscription" : "bronze" } , BankAccount("meli" , "ali" , 1000 , "ali_pass" , 144))
+account = BankAccount("meli" , "ali" , 1000 , "ali_pass" , 144)
+
+sub = Subscribe({"subscription" : "bronze" } , account)
 class TestSubscription(unittest.TestCase):
 
-    def test_plan(self):
-        input_getter.input = lambda:"1"
-        return self.assertEqual(sub.plan() , {"subscription" : "silver"})
+    def test_plan_silver(self):
+        with patch.object(__builtins__ , "input" , lambda _:1):
+            self.assertEqual(sub.plan() , [{"subscription" : "silver"} , account])
 
-if __name__ == "main":
+    def test_plan_golden(self):
+        with patch.object(__builtins__ , "input" , lambda _: 2):
+            self.assertEqual(sub.plan() , [{"subscription" : "golden"} , account])
+
+if __name__ == "__main__":
     unittest.main()
-    TestSubscription.test_plan()

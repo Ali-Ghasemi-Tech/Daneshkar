@@ -1,5 +1,6 @@
 from Modules import isDigit
 from Modules import input_getter
+from bank_account import BankAccount
 class Subscribe:
     def __init__(self , user , account) -> None:
         self.account = account
@@ -17,7 +18,7 @@ class Subscribe:
                     3. leave page
                 
                 """)
-            user_plan = input_getter.input("enter the plan you want to subscribe to: ")
+            user_plan = input_getter.get_input("enter the plan you want to subscribe to: ")
             user_plan = isDigit.number_valid(user_plan)
             
             match user_plan:
@@ -28,7 +29,7 @@ class Subscribe:
                     self.account.withdraw(300)
                     self.user["subscription"] = "silver"
                     print("your plan has been updated to silver")
-                    return self.user
+                    return [self.user , self.account]
                 case 2:
                     if self.user["subscription"] == "golden":
                         print("you already have this plan")
@@ -39,8 +40,10 @@ class Subscribe:
                         self.account.withdraw(500)
                     self.user["subscription"] = "golden"
                     print("your plan has been updated to golden")
-                    return self.user
+                    return [self.user , self.account]
                 case 3:
                     return
                 case _: 
                     return
+
+
