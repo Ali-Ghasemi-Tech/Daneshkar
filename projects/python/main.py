@@ -1,10 +1,10 @@
 
-from user import User
+from config.user import User
 from getpass import getpass
-from Modules import password
-from manager import Manager
-from Modules import isDigit
-from subscribe import Subscribe
+from modules import password
+from cinema.manager import Manager
+from modules import isDigit
+from cinema.subscribe import Subscribe
 
 temp_user_account = None
 user_obj = User()

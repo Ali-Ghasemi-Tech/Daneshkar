@@ -1,6 +1,6 @@
-from Modules import isDigit
-from Modules import input_getter
-from bank_account import BankAccount
+from modules import isDigit
+from modules import input_getter
+from config.bank_account import BankAccount
 class Subscribe:
     def __init__(self , user , account) -> None:
         self.account = account

@@ -2,7 +2,7 @@ from getpass import getpass
 import uuid
 from datetime import datetime
 import jdatetime
-from Modules import password
+from modules import password
 
 
 def check_login(func):
