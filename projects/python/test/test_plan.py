@@ -1,7 +1,7 @@
 import unittest
 from modules import input_getter
-from cinema.subscribe import Subscribe
-from config.bank_account import BankAccount
+from subscribe import Subscribe
+from bank_account import BankAccount
 from unittest.mock import patch
 
 account = BankAccount("meli" , "ali" , 1000 , "ali_pass" , 144)
