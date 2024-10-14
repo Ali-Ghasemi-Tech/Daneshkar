@@ -1,7 +1,7 @@
 from modules import password
 from modules import isDigit
 from modules import validBank
-from config.bank_account import BankAccount
+from bank_account import BankAccount
 
 
 class Manager:
