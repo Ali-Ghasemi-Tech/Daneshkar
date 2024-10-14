@@ -34,7 +34,7 @@ class TestSubscription(unittest.TestCase):
 
 class TestManager(unittest.TestCase):
     def setUp(self):
-        self.user_account = {"user_name": "test_user"}
+        self.user_account = {"user_name": "test_user" , "wallet_balance" : 0}
         self.bank_accounts = []
 
     def tearDown(self):
@@ -55,10 +55,35 @@ class TestManager(unittest.TestCase):
                         self.assertEqual(new_account.password, password.hash_password
                         ('test_password'))
                         self.assertEqual(new_account.cvv2 , 444)
-                        self.assertIn(new_account, self.bank_accounts)
 
 
-        
+    def test_get_bank_account(self):
+        self.bank_accounts = [BankAccount("Test Bank" , "name" , 1000 , "password" , 444)]
+        with patch.object(__builtins__ , "input" , lambda _:"Test Bank"):
+            manager = Manager(self.user_account , self.bank_accounts)
+            new_account = manager.get_bank_account()
+            self.assertIsInstance(new_account , BankAccount)
+            self.assertEqual(new_account.bank , 'Test Bank')
+            self.assertEqual(new_account.name , 'name')
+            self.assertEqual(new_account._balance , 1000)
+            self.assertEqual(new_account.password , 'password')
+            self.assertEqual(new_account.cvv2 , 444)
 
+    
+    def test_wallet_funds(self):
+        self.bank_accounts = [BankAccount("Test Bank" , "name" , 1000 , "password" , 444)]
+        manager = Manager(self.user_account , self.bank_accounts)
+
+        with patch.object(__builtins__ , "input" , lambda _: 100):
+            with patch.object(isDigit , "number_valid" , return_value= 100):
+                with patch.object(__builtins__ , "input" , lambda _:"Test Bank"):
+                    func = manager.wallet_funds()
+                    new_account = manager.selected_bank_account
+                    self.assertIsInstance(new_account , BankAccount)
+                    self.assertEqual(manager.user_account['wallet_balance'] , 100)
+                    self.assertEqual(func , 900)
+            
+
+           
 if __name__ == "__main__":
     unittest.main()

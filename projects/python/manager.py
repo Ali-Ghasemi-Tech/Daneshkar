@@ -24,7 +24,7 @@ class Manager:
         self.bank_accounts.append(new_bank_account)
         return new_bank_account
     
-    def get_bank_account(self) -> bool | BankAccount:
+    def get_bank_account(self) -> BankAccount:
         bank_choice = input("enter the bank's name you want to work with: ")
         for i in self.bank_accounts:
             if i.bank == bank_choice:
@@ -43,5 +43,8 @@ class Manager:
             wallet_balance  = self.user_account["wallet_balance"]
             
             print(f"your wallet balance is {wallet_balance}")
+            
+            bank_balance = Manager.selected_bank_account.get_balance() - charging_amount
+            return bank_balance
         return
         
