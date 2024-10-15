@@ -1,0 +1,32 @@
+{
+    "1" : {
+        "name":"big bald man fight gangsters with the power of family and 8" ,
+        "time": "18:30",
+        "duration": "3h:35m",
+        "price": "20$" 
+    },
+    "2" : {
+        "name":"some knights have taken LSD and now they fight with each other in space" ,
+        "time": "14:30",
+        "duration": "2h:35m",
+        "price": "10$" 
+    },
+    "3" : {
+        "name":"some dude goes into space to talk with his daughter inside a blackhole" ,
+        "time": "21:30",
+        "duration": "3h:35m",
+        "price": "22$" 
+    },
+    "4" : {
+        "name":"fight club but without brad pitt" ,
+        "time": "18:30",
+        "duration": "6h:35m",
+        "price": "20$" 
+    },
+    "5" : {
+        "name":"5 super heros with an archer gather around to defeat big purpule man" ,
+        "time": "21:30",
+        "duration": "2h:54m",
+        "price": "30$" 
+    }
+}
