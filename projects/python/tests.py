@@ -5,6 +5,8 @@ from modules import input_getter
 from bank_account import BankAccount
 from unittest.mock import patch
 from modules import validBank , isDigit , password
+from user import User
+import datetime
 
 account = BankAccount("meli" , "ali" , 1000 , "ali_pass" , 144)
 
@@ -22,6 +24,8 @@ mock_user_account= {
                 }
 
 sub = Subscribe({"subscription" : "bronze" } , account)
+
+# subscribe.py tests
 class TestSubscription(unittest.TestCase):
 
     def test_plan_silver(self):
@@ -32,6 +36,8 @@ class TestSubscription(unittest.TestCase):
         with patch.object(__builtins__ , "input" , lambda _: 2):
             self.assertEqual(sub.plan() , [{"subscription" : "golden"} , account])
 
+
+# manager.py tests
 class TestManager(unittest.TestCase):
     def setUp(self):
         self.user_account = {"user_name": "test_user" , "wallet_balance" : 0}
@@ -85,5 +91,56 @@ class TestManager(unittest.TestCase):
             
 
            
+class TestUser(unittest.TestCase):
+    def setUp(self):
+        self.test_date = datetime.datetime.strptime('1380/01/01' ,"%Y/%m/%d")
+        self.user = User()
+        self.user_accounts = {
+            '1':
+            {
+                'user_name' : 'Test name' ,
+                'user_pass' : password.hash_password('password') 
+            }
+
+        }
+
+    def  test_create_user(self):
+        with patch.object(User , "get_user_name" , return_value = 'Test name'):
+            with patch.object(password , "get_password" , return_value = 'password'):
+                with patch.object(__builtins__ , "input" , lambda _: '1234'):
+                    with patch.object(User , "get_birthdate" , return_value = 1380/1/1):
+                        with patch.object(User , "calculate_age" , return_value = 23):
+                            with patch.object(User , "id_generator" , return_value = 1):
+                                user = User()
+                                new_user = user.create_user()
+                                self.assertEqual(new_user['user_name'] , 'Test name')
+                                self.assertEqual(new_user['user_pass'] , password.hash_password('password'))
+                                self.assertEqual(new_user['user_phone'] , '1234')
+                                self.assertEqual(new_user['date_of_birth'] , 1380/1/1)
+                                self.assertEqual(new_user['age'] , 23)
+
+    def test_show_account(self):
+        User.users = self.user_accounts
+        self.user.users = self.user_accounts
+
+        self.assertEqual(self.user.show_account('1') , self.user_accounts['1'])
+
+
+    def test_get_birth_date(self):
+        with patch('builtins.input' , return_value = '1380/01/01'):
+            self.assertEqual(self.user.get_birthdate() , self.test_date.date())
+
+    def test_calculate_age(self):
+        self.assertEqual(self.user.calculate_age(self.test_date) , 23)
+
+    def test_get_user_name(self):
+        User.users = self.user_accounts
+        with patch('builtins.input' , return_value = 'name'):
+            self.assertEqual(self.user.get_user_name() , 'name')
+
+    def test_updata_password(self):
+        self.user.update_pass('new_password' , '1')
+        self.assertEqual(User.users['1']['user_pass'] , 'new_password')
+                   
 if __name__ == "__main__":
     unittest.main()
