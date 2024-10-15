@@ -90,7 +90,7 @@ class TestManager(unittest.TestCase):
                     self.assertEqual(func , 900)
             
 
-           
+# user.py tests
 class TestUser(unittest.TestCase):
     def setUp(self):
         self.test_date = datetime.datetime.strptime('1380/01/01' ,"%Y/%m/%d")
@@ -141,6 +141,26 @@ class TestUser(unittest.TestCase):
     def test_updata_password(self):
         self.user.update_pass('new_password' , '1')
         self.assertEqual(User.users['1']['user_pass'] , 'new_password')
+
+# bank_account.py tests
+class TestBankAccount(unittest.TestCase):
+    def setUp(self):
+        self.bank_account = BankAccount('test bank' , 'test name' , 100 , 'password' , 444)
+        self.bank_account_with_cridit  = BankAccount('test bank' , 'test name' , 2000 , 'password' , 444)
+
+    def test_deposit(self):
+        self.bank_account.deposit(10)
+        self.assertEqual(self.bank_account._balance , 110)
+
+    def test_withdraw(self):
+        self.bank_account.withdraw(10)
+        self.assertEqual(self.bank_account._balance , 90)
+
+    def test_get_balance(self):
+        self.assertEqual(self.bank_account.get_balance() , 100)
                    
+    def test_check_cridit(self):
+        self.assertEqual(self.bank_account.check_credit() , 0)
+        self.assertEqual(self.bank_account_with_cridit.check_credit() , 1)
 if __name__ == "__main__":
     unittest.main()
