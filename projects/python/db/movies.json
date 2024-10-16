@@ -1,46 +1,43 @@
 {
-    "1" : {
-        "name":"big bald man fight gangsters with the power of family and 8" ,
+    "1": {
+        "name": "big bald man fight gangsters with the power of family and 8",
         "time": "2024/10/17 11:30",
         "duration": "3h:35m",
         "price": 20,
         "age": 18,
-        "left_tickets" : 1
+        "left_tickets": 1
     },
-    "2" : {
-        "name":"some knights have taken LSD and now they fight with each other in space" ,
+    "2": {
+        "name": "some knights have taken LSD and now they fight with each other in space",
         "time": "2024/10/15 17:30",
         "duration": "2h:35m",
         "price": 10,
         "age": 13,
-        "left_tickets" : 12
-
+        "left_tickets": 12
     },
-    "3" : {
-        "name":"some dude goes into space to talk with his daughter inside a blackhole" ,
+    "3": {
+        "name": "some dude goes into space to talk with his daughter inside a blackhole",
         "time": "2024/10/18 21:30",
         "duration": "3h:35m",
         "price": 22,
         "age": 13,
-        "left_tickets" : 8
-
+        "left_tickets": 8
     },
-    "4" : {
-        "name":"fight club but without brad pitt" ,
+    "4": {
+        "name": "fight club but without brad pitt",
         "time": "2024/10/20 11:30",
         "duration": "6h:35m",
         "price": 20,
         "age": 18,
-        "left_tickets" : 30
-
+        "left_tickets": 30
     },
-    "5" : {
-        "name":"5 super heros with an archer gather around to defeat big purpule man" ,
+    "5": {
+        "name": "5 super heros with an archer gather around to defeat big purpule man",
         "time": "2024/10/17 19:30",
         "duration": "2h:54m",
         "price": 30,
         "age": 15,
-        "left_tickets" : 1
-
+        "left_tickets": 1
     }
+
 }

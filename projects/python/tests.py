@@ -1,12 +1,13 @@
 import unittest
 from manager import Manager
 from subscribe import Subscribe
-from modules import input_getter
 from bank_account import BankAccount
 from unittest.mock import patch
 from modules import validBank , isDigit , password
 from user import User
 import datetime
+import json
+from admin import Admin
 
 account = BankAccount("meli" , "ali" , 1000 , "ali_pass" , 144)
 
@@ -123,7 +124,7 @@ class TestUser(unittest.TestCase):
         User.users = self.user_accounts
         self.user.users = self.user_accounts
 
-        self.assertEqual(self.user.show_account('1') , self.user_accounts['1'])
+        self.assertEqual(self.user.show_account('1') , self.user_accounts[f'1'])
 
 
     def test_get_birth_date(self):
@@ -162,5 +163,36 @@ class TestBankAccount(unittest.TestCase):
     def test_check_cridit(self):
         self.assertEqual(self.bank_account.check_credit() , 0)
         self.assertEqual(self.bank_account_with_cridit.check_credit() , 1)
+
+
+class TestAdmin(unittest.TestCase):
+    def test_add_movies(self):
+
+        # be cautious !!!!!  ..... this test will update the movies.json file .... remember to remove it
+        new_name = 'movie test name'
+        new_time = "2024/01/01 13:40"
+        new_duration = "3H 40M"
+        new_avalible_seats = 20
+        new_age = 18
+        new_price = 10
+        Admin.add_movie(new_name , new_time , new_duration , new_price , new_age , new_avalible_seats )
+
+        with open("db/movies.json" , "r+") as file:
+            data = json.load(file)
+        n = len(data)
+        new_index = n
+        self.assertEqual(data[f"{new_index}"]['name'] , new_name)
+        self.assertEqual(data[f"{new_index}"]['time'] , new_time)
+        self.assertEqual(data[f"{new_index}"]['duration'] , new_duration)
+        self.assertEqual(data[f"{new_index}"]['left_tickets'] , new_avalible_seats)
+        self.assertEqual(data[f"{new_index}"]['age'] , new_age)
+        self.assertEqual(data[f"{new_index}"]['price'] , new_price)
+
+        data.pop(f"{n}")
+
+        with open("db/movies.json" , "w") as file:
+            data = json.dump(data , file , indent=4)
+        
+
 if __name__ == "__main__":
     unittest.main()

@@ -1,0 +1,18 @@
+{
+    "1": {
+        "name": "movie test name",
+        "time": "2024/01/01 13:40",
+        "duration": "3H 40M",
+        "price": 10,
+        "age": 18,
+        "left_tickets": 20
+    },
+    "2": {
+        "name": "movie test name",
+        "time": "2024/01/01 13:40",
+        "duration": "3H 40M",
+        "price": 10,
+        "age": 18,
+        "left_tickets": 20
+    }
+}
