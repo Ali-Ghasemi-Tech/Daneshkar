@@ -6,6 +6,7 @@ def convert(file):
         duration: {file[i]['duration']}
         screening time: {file[i]['time']}
         ticket price: {file[i]['price']}
+        seats left: {file[i]['left_tickets']}
                 """)
         if int(i) == n:
             print() 

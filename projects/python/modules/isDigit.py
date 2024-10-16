@@ -16,5 +16,4 @@ def number_valid(number):
     try:
         return int(number)
     except ValueError:
-        print("please enter a number!!!")
-        return number_valid(number)
+        print("please enter a number!!!\n\n")

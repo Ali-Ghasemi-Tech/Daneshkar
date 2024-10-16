@@ -63,7 +63,9 @@ class User:
                 "creation_date" : creation_date,
                 "bank_accounts" : [],
                 "wallet_balance" : 0,
-                "subscription" : "bronze",
+                "subscription" : {"sub" : "bronze" , "used" : 0 , "date" : creation_date} ,
+                "tickets": {},
+                "permission" : 0
                 }
 
         User.users[id] = user

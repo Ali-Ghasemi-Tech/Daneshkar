@@ -5,6 +5,7 @@ from modules import password
 from manager import Manager
 from modules import isDigit
 from subscribe import Subscribe
+from cinema import Cinema
 
 temp_user_account = None
 user_obj = User()
@@ -72,7 +73,8 @@ while True:
             2. edit account info
             3. change password
             4. manage bank accounts
-            5. logout
+            5. check this week's movies
+            6. logout
             """)
         user_choice = input("enter the number of the task you want to do: (=^ ◡ ^=)\n")
         if user_choice.isdigit():
@@ -120,6 +122,11 @@ while True:
                 continue
 
             case 5:
+               cinema_instance = Cinema(temp_user_account)
+               cinema_instance.show_movies()
+               continue
+
+            case 6:
                 print("you are logging out")
                 run_login = False
                 user_obj.logged_in = False

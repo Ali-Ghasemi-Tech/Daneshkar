@@ -1,5 +1,6 @@
 from modules import isDigit
 from modules import input_getter
+import datetime
 
 
 class Subscribe:
@@ -24,22 +25,24 @@ class Subscribe:
             
             match user_plan:
                 case 1: 
-                    if self.user["subscription"] == "silver":
+                    if self.user["subscription"]['sub'] == "silver":
                         print("you already have this plan you can update to golden plan with only 300T")
                         continue
                     self.account.withdraw(300)
-                    self.user["subscription"] = "silver"
+                    self.user["subscription"]['sub'] = "silver"
+                    self.user["subscription"]['date'] = datetime.datetime.now().date()
                     print("your plan has been updated to silver")
                     return [self.user , self.account]
                 case 2:
-                    if self.user["subscription"] == "golden":
+                    if self.user["subscription"]['sub'] == "golden":
                         print("you already have this plan")
                         return
-                    if self.user["subscription"] == "silver":
+                    if self.user["subscription"]['sub'] == "silver":
                         self.account.withdraw(300)
                     else:
                         self.account.withdraw(500)
-                    self.user["subscription"] = "golden"
+                    self.user["subscription"]['sub'] = "golden"
+                    self.user["subscription"]['date'] = datetime.datetime.now().date()
                     print("your plan has been updated to golden")
                     return [self.user , self.account]
                 case 3:

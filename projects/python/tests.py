@@ -23,18 +23,18 @@ mock_user_account= {
                 "subscription" : "bronze",
                 }
 
-sub = Subscribe({"subscription" : "bronze" } , account)
+sub = Subscribe({"subscription" : {"sub" : "bronze" , "used" : 0 , "date" : None}} , account)
 
 # subscribe.py tests
 class TestSubscription(unittest.TestCase):
 
     def test_plan_silver(self):
         with patch.object(__builtins__ , "input" , lambda _:1):
-            self.assertEqual(sub.plan() , [{"subscription" : "silver"} , account])
+            self.assertEqual(sub.plan() , [{"subscription" : {"sub" : "silver" , "used" : 0 , "date" : datetime.datetime.now().date()}} , account])
 
     def test_plan_golden(self):
         with patch.object(__builtins__ , "input" , lambda _: 2):
-            self.assertEqual(sub.plan() , [{"subscription" : "golden"} , account])
+            self.assertEqual(sub.plan() , [{"subscription" : {"sub" : "golden" , "used" : 0 , "date" : datetime.datetime.now().date()}} , account])
 
 
 # manager.py tests
