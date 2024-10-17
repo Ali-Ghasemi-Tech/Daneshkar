@@ -8,6 +8,7 @@ from user import User
 import datetime
 import json
 from admin import Admin
+from cinema import Cinema 
 
 account = BankAccount("meli" , "ali" , 1000 , "ali_pass" , 144)
 
@@ -165,6 +166,35 @@ class TestBankAccount(unittest.TestCase):
         self.assertEqual(self.bank_account_with_cridit.check_credit() , 1)
 
 
+class TestCinema(unittest.TestCase):
+    def setUp(self):
+        self.user_account = {
+                "date_of_birth": datetime.datetime.strptime("2024/9/10" , "%Y/%m/%d").date(),
+                "name": "ali",
+                "age": 20,
+                "creation_date" : datetime.datetime.now().date() ,
+                "wallet_balance" : 1000,
+                "subscription" : {"sub" : "bronze" , "used" : 0 , "date" : datetime.datetime.strptime("2024/9/10" , "%Y/%m/%d").date()} ,
+                "tickets": {},
+                }
+    # def test_show_movies(self):
+        # cinema = Cinema(self.user_account)
+        # with patch("builtins.input" , return_value = 1):
+        #     with patch.object(Cinema , "get_number_of_tickets", return_value = 1):
+        #         with patch.object(Cinema , "apply_discount" , return_value = None):
+        #              self.assertEqual(cinema.show_movies()['tickets'] , {'movie': {'name': 'big bald man fight gangsters with the power of family and 8', 'screening_time': '2024/10/30 11:30', 'duration': '3h:35m'}, 'number_of_tickets': 1})
+
+
+
+
+
+
+
+
+
+
+
+# admin.py tests
 class TestAdmin(unittest.TestCase):
     def test_add_movies(self):
 

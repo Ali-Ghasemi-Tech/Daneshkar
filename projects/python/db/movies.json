@@ -1,11 +1,11 @@
 {
     "1": {
         "name": "big bald man fight gangsters with the power of family and 8",
-        "time": "2024/10/17 11:30",
+        "time": "2024/10/30 11:30",
         "duration": "3h:35m",
         "price": 20,
         "age": 18,
-        "left_tickets": 1
+        "left_tickets": 10
     },
     "2": {
         "name": "some knights have taken LSD and now they fight with each other in space",
@@ -38,6 +38,61 @@
         "price": 30,
         "age": 15,
         "left_tickets": 1
+    },
+    "6": {
+        "name": "name",
+        "time": "2024/10/16 13:30",
+        "duration": "3H 40M",
+        "price": 10,
+        "age": 18,
+        "left_tickets": 4
+    },
+    "7": {
+        "name": "name",
+        "time": "2024/10/16 13:30",
+        "duration": "3H 40M",
+        "price": 10,
+        "age": 18,
+        "left_tickets": 4
+    },
+    "8": {
+        "name": "name",
+        "time": "2024/10/16 13:30",
+        "duration": "3H 40M",
+        "price": 10,
+        "age": 18,
+        "left_tickets": 4
+    },
+    "9": {
+        "name": null,
+        "time": null,
+        "duration": null,
+        "price": null,
+        "age": null,
+        "left_tickets": null
+    },
+    "10": {
+        "name": null,
+        "time": null,
+        "duration": null,
+        "price": null,
+        "age": null,
+        "left_tickets": null
+    },
+    "11": {
+        "name": null,
+        "time": null,
+        "duration": null,
+        "price": null,
+        "age": null,
+        "left_tickets": null
+    },
+    "12": {
+        "name": null,
+        "time": null,
+        "duration": null,
+        "price": null,
+        "age": null,
+        "left_tickets": null
     }
-
 }

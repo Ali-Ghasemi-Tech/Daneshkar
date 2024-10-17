@@ -3,7 +3,7 @@ import uuid
 from datetime import datetime
 import jdatetime
 from modules import password
-
+from human import Human
 
 def check_login(func):
     def wraper(self, *args , **kwargs):
@@ -16,9 +16,9 @@ def check_login(func):
     return wraper
 
 
-class User:
+class User(Human):
 
-    users : dict = {}
+    permission = "user"
 
     def __init__(self) -> None:
 
@@ -114,26 +114,9 @@ class User:
         now = jdatetime.datetime.now().date()
         return (now.year - date.year)
 
-    def get_user_name(self) -> str :
-        """gets user_name from dict and if the user_name already exist then retruns itself until the input user_name does not exist
-        
-        return string"""
-        user_name : str = input("please enter username: ")
-        name_exist : bool = self._check_username(user_name)
-        if name_exist:
-            print("\nthis user_name already exists , please enter another user_name! (╥‸╥) \n")
-            return self.get_user_name()
-        return user_name
     
-    def _check_username(self , new_user_name) -> bool:
-        """check if the user_name exist in the users
-        
-        returns boolian"""
-        for id in User.users:
-            if User.users[str(id)]["user_name"] == new_user_name:
-                return True
-        
-        return False
+    
+   
 
 
     @staticmethod

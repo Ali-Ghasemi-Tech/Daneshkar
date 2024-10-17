@@ -89,12 +89,12 @@ class Cinema:
             selected_movie["price"] /= 2 
 
         if check_discount:
-            total_amount  = number_of_tickets * selected_movie['price'] * check_discount
+            total_amount :float  = number_of_tickets * selected_movie['price'] * check_discount
         else:
-            total_amount = number_of_tickets * selected_movie['price']
+            total_amount : float = number_of_tickets * selected_movie['price']
             check_discount = 0
 
-        total_amount = total_amount * (1 - (sub_discount/100))
+        total_amount :float = total_amount * (1 - (sub_discount/100))
         if self.user_account['wallet_balance'] - total_amount > 0:
             selected_movie['left_tickets'] -= number_of_tickets
             self.user_account["tickets"]["movie"] = {"name": selected_movie['name'] , "screening_time": selected_movie['time'] , "duration" : selected_movie['duration']}
