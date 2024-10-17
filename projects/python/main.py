@@ -8,6 +8,7 @@ from subscribe import Subscribe
 from cinema import Cinema
 import argparse
 from admin import Admin
+from modules.clear import clear
 
 temp_user_account = None
 user_obj = User()
@@ -29,13 +30,18 @@ parser.add_argument("left_tickets" ,nargs=argparse.OPTIONAL, type=int , help="th
 args = parser.parse_args()
 
 if args.admin:
-    print("welcome to admin dashboard , for learning the arguments required for adding movies to db enter -h")
-    Admin.add_movie(args.name , args.time , args.duration , args.price , args.age , args.left_tickets)
+    clear()
+    print("welcome to admin dashboard , for learning the arguments required for adding movies to db enter -h\n")
+    if args.name and args.time and args.duration and args.price and args.age and args.left_tickets:
 
+        print("your movie has been created")
+        Admin.add_movie(args.name , args.time , args.duration , args.price , args.age , args.left_tickets)
 else:
+    clear()
     print('for adding a movie you should print --admin before the arguments ')
-    print("welcome to user dashboard\n")
+    print("welcome to user dashboard")
     while True:
+        
         if not second_run:
             print("\n\nWelcome to this awsome user mangament program   (≧ᗜ≦)\n\n")
             second_run = True
@@ -49,14 +55,15 @@ else:
                 4. upgrade your subscription plan
                 5. leave page
                 """)
-            user_choice = input("enter the number of the task you want to do: (=^ ◡ ^=)\n")
-            user_choice = isDigit.number_valid(user_choice)
+            user_choice =isDigit.get_number("enter the number of the task you want to do: (=^ ◡ ^=)\n")
+          
             match user_choice:
                 case 1:
+                    clear()
                     print(temp_user_account["bank_accounts"])
-
                     continue
                 case 2:
+                    clear()
                     print("creating new bank account")
                     manager.create_account()
                     temp_user_account["bank_accounts"] = manager.bank_accounts
@@ -64,12 +71,14 @@ else:
                     continue
                 
                 case 3:
+                    clear()
                     print("*** adding funds to wallet ***")
                     manager.wallet_funds()
                     print("funds have been added to your wallet")
                     continue
                 
                 case 4:
+                    clear()
                     selected_bank_account = manager.get_bank_account()     
                     sub = Subscribe(temp_user_account , selected_bank_account)
                     upgrade = sub.plan()
@@ -77,6 +86,7 @@ else:
                     selected_bank_account = upgrade[1]
 
                 case 5:
+                    clear()
                     manager_active = False
                     continue
         
@@ -105,12 +115,13 @@ else:
                 continue
             match user_choice:
                 case 1:
-
+                    clear()
+                    print("***user info***")
                     print(user_obj.__str__(temp_user_account)+"\n\n")
                     continue
 
                 case 2:
-                    
+                    clear()
                     print("***changing account info***")
                     user_obj_name = user_obj.get_user_name()
                     temp_user_account["user_name"] = user_obj_name
@@ -121,7 +132,7 @@ else:
                     continue
 
                 case 3:
-
+                    clear()
                     print("***changing password***")
                     old_pass = getpass("please enter your old password: ")
                     hashed_old_pass =user_obj.hash_password(old_pass)
@@ -138,26 +149,31 @@ else:
                     else:
                         print("\nthe password is not correct! (≖_≖ )\n")
                 case 4:
+                    clear()
                     manager = Manager(temp_user_account , temp_user_account["bank_accounts"])
                     manager_active = True
                     continue
 
                 case 5:
+                    clear()
                     cinema_instance = Cinema(temp_user_account)
                     cinema_instance.show_movies()
                     continue
 
                 case 6:
+                    clear()
                     print("you are logging out")
                     run_login = False
                     user_obj.logged_in = False
                     continue
 
                 case _:
+                    clear()
                     print("\ninvalid input\n")
                     continue
                 
         else: 
+            clear()
             print("""you are not logged in what do you want to do? ( ╹ -╹)?
                 
                 0. exit program
@@ -176,24 +192,24 @@ else:
 
             match user_choice:
                 case 0:
-
+                    clear()
                     print("exiting program")
                     print("Goodby , come again soon (>ᴗ•) !")
                     break
 
                 case 1:
-
+                    clear()
                     temp_user_account = user_obj.create_user()
                     
                     continue
 
                 case 2:
-
+                    clear()
                     temp_user_account = user_obj.login()
                     continue
                 
                 case _:
-
+                    clear()
                     print("\ninvalid input\n")
                     continue
 

@@ -115,10 +115,6 @@ class User(Human):
         return (now.year - date.year)
 
     
-    
-   
-
-
     @staticmethod
     def update_pass(password , id) -> None:
         """this jsut updates the preivous password to the new one
@@ -135,5 +131,5 @@ class User(Human):
         gets account
 
         returns string"""
-        return  f"user_name: {account["user_name"]}\n user_phone: {account["user_phone"]}\n user_id:{account["user_id"]}\n wallet_balance: {account["wallet_balance"]}"
+        return  f"\nuser_name: {account["user_name"]}\n user_phone: {account["user_phone"]}\n user_id:{account["user_id"]}\n wallet_balance: {account["wallet_balance"]}\n tickets: {account["tickets"]}\n subscription: {account["subscription"]}\n bank accounts:{account["bank_accounts"]}\n date of birth: {account["date_of_birth"]}\n "
     

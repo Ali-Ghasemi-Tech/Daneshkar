@@ -1,3 +1,6 @@
+if __name__ == "__clear__":
+    from clear import clear
+
 def get_initial_amount():
     try:
         return int(input("enter your starting amount: "))
@@ -12,8 +15,10 @@ def get_cvv2():
         print("please enter a number!!!")
         return get_cvv2()
     
-def number_valid(number):
+def get_number(text):
     try:
-        return int(number)
+        return int(input(text))
     except ValueError:
+        clear()
         print("please enter a number!!!\n\n")
+        return get_number(text)

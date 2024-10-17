@@ -35,8 +35,7 @@ class Manager:
     
     def wallet_funds(self) -> None:
         if self.get_bank_account():
-            user_input = input("please enter the amount you want to add to your wallet: ")
-            charging_amount =  isDigit.number_valid(user_input)
+            charging_amount =  isDigit.get_number("please enter the amount you want to add to your wallet: ")
             Manager.selected_bank_account.withdraw(charging_amount)
 
             self.user_account["wallet_balance"] += charging_amount

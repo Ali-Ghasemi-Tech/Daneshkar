@@ -45,54 +45,6 @@
         "duration": "3H 40M",
         "price": 10,
         "age": 18,
-        "left_tickets": 4
-    },
-    "7": {
-        "name": "name",
-        "time": "2024/10/16 13:30",
-        "duration": "3H 40M",
-        "price": 10,
-        "age": 18,
-        "left_tickets": 4
-    },
-    "8": {
-        "name": "name",
-        "time": "2024/10/16 13:30",
-        "duration": "3H 40M",
-        "price": 10,
-        "age": 18,
-        "left_tickets": 4
-    },
-    "9": {
-        "name": null,
-        "time": null,
-        "duration": null,
-        "price": null,
-        "age": null,
-        "left_tickets": null
-    },
-    "10": {
-        "name": null,
-        "time": null,
-        "duration": null,
-        "price": null,
-        "age": null,
-        "left_tickets": null
-    },
-    "11": {
-        "name": null,
-        "time": null,
-        "duration": null,
-        "price": null,
-        "age": null,
-        "left_tickets": null
-    },
-    "12": {
-        "name": null,
-        "time": null,
-        "duration": null,
-        "price": null,
-        "age": null,
-        "left_tickets": null
+        "left_tickets": 3
     }
 }

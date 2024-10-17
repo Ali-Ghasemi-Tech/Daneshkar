@@ -19,7 +19,7 @@ class Human:
         
         returns boolian"""
         for id in Human.users:
-            if Human.users[str(id)]["user_name"] == new_user_name:
+            if Human.users[id]["user_name"] == new_user_name:
                 return True
         
         return False

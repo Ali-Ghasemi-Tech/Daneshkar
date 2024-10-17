@@ -20,8 +20,8 @@ class Subscribe:
                     3. leave page
                 
                 """)
-            user_plan = input_getter.get_input("enter the plan you want to subscribe to: ")
-            user_plan = isDigit.number_valid(user_plan)
+            user_plan = isDigit.get_number("enter the plan you want to subscribe to: ")
+           
             
             match user_plan:
                 case 1: 

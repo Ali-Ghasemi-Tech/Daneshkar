@@ -9,6 +9,7 @@ import datetime
 import json
 from admin import Admin
 from cinema import Cinema 
+from human import Human
 
 account = BankAccount("meli" , "ali" , 1000 , "ali_pass" , 144)
 
@@ -83,7 +84,7 @@ class TestManager(unittest.TestCase):
         manager = Manager(self.user_account , self.bank_accounts)
 
         with patch.object(__builtins__ , "input" , lambda _: 100):
-            with patch.object(isDigit , "number_valid" , return_value= 100):
+            with patch.object(isDigit , "get_number" , return_value= 100):
                 with patch.object(__builtins__ , "input" , lambda _:"Test Bank"):
                     func = manager.wallet_funds()
                     new_account = manager.selected_bank_account

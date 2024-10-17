@@ -21,8 +21,8 @@ class Cinema:
             {string_json.convert(Cinema.data)}
             print("6. leave page\n")
             
-            user_choice  = input("enter the number of the movie you want to get ticketa for: ")
-            user_choice = isDigit.number_valid(user_choice)
+            user_choice  = isDigit.get_number("enter the number of the movie you want to get ticketa for: ")
+           
             if user_choice == None:
                 continue
             match user_choice:
@@ -64,9 +64,8 @@ class Cinema:
             return None
         
     def get_number_of_tickets(self):
-        number_of_tickets = input("how many tickets do you want for this movie? ")
+        number_of_tickets =isDigit.get_number("how many tickets do you want for this movie? ")
         print()
-        number_of_tickets = isDigit.number_valid(number_of_tickets)
         return number_of_tickets
     
     def get_tickets(self , movie_number):
