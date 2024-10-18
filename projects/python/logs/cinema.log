@@ -1,0 +1,138 @@
+
+2024-10-18 20:01:13,393 - modules.logger - INFO - an admin atempted entering the dashboard with wrong password: asdfasdf
+2024-10-18 21:25:57,341 - modules.logger - INFO - a user has entered the user dashboard
+2024-10-18 21:26:00,188 - modules.logger - INFO - user has attempted creating an account
+2024-10-18 21:26:08,405 - modules.logger - INFO - user ali has created an account
+2024-10-18 21:26:11,796 - modules.logger - INFO - user ali has requested their account info
+2024-10-18 21:26:14,932 - modules.logger - INFO - user ali has requested their account info
+2024-10-18 21:26:15,996 - modules.logger - INFO - user ali has requested their account info
+2024-10-18 21:28:17,041 - modules.logger - INFO - user ali has attempted changing their account name
+2024-10-18 21:28:40,727 - modules.logger - INFO - user has updated their user_name: ali
+2024-10-18 21:30:46,198 - modules.logger - INFO - a user has entered the user dashboard
+2024-10-18 21:30:54,035 - modules.logger - INFO - a user has entered the user dashboard
+2024-10-18 21:31:22,356 - modules.logger - INFO - a user has entered the user dashboard
+2024-10-18 21:31:23,540 - modules.logger - INFO - user has attempted login
+2024-10-18 21:31:27,785 - modules.logger - INFO - user ali has logged in
+2024-10-18 21:31:30,745 - modules.logger - INFO - user ali has requested their account info
+2024-10-18 21:31:53,320 - modules.logger - INFO - user ali has attempted changing their account name
+2024-10-18 21:32:03,192 - modules.logger - INFO - user has updated their user_name: ali_1
+2024-10-18 21:32:07,991 - modules.logger - INFO - user ali_1 has attempted changing their account name
+2024-10-18 21:32:10,112 - modules.logger - INFO - user has updated their user_name: ali
+2024-10-18 21:32:13,806 - modules.logger - INFO - user ali has requested their account info
+2024-10-18 21:32:25,915 - modules.logger - INFO - user ali has attempted changing their password
+2024-10-18 21:32:36,210 - modules.logger - INFO - user ali has changed their password
+2024-10-18 21:32:39,899 - modules.logger - INFO - user ali has logged out
+2024-10-18 21:32:42,570 - modules.logger - INFO - user has attempted login
+2024-10-18 21:32:46,301 - modules.logger - INFO - user ali has logged in
+2024-10-18 21:32:47,741 - modules.logger - INFO - user ali has requested their account info
+2024-10-18 21:32:52,465 - modules.logger - INFO - user ali has attempted changing their password
+2024-10-18 21:32:59,701 - modules.logger - INFO - user ali has entered the repeate password wron
+2024-10-18 21:33:02,189 - modules.logger - INFO - user ali has attempted changing their password
+2024-10-18 21:33:03,377 - modules.logger - INFO - user ali has entered their password wrong
+2024-10-18 21:33:24,449 - modules.logger - INFO - user ali has attempted changing their password
+2024-10-18 21:33:35,429 - modules.logger - INFO - user ali has changed their password
+2024-10-18 21:33:48,828 - modules.logger - INFO - user ali has requested to go to bank account manager page
+2024-10-18 21:33:52,664 - modules.logger - INFO - user ali has requested their list of bank accounts
+2024-10-18 21:34:00,672 - modules.logger - INFO - user ali has attempted creating a new bank account
+2024-10-18 21:34:10,588 - modules.logger - INFO - user ali has created a new bank account
+2024-10-18 21:34:12,368 - modules.logger - INFO - user ali has requested their list of bank accounts
+2024-10-18 21:34:22,423 - modules.logger - INFO - user ali has attempted creating a new bank account
+2024-10-18 21:34:42,019 - modules.logger - INFO - user ali has created a new bank account
+2024-10-18 21:34:48,538 - modules.logger - INFO - user ali has requested their list of bank accounts
+2024-10-18 21:34:55,142 - modules.logger - INFO - user ali has attempted to add funds to their wallet
+2024-10-18 21:35:06,126 - modules.logger - INFO - user ali has added funds to their wallet
+2024-10-18 21:35:12,782 - modules.logger - INFO - user ali has requested their list of bank accounts
+2024-10-18 21:35:16,874 - modules.logger - INFO - user ali has attempted to upgrade their subscription
+2024-10-18 21:35:21,962 - modules.logger - INFO - user ali has upgraded their subscription
+2024-10-18 21:35:23,945 - modules.logger - INFO - user ali has requested their list of bank accounts
+2024-10-18 21:35:30,915 - modules.logger - INFO - user ali has left the bank managment page
+2024-10-18 21:35:39,597 - modules.logger - INFO - user ali has requested their account info
+2024-10-18 21:36:26,772 - modules.logger - INFO - user ali has requested to go to cinema page
+2024-10-18 21:44:10,391 - modules.logger - INFO - user ali has requested to go to cinema page
+2024-10-18 21:52:15,714 - modules.logger - INFO - user ali has requested their account info
+2024-10-18 21:55:28,725 - modules.logger - INFO - a user has entered the user dashboard
+2024-10-18 21:55:30,566 - modules.logger - INFO - user has attempted login
+2024-10-18 21:55:33,162 - modules.logger - INFO - user ali has logged in
+2024-10-18 21:55:35,490 - modules.logger - INFO - user ali has requested to go to cinema page
+2024-10-18 21:58:18,998 - modules.logger - INFO - a user has entered the user dashboard
+2024-10-18 21:58:20,210 - modules.logger - INFO - user has attempted login
+2024-10-18 21:58:23,057 - modules.logger - INFO - user ali has logged in
+2024-10-18 21:58:24,654 - modules.logger - INFO - user ali has requested to go to cinema page
+2024-10-18 21:59:00,393 - modules.logger - INFO - a user has entered the user dashboard
+2024-10-18 21:59:01,358 - modules.logger - INFO - user has attempted login
+2024-10-18 21:59:04,002 - modules.logger - INFO - user ali has logged in
+2024-10-18 21:59:05,534 - modules.logger - INFO - user ali has requested to go to cinema page
+2024-10-18 22:01:22,609 - modules.logger - INFO - user ali has logged out
+2024-10-18 22:01:25,353 - modules.logger - INFO - user has exited the app
+2024-10-18 22:01:26,627 - modules.logger - INFO - a user has entered the user dashboard
+2024-10-18 22:01:27,930 - modules.logger - INFO - user has attempted login
+2024-10-18 22:01:34,091 - modules.logger - INFO - user ali has logged in
+2024-10-18 22:01:36,323 - modules.logger - INFO - user ali has requested to go to cinema page
+2024-10-18 22:05:47,698 - modules.logger - INFO - a user has entered the user dashboard
+2024-10-18 22:05:48,978 - modules.logger - INFO - user has attempted login
+2024-10-18 22:05:51,759 - modules.logger - INFO - user ali has logged in
+2024-10-18 22:05:53,671 - modules.logger - INFO - user ali has requested to go to cinema page
+2024-10-18 22:07:28,008 - modules.logger - INFO - user ali has requested to go to cinema page
+2024-10-18 22:07:45,577 - modules.logger - INFO - user ali has requested their account info
+2024-10-18 22:08:05,738 - modules.logger - INFO - user ali has requested to go to cinema page
+2024-10-18 22:08:23,684 - modules.logger - INFO - user ali has logged out
+2024-10-18 22:08:25,354 - modules.logger - INFO - user has attempted creating an account
+2024-10-18 22:08:34,719 - modules.logger - INFO - user ali_1 has created an account
+2024-10-18 22:08:45,922 - modules.logger - INFO - user ali_1 has requested to go to bank account manager page
+2024-10-18 22:08:48,321 - modules.logger - INFO - user ali_1 has attempted creating a new bank account
+2024-10-18 22:08:57,711 - modules.logger - INFO - user ali_1 has created a new bank account
+2024-10-18 22:09:05,076 - modules.logger - INFO - user ali_1 has left the bank managment page
+2024-10-18 22:09:22,635 - modules.logger - INFO - user ali_1 has requested to go to bank account manager page
+2024-10-18 22:09:25,275 - modules.logger - INFO - user ali_1 has attempted to add funds to their wallet
+2024-10-18 22:09:31,875 - modules.logger - INFO - user ali_1 has added funds to their wallet
+2024-10-18 22:11:09,110 - modules.logger - INFO - user ali_1 has left the bank managment page
+2024-10-18 22:11:12,901 - modules.logger - INFO - user ali_1 has requested to go to cinema page
+2024-10-18 22:12:50,488 - modules.logger - INFO - a user has entered the user dashboard
+2024-10-18 22:12:51,839 - modules.logger - INFO - user has attempted login
+2024-10-18 22:12:55,522 - modules.logger - INFO - user ali_1 has logged in
+2024-10-18 22:12:57,118 - modules.logger - INFO - user ali_1 has requested to go to cinema page
+2024-10-18 22:14:16,708 - modules.logger - INFO - user ali_1 has requested their account info
+2024-10-18 22:14:56,201 - modules.logger - INFO - user ali_1 has logged out
+2024-10-18 22:14:58,529 - modules.logger - INFO - user has exited the app
+2024-10-18 22:15:12,081 - modules.logger - INFO - an admin has entered admin dashboard
+2024-10-18 22:15:25,716 - modules.logger - ERROR - admin could not login: <class 'TypeError'>
+2024-10-18 22:15:31,704 - modules.logger - ERROR - admin could not login: <class 'TypeError'>
+2024-10-18 22:15:46,877 - modules.logger - ERROR - admin could not login: <class 'TypeError'>
+2024-10-18 22:15:53,993 - modules.logger - ERROR - admin could not login: <class 'TypeError'>
+2024-10-18 22:16:00,945 - modules.logger - INFO - admin has created and account
+2024-10-18 22:16:02,629 - modules.logger - INFO - admin got thier account info
+2024-10-18 22:16:22,442 - modules.logger - INFO - admin has changed thier name: ali
+2024-10-18 22:16:24,176 - modules.logger - INFO - admin got thier account info
+2024-10-18 22:16:35,199 - modules.logger - INFO - admin ali has attempted adding a new movie
+2024-10-18 22:18:19,912 - modules.logger - INFO - an admin has entered admin dashboard
+2024-10-18 22:18:23,954 - modules.logger - INFO - adminali has logged into thier account
+2024-10-18 22:18:25,678 - modules.logger - INFO - admin got thier account info
+2024-10-18 22:18:28,192 - modules.logger - INFO - admin ali has attempted adding a new movie
+2024-10-18 22:19:12,176 - modules.logger - INFO - admin ali has added a new movie
+2024-10-18 22:21:14,534 - modules.logger - INFO - admin ali has logged out
+2024-10-18 22:21:20,813 - modules.logger - ERROR - admin could not login: <class 'TypeError'>
+2024-10-18 22:21:24,633 - modules.logger - INFO - admin has exited admin dashboard
+2024-10-18 22:21:27,747 - modules.logger - INFO - a user has entered the user dashboard
+2024-10-18 22:21:29,816 - modules.logger - INFO - user has attempted login
+2024-10-18 22:21:33,263 - modules.logger - INFO - user ali has logged in
+2024-10-18 22:21:35,080 - modules.logger - INFO - user ali has requested their account info
+2024-10-18 22:30:14,976 - modules.logger - INFO - a user has entered the user dashboard
+2024-10-18 22:30:17,037 - modules.logger - INFO - user has attempted login
+2024-10-18 22:30:19,549 - modules.logger - INFO - user ali has logged in
+2024-10-18 22:30:24,377 - modules.logger - INFO - user ali has requested to go to cinema page
+2024-10-18 22:32:47,987 - modules.logger - INFO - a user has entered the user dashboard
+2024-10-18 22:32:49,670 - modules.logger - INFO - user has attempted login
+2024-10-18 22:32:54,354 - modules.logger - INFO - user ali has logged in
+2024-10-18 22:32:56,390 - modules.logger - INFO - user ali has requested to go to cinema page
+2024-10-18 22:33:57,285 - modules.logger - INFO - user ali has logged out
+2024-10-18 22:33:59,079 - modules.logger - INFO - user has attempted login
+2024-10-18 22:34:01,623 - modules.logger - ERROR - user could not login: <class 'TypeError'>
+2024-10-18 22:34:03,241 - modules.logger - INFO - user has exited the app
+2024-10-18 22:34:06,032 - modules.logger - INFO - a user has entered the user dashboard
+2024-10-18 22:34:13,882 - modules.logger - INFO - user has attempted login
+2024-10-18 22:34:19,506 - modules.logger - INFO - user ali has logged in
+2024-10-18 22:34:26,268 - modules.logger - INFO - user ali has requested to go to cinema page
+2024-10-18 22:36:37,009 - modules.logger - INFO - a user has entered the user dashboard
+2024-10-18 22:36:37,803 - modules.logger - INFO - user has attempted login
+2024-10-18 22:36:40,323 - modules.logger - INFO - user ali has logged in
+2024-10-18 22:36:42,608 - modules.logger - INFO - user ali has requested to go to cinema page

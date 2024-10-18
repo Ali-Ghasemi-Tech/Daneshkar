@@ -1,7 +1,7 @@
 from getpass import getpass
 import uuid
 import jdatetime
-from modules import password
+from . import password
 from enum import Enum
 import json
 
@@ -239,8 +239,8 @@ class User:
             gets account
 
             returns string"""
-            return  f"\nuser_name: {account["user_name"]}\n user_phone: {account["user_phone"]}\n user_id:{account["user_id"]}\n wallet_balance: {account["wallet_balance"]}\n tickets: {account["tickets"]}\n subscription: {account["subscription"]}\n bank accounts:{account["bank_accounts"]}\n date of birth: {account["date_of_birth"]}\n "
+            return  f"\nuser_name: {account["user_name"]}\n user_phone: {account["user_phone"]}\n user_id:{account["user_id"]}\n wallet_balance: {account["wallet_balance"]}\n tickets: {account["tickets"]}\n subscription: {account["subscription"]}\n bank accounts:{account["bank_accounts"]}\n date of birth: {account["date_of_birth"]}\n permission: {account["permission"]}\n"
     
         elif account["permission"] == "admin":
     
-            return  f"\nadmin_name: {account["admin_name"]}\n admin_phone: {account["admin_phone"]}\n admin_id:{account["admin_id"]}\n wallet_balance: {account["wallet_balance"]}\n   bank accounts:{account["bank_accounts"]}\n "
+            return  f"\nadmin_name: {account["admin_name"]}\n admin_phone: {account["admin_phone"]}\n admin_id:{account["admin_id"]}\n wallet_balance: {account["wallet_balance"]}\n   bank accounts:{account["bank_accounts"]}\n permission: {account["permission"]}\n"

@@ -46,5 +46,21 @@
         "price": 10,
         "age": 18,
         "left_tickets": 10
+    },
+    "7": {
+        "name": "ailen 12",
+        "time": "1403/01/01 14:20",
+        "duration": "2H 12M",
+        "price": 12,
+        "age": 18,
+        "left_tickets": 40
+    },
+    "8": {
+        "name": "alien 12",
+        "time": "1402/2/2 12:12",
+        "duration": "3H 2M",
+        "price": 12,
+        "age": 18,
+        "left_tickets": 3
     }
 }

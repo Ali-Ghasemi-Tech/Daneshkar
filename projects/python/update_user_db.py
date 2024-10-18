@@ -1,5 +1,5 @@
 import json
-def update(account , prev_account = None):
+def update(account , prev_account):
     with open("db/users.json" , 'r') as file:
         data = json.load(file)
         file.close

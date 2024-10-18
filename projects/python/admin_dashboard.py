@@ -1,13 +1,11 @@
 from getpass import getpass
 from modules import password
 from modules.user import User
-from manager import Manager
-from cinema import Cinema
 from modules.clear import clear
 from update_user_db import update
 from admin import Admin
 from modules.isDigit import get_number
-
+from modules.logger import logger
 
 
 def run():
@@ -47,6 +45,7 @@ def run():
             admin_choice = get_number("enter the number of the task you want to do: (=^ ◡ ^=)\n") 
             match admin_choice:
                 case 1:
+                    logger.info("admin got thier account info")
                     clear()
                     print("***admin info***")
                     print(admin_obj.__str__(updated_temp_admin)+"\n\n")
@@ -63,6 +62,8 @@ def run():
                     admin_obj.users[id] = updated_temp_admin
                     update(updated_temp_admin ,  prev_admin_name)
                     prev_admin_name = updated_temp_admin["admin_name"]
+
+                    logger.info(f"admin has changed thier name: {prev_admin_name}")
                     continue
 
                 case 3:
@@ -78,21 +79,30 @@ def run():
                             updated_temp_admin = admin_obj.update_admin_pass(hashed_new_pass , id)
                             print("\nyour password has been changed succesfully ( •◡-)-♡\n")
                             update(updated_temp_admin , prev_admin_name)
+                            logger.info("admin has changd thier password")
                         else:
                             print("\nthe passwords don't match! (≖_≖ )\n")
+                            logger.error("admin repeted password did not match the new password")
                             continue
                     else:
                         print("\nthe password is not correct! (≖_≖ )\n")
+                        logger.error("admin has entered a wrong password")
+                        continue
             
                 case 4:
                     clear()
+                    logger.info(f"admin {prev_admin_name} has attempted adding a new movie")
                     admin_instance = Admin
                     admin_instance.add_movie()
+                    clear()
+                    print("the movie has been added to movie list")
+                    logger.info(f"admin {prev_admin_name} has added a new movie")
                     continue
 
                 case 5:
                     clear()
                     print("you are logging out")
+                    logger.info(f"admin {prev_admin_name} has logged out")
                     run_login = False
                     admin_obj.logged_in = False
                     continue
@@ -113,16 +123,19 @@ def run():
             admin_choice = get_number("please enter the number of task you want to execute: (=^ ◡ ^=)\n") 
             match admin_choice:
                 case 0:
+                    logger.info("admin has exited admin dashboard")
                     clear()
                     print("exiting program")
                     print("Goodby , come again soon (>ᴗ•) !")
                     break
 
                 case 1:
+                    
                     clear()
                     updated_temp_admin = admin_obj.create_admin()
                     prev_admin_name = updated_temp_admin["admin_name"]
                     update(updated_temp_admin,prev_admin_name)
+                    logger.info("admin has created and account")
                     continue
 
                 case 2:
@@ -131,7 +144,9 @@ def run():
                     try:
                         prev_admin_name = updated_temp_admin["admin_name"]
                     except TypeError:
+                        logger.error(f"admin could not login: {TypeError}")
                         continue
+                    logger.info(f"admin{prev_admin_name} has logged into thier account")
                     continue
                 
                 case _:

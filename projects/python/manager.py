@@ -39,9 +39,6 @@ class Manager:
             Manager.selected_bank_account.withdraw(charging_amount)
 
             self.user_account["wallet_balance"] += charging_amount
-            wallet_balance  = self.user_account["wallet_balance"]
-            
-            print(f"your wallet balance is {wallet_balance - charging_amount}")
             
             bank_balance = Manager.selected_bank_account.get_balance() - charging_amount
             return self.user_account

@@ -1,11 +1,86 @@
 {
-    "users": {},
+    "users": {
+        "15c616de-3da1-4d83-ad1c-60927348d30f": {
+            "user_name": "ali",
+            "user_pass": "719ebb43fae1c0227dbf7b88c70c0fecff93d5d626cf306a4a1e552bbdc3b172",
+            "user_phone": "",
+            "user_id": "15c616de-3da1-4d83-ad1c-60927348d30f",
+            "date_of_birth": "1379-01-01",
+            "age": 24,
+            "creation_date": "1403-07-27",
+            "bank_accounts": [
+                "BankAccount(meli,'ali' , 300 , '719ebb43fae1c0227dbf7b88c70c0fecff93d5d626cf306a4a1e552bbdc3b172' , 444)",
+                "BankAccount(blue,'ali' , 1000 , '719ebb43fae1c0227dbf7b88c70c0fecff93d5d626cf306a4a1e552bbdc3b172' , 444)"
+            ],
+            "wallet_balance": 40.0,
+            "subscription": {
+                "sub": "golden",
+                "used": 0,
+                "date": "1403-07-27"
+            },
+            "tickets": {
+                "1": {
+                    "name": "big bald man fight gangsters with the power of family and 8",
+                    "screening_time": "2024/10/30 11:30",
+                    "duration": "3h:35m",
+                    "number_of_tickets": 2,
+                    "exteras": "you can get your free energy drink when coming to watch the movie"
+                },
+                "2": {
+                    "name": "fight club but without brad pitt",
+                    "screening_time": "2024/10/20 11:30",
+                    "duration": "6h:35m",
+                    "number_of_tickets": 10,
+                    "exteras": "you can get your free energy drink when coming to watch the movie"
+                }
+            },
+            "permission": "user"
+        },
+        "42c4aeb7-6575-4dfa-b2be-1dfe371bc1dc": {
+            "user_name": "ali_1",
+            "user_pass": "719ebb43fae1c0227dbf7b88c70c0fecff93d5d626cf306a4a1e552bbdc3b172",
+            "user_phone": null,
+            "user_id": "42c4aeb7-6575-4dfa-b2be-1dfe371bc1dc",
+            "date_of_birth": "1379-01-01",
+            "age": 24,
+            "creation_date": "1403-07-27",
+            "bank_accounts": [
+                "BankAccount(meli,'ali_1' , 800 , '719ebb43fae1c0227dbf7b88c70c0fecff93d5d626cf306a4a1e552bbdc3b172' , 444)"
+            ],
+            "wallet_balance": 160.0,
+            "subscription": {
+                "sub": "bronze",
+                "used": 0,
+                "date": "1403-07-27"
+            },
+            "tickets": {
+                "1": {
+                    "name": "fight club but without brad pitt",
+                    "screening_time": "2024/10/20 11:30",
+                    "duration": "6h:35m",
+                    "number_of_tickets": 2
+                }
+            },
+            "permission": "user"
+        }
+    },
     "admins": {
         "07d30ac7-2cda-42b7-95c1-1b41eae33202": {
             "admin_name": "ali_1",
             "admin_pass": "58af3af4edece4a3bf386d2996eaf4fad8005153622fb4b01f9f3f407f4e8a21",
             "admin_phone": null,
             "admin_id": "07d30ac7-2cda-42b7-95c1-1b41eae33202",
+            "creation_date": "1403-07-27",
+            "bank_accounts": [],
+            "wallet_balance": 0,
+            "permission": "admin",
+            "user_phone": ""
+        },
+        "f5555ec2-9199-48f4-b829-2e6e6666284f": {
+            "admin_name": "ali",
+            "admin_pass": "719ebb43fae1c0227dbf7b88c70c0fecff93d5d626cf306a4a1e552bbdc3b172",
+            "admin_phone": null,
+            "admin_id": "f5555ec2-9199-48f4-b829-2e6e6666284f",
             "creation_date": "1403-07-27",
             "bank_accounts": [],
             "wallet_balance": 0,
