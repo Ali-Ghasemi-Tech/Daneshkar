@@ -47,10 +47,11 @@ class User:
         """gets user_name from dict and if the user_name already exist then retruns itself until the input user_name does not exist
         
         return string"""
-        user_name : str = input("please enter username: ")
+        user_name : str = input("please enter username: ").strip()
+
         name_exist : bool = self._check_username(user_name)
-        if name_exist:
-            print("\nthis user_name already exists , please enter another user_name! (╥‸╥) \n")
+        if name_exist or user_name == '':
+            print("\nthis user_name already exists or you have entered nothing , please enter another user_name! (╥‸╥) \n")
             return self.get_user_name()
         return user_name
     
@@ -58,9 +59,9 @@ class User:
         """gets user_name from dict and if the user_name already exist then retruns itself until the input user_name does not exist
         
         return string"""
-        admin_name : str = input("please enter username: ")
+        admin_name : str = input("please enter username: ").strip()
         name_exist : bool = self._check_adminname(admin_name)
-        if name_exist:
+        if name_exist or admin_name == '':
             print("\nthis user_name already exists , please enter another user_name! (╥‸╥) \n")
             return self.get_admin_name()
         return admin_name
