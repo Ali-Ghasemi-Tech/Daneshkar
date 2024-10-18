@@ -4,12 +4,12 @@ from subscribe import Subscribe
 from bank_account import BankAccount
 from unittest.mock import patch
 from modules import validBank , isDigit , password
-from user import User
+from modules.user import User
 import datetime
 import json
 from admin import Admin
 from cinema import Cinema 
-from human import Human
+import jdatetime
 
 account = BankAccount("meli" , "ali" , 1000 , "ali_pass" , 144)
 
@@ -90,14 +90,14 @@ class TestManager(unittest.TestCase):
                     new_account = manager.selected_bank_account
                     self.assertIsInstance(new_account , BankAccount)
                     self.assertEqual(manager.user_account['wallet_balance'] , 100)
-                    self.assertEqual(func , 900)
+                    self.assertEqual(manager.bank_accounts[0]._balance , 900)
             
 
 # user.py tests
 class TestUser(unittest.TestCase):
     def setUp(self):
-        self.test_date = datetime.datetime.strptime('1380/01/01' ,"%Y/%m/%d")
-        self.user = User()
+        self.test_date = jdatetime.datetime.strptime('1380/01/01' ,"%Y/%m/%d")
+        self.user = User("user")
         self.user_accounts = {
             '1':
             {
@@ -114,7 +114,7 @@ class TestUser(unittest.TestCase):
                     with patch.object(User , "get_birthdate" , return_value = 1380/1/1):
                         with patch.object(User , "calculate_age" , return_value = 23):
                             with patch.object(User , "id_generator" , return_value = 1):
-                                user = User()
+                                user = User("user")
                                 new_user = user.create_user()
                                 self.assertEqual(new_user['user_name'] , 'Test name')
                                 self.assertEqual(new_user['user_pass'] , password.hash_password('password'))
@@ -196,33 +196,34 @@ class TestCinema(unittest.TestCase):
 
 
 # admin.py tests
-class TestAdmin(unittest.TestCase):
-    def test_add_movies(self):
+# class TestAdmin(unittest.TestCase):
+#     def test_add_movies(self):
 
-        # be cautious !!!!!  ..... this test will update the movies.json file .... remember to remove it
-        new_name = 'movie test name'
-        new_time = "2024/01/01 13:40"
-        new_duration = "3H 40M"
-        new_avalible_seats = 20
-        new_age = 18
-        new_price = 10
-        Admin.add_movie(new_name , new_time , new_duration , new_price , new_age , new_avalible_seats )
+#         # be cautious !!!!!  ..... this test will update the movies.json file .... remember to remove it
+#         with patch.object(__builtins__ , "input" , lambda _: 'movie test name'):
+#             with patch('builtins.input' , return_value = "2024/01/01 13:40"):
+#                 with patch('builtins.input' , return_value = "3H 40M"):
+#                     with patch.object(isDigit , "get_number" , return_value = 20):
+#                         with patch.object(isDigit , "get_number" , return_value = 18):
+#                             with patch.object(isDigit , "get_number" , return_value = 10):
+#                                 new_movie = Admin
+#                                 new_movie.add_movie()
+                                
 
-        with open("db/movies.json" , "r+") as file:
-            data = json.load(file)
-        n = len(data)
-        new_index = n
-        self.assertEqual(data[f"{new_index}"]['name'] , new_name)
-        self.assertEqual(data[f"{new_index}"]['time'] , new_time)
-        self.assertEqual(data[f"{new_index}"]['duration'] , new_duration)
-        self.assertEqual(data[f"{new_index}"]['left_tickets'] , new_avalible_seats)
-        self.assertEqual(data[f"{new_index}"]['age'] , new_age)
-        self.assertEqual(data[f"{new_index}"]['price'] , new_price)
+#                                 with open("db/movies.json" , "r") as file:
+#                                     data = json.load(file)
+#                                 n = len(data)
+#                                 new_index = n
+#                                 self.assertEqual(data[f"{new_index}"]["name"] , 'movie test name')
+#                                 self.assertEqual(data[f"{new_index}"]["time"] , "2024/01/01 13:40")
+#                                 self.assertEqual(data[f"{new_index}"]["duration"] , "3H 40M")
+#                                 self.assertEqual(data[f"{new_index}"]["left_tickets"] , 20)
+#                                 self.assertEqual(data[f"{new_index}"]["age"] , 18)
+#                                 self.assertEqual(data[f"{new_index}"]["price"] , 10)
 
-        data.pop(f"{n}")
+#                                 data.pop(f"{n}")
 
-        with open("db/movies.json" , "w") as file:
-            data = json.dump(data , file , indent=4)
+                                
         
 
 if __name__ == "__main__":

@@ -1,5 +1,4 @@
-if __name__ == "__clear__":
-    from clear import clear
+from modules.clear import clear
 
 def get_initial_amount():
     try:
@@ -20,5 +19,5 @@ def get_number(text):
         return int(input(text))
     except ValueError:
         clear()
-        print("please enter a number!!!\n\n")
+        print("\n\n!!!!!please enter a number!!!!!! ( ｡ •̀ ᴖ •́ ｡)💢 *#!&\n\n")
         return get_number(text)

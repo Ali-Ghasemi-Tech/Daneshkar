@@ -2,6 +2,7 @@ from modules import isDigit , string_json
 import json
 import datetime
 from time import sleep
+import jdatetime
 
 class Cinema:
 
@@ -54,7 +55,7 @@ class Cinema:
                 
 
     def apply_discount(self):
-        months_subscribed = datetime.datetime.now().date().month  - self.user_account['creation_date'].month 
+        months_subscribed = jdatetime.datetime.now().date().month  - jdatetime.datetime.strptime(self.user_account['creation_date'] , "%Y-%m-%d").month
         print("you can get a discount based on how many months you have been subscribed\n")
         print(f"based on your sunscription date you can get {months_subscribed}% discount")
         apply_discount = input("do you want to apply discount? (Y/n)")
@@ -133,9 +134,12 @@ class Cinema:
             return False
         
     def check_birthday_discount(self):
-        month_of_birth = self.user_account["date_of_birth"].month
-        day_of_birth = self.user_account["date_of_birth"].day
-        if month_of_birth == datetime.datetime.now().date().month and day_of_birth == datetime.datetime.now().date().day:
+        month_of_birth = jdatetime.datetime.strptime( self.user_account["date_of_birth"] , "%Y-%m-%d").month
+        day_of_birth = jdatetime.datetime.strptime( self.user_account["date_of_birth"] , "%Y-%m-%d").day
+
+        now = datetime.datetime.now().date()
+
+        if month_of_birth == jdatetime.date.fromgregorian(date = now).month and day_of_birth == jdatetime.date.fromgregorian(date = now).day:
             print (f"happy birthday {self.user_account["name"]} , since it's your birthday the tickets price are halfed.\n")
             return True 
         else:
@@ -143,8 +147,8 @@ class Cinema:
         
     def check_time(self, movie_number):
 
-        movie_time = datetime.datetime.strptime(Cinema.data[str(movie_number)]['time'] , "%Y/%m/%d %H:%M")
-        now = datetime.datetime.now()
+        movie_time = jdatetime.datetime.strptime(Cinema.data[str(movie_number)]['time'] , "%Y/%m/%d %H:%M")
+        now = jdatetime.datetime.now()
         if now > movie_time:
             print("this movie is already being screened or has finished screening , you can't get a ticket for it now \n")
             return True
@@ -155,6 +159,7 @@ class Cinema:
         if request_seat > Cinema.data[str(movie_number)]['left_tickets']:
             return True
         return False
+    
 
         
 # cin = Cinema({

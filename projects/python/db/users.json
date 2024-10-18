@@ -1,0 +1,16 @@
+{
+    "users": {},
+    "admins": {
+        "07d30ac7-2cda-42b7-95c1-1b41eae33202": {
+            "admin_name": "ali_1",
+            "admin_pass": "58af3af4edece4a3bf386d2996eaf4fad8005153622fb4b01f9f3f407f4e8a21",
+            "admin_phone": null,
+            "admin_id": "07d30ac7-2cda-42b7-95c1-1b41eae33202",
+            "creation_date": "1403-07-27",
+            "bank_accounts": [],
+            "wallet_balance": 0,
+            "permission": "admin",
+            "user_phone": ""
+        }
+    }
+}

@@ -40,11 +40,11 @@
         "left_tickets": 1
     },
     "6": {
-        "name": "name",
-        "time": "2024/10/16 13:30",
-        "duration": "3H 40M",
+        "name": "move",
+        "time": "1403/01/01 13:30",
+        "duration": "'3H 16M'",
         "price": 10,
         "age": 18,
-        "left_tickets": 3
+        "left_tickets": 10
     }
 }

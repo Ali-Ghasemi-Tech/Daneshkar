@@ -1,0 +1,2 @@
+when buyin 2 seperate tickets of one movie , the first purchase is deleted , need fix
+change the date of the screening time to jalali

@@ -1,6 +1,7 @@
 from modules import isDigit
 from modules import input_getter
 import datetime
+import jdatetime
 
 
 class Subscribe:
@@ -30,7 +31,7 @@ class Subscribe:
                         continue
                     self.account.withdraw(300)
                     self.user["subscription"]['sub'] = "silver"
-                    self.user["subscription"]['date'] = datetime.datetime.now().date()
+                    self.user["subscription"]['date'] = jdatetime.datetime.now().date()
                     print("your plan has been updated to silver")
                     return [self.user , self.account]
                 case 2:
@@ -42,7 +43,7 @@ class Subscribe:
                     else:
                         self.account.withdraw(500)
                     self.user["subscription"]['sub'] = "golden"
-                    self.user["subscription"]['date'] = datetime.datetime.now().date()
+                    self.user["subscription"]['date'] = jdatetime.datetime.now().date()
                     print("your plan has been updated to golden")
                     return [self.user , self.account]
                 case 3:
