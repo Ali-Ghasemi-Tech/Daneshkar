@@ -1,14 +1,11 @@
 import aiohttp
 import asyncio
-import httpx
 import time
 from modules.isDigit import getNumber
 from modules.check_url import check_url
+from modules.type import select_file_type
 
 urls=[]
-
-
-
 
 print("welcome to the best IDM of your life")
 user_connections = getNumber("how many connections you want to create for each file? ")
@@ -19,7 +16,9 @@ while True:
     goodUrl = check_url(user_request)
     
     if goodUrl:
-        urls.append(user_request)
+        user_filename = input("plese enter a file name for the downloading file: ")
+        urls.append([user_request , user_filename])
+        
     else:
         print("bad url")
 
@@ -35,13 +34,19 @@ if user_choice.lower() == "y":
 async def fetchUrl(session , url , start_byte , end_byte):
     header = {'Range' : f'bytes={start_byte}-{end_byte}'}
     async with session.get(url , headers = header) as response:
-        return await response.text()
+        return await response.read()
+        
     
-async def main(url , number_of_connections):
+async def main(url , number_of_connections , filename):
     async with aiohttp.ClientSession() as session:
         start = time.time()
         size = int((await session.head(url)).headers['Content-Length'])
+        content_type = (await session.head(url)).headers['Content-Type']
+        extention = select_file_type(content_type)
+        print(content_type)
         chunk = size // number_of_connections
+
+        filename = filename + extention
 
         tasks = []
         for i in range (number_of_connections):
@@ -52,13 +57,16 @@ async def main(url , number_of_connections):
             tasks.append(fetchUrl(session , url , start_byte , end_byte))
 
         results = await asyncio.gather(*tasks)
-        for url , content in zip(urls , results):
-            print(f'fetched {len(content)} from {url}')
-            end = time.time()
-            print(end - start)
+        with open('./downloads/' + filename , 'w+') as file:
+            for task in results:
+                    file.write(task.decode('utf-8'))
+            
+        end = time.time()
+        print(end - start)
+           
     
 
 
 if __name__ == "__main__":
     for url in urls:
-        asyncio.run(main(url , user_connections))
+        asyncio.run(main(url[0] , user_connections , url[1]))
