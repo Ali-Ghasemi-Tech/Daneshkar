@@ -37,7 +37,7 @@ class Cinema:
                 
 
     def apply_discount(self):
-        months_subscribed = jdatetime.datetime.now().date().month  - jdatetime.datetime.strptime(self.user_account['creation_date'] , "%Y-%m-%d").month
+        months_subscribed = jdatetime.datetime.now().date().month  - jdatetime.datetime.strptime(self.user_account['creation_date'] , "%Y-%m-%d").date().month
         print("you can get a discount based on how many months you have been subscribed\n")
         print(f"based on your sunscription date you can get {months_subscribed}% discount")
         apply_discount = input("do you want to apply discount? (Y/n)")
@@ -83,21 +83,24 @@ class Cinema:
         else:
             total_amount : float = number_of_tickets * selected_movie['price']
             check_discount = 0
-        n = len(self.user_account["tickets"]) +1
+        n = len(self.user_account["tickets"]) + 1
+
         total_amount :float = total_amount * (1 - (sub_discount/100))
         if self.user_account['wallet_balance'] - total_amount > 0:
 
             selected_movie['left_tickets'] -= number_of_tickets
 
             self.user_account["tickets"][n] = {"name": selected_movie['name'] , "screening_time": selected_movie['time'] , "duration" : selected_movie['duration'] , "number_of_tickets": number_of_tickets}
-            
+            clear()
+
             if self.user_account["subscription"]["sub"] == "golden":
                 self.user_account["tickets"][n]["exteras"] = "one free energy drink"
+                print("you can get your free energy drink when coming to watch the movie\n")
+
 
             self.user_account["wallet_balance"] -= total_amount
             update(self.user_account , name)
 
-            clear()
             print("\nyour purchase has been applied , enjoy the movie\n")
             print("you can get your free energy drink when coming to watch the movie\n")
             return True

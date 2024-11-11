@@ -5,7 +5,7 @@ def check_bank(bank_account_list , new_bank):
     return True
 
 def get_bank(bank_account_list):
-    bank = input("enter the name of your bank: ")
+    bank = input("enter the name of your bank: ").strip()
     if not check_bank(bank_account_list , bank):
         print("you already have an account in this bank! enter a new bank")
         return get_bank(bank_account_list)
