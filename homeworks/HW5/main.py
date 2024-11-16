@@ -28,8 +28,7 @@ while True:
     continue
 
 user_choice = input("do you want to download multiple files at the same time (Y/n)? ")
-if user_choice.lower() == "y":
-    pass
+
 
 async def fetchUrl(session , url , start_byte , end_byte):
     header = {'Range' : f'bytes={start_byte}-{end_byte}'}
@@ -37,7 +36,8 @@ async def fetchUrl(session , url , start_byte , end_byte):
         return await response.read()
         
     
-async def main(url , number_of_connections , filename):
+async def main(url , number_of_connections , filename , job):
+    print(f"start job{job}")
     async with aiohttp.ClientSession() as session:
         start = time.time()
         size = int((await session.head(url)).headers['Content-Length'])
@@ -63,10 +63,28 @@ async def main(url , number_of_connections , filename):
             
         end = time.time()
         print(end - start)
+        print(f"end job{job}")
            
-    
+async def handleMultiFile():
+    job = 1
+    tasks = []
+    for url , filename in urls:
+        tasks.append(main(url , user_connections , filename , job))
+        job += 1
+    results = await asyncio.gather(*tasks)
+    return results
+
+
+
 
 
 if __name__ == "__main__":
-    for url in urls:
-        asyncio.run(main(url[0] , user_connections , url[1]))
+    if user_choice.lower() == "y":
+       asyncio.run(handleMultiFile())
+    else:
+        job = 1
+        for url in urls:
+            asyncio.run(main(url[0] , user_connections , url[1] , job))
+            job += 1
+            
+        print("finisehd all")
