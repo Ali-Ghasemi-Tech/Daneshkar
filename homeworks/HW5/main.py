@@ -30,11 +30,14 @@ while True:
 user_choice = input("do you want to download multiple files at the same time (Y/n)? ")
 
 
-async def fetchUrl(session , url , start_byte , end_byte):
+async def fetchUrl(session , url , start_byte , end_byte , num):
+    print(f"start task{num}")
     header = {'Range' : f'bytes={start_byte}-{end_byte}'}
     async with session.get(url , headers = header) as response:
+        print(f"end task{num}")
         return await response.read()
-        
+    
+
     
 async def main(url , number_of_connections , filename , job):
     print(f"start job{job}")
@@ -49,12 +52,14 @@ async def main(url , number_of_connections , filename , job):
         filename = filename + extention
 
         tasks = []
+        num = 1
         for i in range (number_of_connections):
             start_byte = i * chunk
             end_byte = ((i + 1) * chunk ) -1
             if i == number_of_connections -1:
                 end_byte = size - 1
-            tasks.append(fetchUrl(session , url , start_byte , end_byte))
+            tasks.append(fetchUrl(session , url , start_byte , end_byte , num))
+            num += 1 
 
         results = await asyncio.gather(*tasks)
         with open('./downloads/' + filename , 'w+') as file:
