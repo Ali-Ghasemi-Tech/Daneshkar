@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{%if user.is_authenticated%}
+<p>hi {{ user.username }}</p>
+<form action="{% url 'logout' %}" method="post">
+    {%csrf_token%}
+    <input type="hidden">
+    <input type="submit" value="logout">
+</form>
+<ul>
+    {%for post in posts%}
+    <li>{{post.text}}</li>
+    <br>
+    {% endfor %}
+</ul>
+{% else %}
+<p>you are not logged in</p>
+<a href="{%url 'login'%}">login</a>
+{% endif %}
+
+
+
+
+{% endblock %}
