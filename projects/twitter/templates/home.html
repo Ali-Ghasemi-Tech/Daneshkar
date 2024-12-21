@@ -4,6 +4,7 @@
 {%if user.is_authenticated%}
 
 <p>hi</p> <a href="{% url 'profile' %}">{{ user.username }}</a>
+
 <form action="{% url 'logout' %}" method="post">
     {%csrf_token%}
     <input type="hidden">
@@ -11,7 +12,13 @@
 </form>
 <ul>
     {%for post in posts%}
-    <li>{{post.text}}</li>
+    <li>
+        <h4>{{post.title}}</h4>
+        {{post.text}}
+        <div>
+            <p><a href="{% url 'profile' %}">{{ post.author }}</a> . {{post.date_post}}</p>
+        </div>
+    </li>
     <br>
     {% endfor %}
 </ul>
