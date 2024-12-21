@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "django-bootcamp"
+version = "0.1.0"
+description = ""
+authors = ["Ali-Ghasemi-Tech <thelastblade30@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+django = "^5.1.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -2,7 +2,8 @@
 
 {% block content %}
 {%if user.is_authenticated%}
-<p>hi {{ user.username }}</p>
+
+<p>hi</p> <a href="{% url 'profile' %}">{{ user.username }}</a>
 <form action="{% url 'logout' %}" method="post">
     {%csrf_token%}
     <input type="hidden">
