@@ -3,20 +3,27 @@
 {% block content %}
 {%if user.is_authenticated%}
 
-<p>hi</p> <a href="{% url 'profile' %}">{{ user.username }}</a>
+<p>hi</p> <a href="{% url 'my_profile' %}">{{ user.username }}</a>
 
-<form action="{% url 'logout' %}" method="post">
-    {%csrf_token%}
-    <input type="hidden">
-    <input type="submit" value="logout">
-</form>
+<div>
+    <form action="{% url 'logout' %}" method="post">
+        {%csrf_token%}
+        <input type="hidden">
+        <input type="submit" value="logout">
+    </form>
+    <form action="{% url 'new_post'%}" method="post">
+        {%csrf_token%}
+        <input type="submit" value="new post">
+    </form>
+</div>
+
 <ul>
     {%for post in posts%}
     <li>
         <h4>{{post.title}}</h4>
         {{post.text}}
         <div>
-            <p><a href="{% url 'profile' %}">{{ post.author }}</a> . {{post.date_post}}</p>
+            <p><a href="{% url 'view_profile' username=post.author.username %}">{{ post.author.username }}</a> . {{post.date_post}}</p>
         </div>
     </li>
     <br>
