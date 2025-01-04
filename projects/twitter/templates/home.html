@@ -20,7 +20,7 @@
 <ul>
     {%for post in posts%}
     <li>
-        <h4>{{post.title}}</h4>
+        <h4><a href="{% url 'post_detail' post.pk %}">{{post.title}}</a></h4>
         {{post.text}}
         <div>
             <p><a href="{% url 'view_profile' username=post.author.username %}">{{ post.author.username }}</a> . {{post.date_post}}</p>

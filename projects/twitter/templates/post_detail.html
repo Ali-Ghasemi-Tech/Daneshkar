@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>{{object.title}}</h2>
+<p>{{object.text}}</p>
+<div>
+    <p>{{object.date}}</p>
+    <p><a href="{% url 'view_profile' username=post.author.username %}">{{ post.author.username }}</a> . {{post.date_post}}</p>
+    <p><a href="{% url 'update_post' post.pk %}">update</a></p>
+    <p><a href="{% url 'delete_post' post.pk %}">delete</a></p>
+</div>
+
+{% endblock %}
