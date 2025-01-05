@@ -9,5 +9,17 @@
     <p><a href="{% url 'update_post' post.pk %}">update</a></p>
     <p><a href="{% url 'delete_post' post.pk %}">delete</a></p>
 </div>
+{% if user.is_authenticated %}
+<form action="{% url 'like_post' post.pk %}" method="post">
+    {% csrf_token %}
+    {% if liked %}
+    
+    <button type="submit">Unlike</button> - {{total_likes}}
+    {% else %}
+
+    <button type="submit">Like</button> - {{total_likes}}
+    {% endif %}
+</form>
+{% endif %}
 
 {% endblock %}
