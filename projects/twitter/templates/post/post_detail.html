@@ -20,6 +20,24 @@
     <button type="submit">Like</button> - {{total_likes}}
     {% endif %}
 </form>
+    
+<form action="{% url 'post_comment' post.pk %}" method="post">
+    {% csrf_token %}
+    <button type="submit">add comment</button>
+</form>
 {% endif %}
+<br><hr>
+<h2>comments</h2>
+<ul>
+{% for comment in post.comments.all%}
+<li>
+    <p>{{comment.body}}</p>
+    <div>
+        {{comment.author}} - {{comment.created_at}}
+    </div>
+</li>
+{% endfor %}
+</ul>
+
 
 {% endblock %}
