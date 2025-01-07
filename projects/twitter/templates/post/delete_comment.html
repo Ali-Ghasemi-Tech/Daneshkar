@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <p>are you sure you want to delete <strong>{{comment.body}}</strong> ?</p>
+    <button type="submit">confirm</button>
+</form>
+{% endblock %}

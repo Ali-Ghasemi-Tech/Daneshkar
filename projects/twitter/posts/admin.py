@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post
+from .models import Post , CommentModel
 
 # Register your models here.
 
@@ -7,3 +7,8 @@ from .models import Post
 class PostAdmin(admin.ModelAdmin):
     list_display = ['id', 'title' , 'text' , 'date_post']
     filter_horizontal = ['like'] 
+
+@admin.register(CommentModel)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = [ 'id', 'body']
+    

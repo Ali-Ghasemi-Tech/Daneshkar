@@ -17,6 +17,7 @@ class Post(models.Model):
 
 class CommentModel(models.Model):
     post = models.ForeignKey(Post , on_delete=models.CASCADE ,related_name='comments')
+    reply = models.ForeignKey('self' , related_name='replies' , null=True , blank=True , on_delete=models.CASCADE)
     author = models.ForeignKey(CustomeUserModel , on_delete=models.CASCADE ,  related_name='comment_author')
     body = models.TextField(max_length=500)
     created_at = models.DateTimeField(auto_now_add=True)

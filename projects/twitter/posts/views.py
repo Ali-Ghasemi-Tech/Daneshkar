@@ -69,13 +69,49 @@ class CommentCreateView(CreateView):
     template_name = 'post/comment.html'
 
     def form_valid(self, form):
-        form.instance.post_id = self.kwargs['pk']
+        form.instance.post_id = self.kwargs['post_pk']
+
         form.instance.author = self.request.user
+        
         return super().form_valid(form)
 
     def get_success_url(self):
         return reverse_lazy('post_detail' , args=[self.object.post.pk])
     
-
+    
     
 
+class CommentReplyView(CreateView):
+    model = CommentModel
+    fields = ['body']    
+    template_name = 'post/comment.html'
+
+    def form_valid(self, form):
+        post_pk = self.kwargs['post_pk']
+        comment_pk = self.kwargs['comment_pk']
+        parent_comment = CommentModel.objects.get(pk=comment_pk)
+
+        form.instance.post_id = post_pk
+        form.instance.author = self.request.user
+        form.instance.reply = parent_comment  # Set the parent comment
+
+        return super().form_valid(form)
+    
+    def get_success_url(self):
+        return reverse_lazy('post_detail' , args=[self.object.post.pk])
+    
+
+   
+
+class DeleteCommentView(DeleteView):
+    model = CommentModel
+    template_name = 'post/delete_comment.html'
+    
+    def get_object(self, **kwargs):
+        pk = self.kwargs.get('comment_pk')  # Assuming you have 'pk' in your URL pattern
+        return self.get_queryset().get(pk=pk)
+    
+    def get_success_url(self):
+        return reverse_lazy('post_detail', args=[self.object.post.pk]) 
+
+    

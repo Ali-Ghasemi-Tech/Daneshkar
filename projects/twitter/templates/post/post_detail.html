@@ -35,6 +35,11 @@
     <div>
         {{comment.author}} - {{comment.created_at}}
     </div>
+    <form action="{% url 'comment_reply' post.pk comment.pk %}" method="post">
+        {% csrf_token %}
+        <button type="submit">add comment</button>
+        <a href="{% url 'delete_comment' post.pk comment.pk%}">delete</a>
+    </form> 
 </li>
 {% endfor %}
 </ul>
