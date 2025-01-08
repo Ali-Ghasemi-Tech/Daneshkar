@@ -32,10 +32,17 @@ class PostDetailsView(DetailView):
         context = super(PostDetailsView , self).get_context_data()
         user_post = get_object_or_404(Post , pk = self.kwargs['pk'])
         liked = False
+        disliked = False
         if user_post.like.filter(id = self.request.user.id).exists():
             liked = True
+        elif user_post.dislike.filter(id = self.request.user.id).exists():
+            disliked = True
+        context['disliked'] = disliked
         context['liked'] = liked
         context['total_likes'] = user_post.total_likes()
+        context['total_dislikes'] = user_post.total_dislikes()
+
+       
         
         comments = user_post.comments.all().order_by('-created_at')
         context['comments'] = comments
@@ -58,10 +65,24 @@ def like_view(request , pk):
     post = get_object_or_404(Post , pk=pk)
     if post.like.filter(id = request.user.id).exists():
         post.like.remove(request.user)
+    elif post.dislike.filter(id= request.user.id).exists():
+        post.like.add(request.user)
+        post.dislike.remove(request.user)
     else:
         post.like.add(request.user)
     
     return redirect('post_detail' , pk = pk)
+
+def dislike_view(request , pk):
+    post = get_object_or_404(Post , pk=pk)
+    if post.dislike.filter(id= request.user.id).exists():
+        post.dislike.remove(request.user)
+    elif post.like.filter(id= request.user.id).exists():
+        post.like.remove(request.user)
+        post.dislike.add(request.user)
+    else:
+        post.dislike.add(request.user)
+    return redirect('post_detail', pk = pk)
 
 class CommentCreateView(CreateView):
     model = CommentModel

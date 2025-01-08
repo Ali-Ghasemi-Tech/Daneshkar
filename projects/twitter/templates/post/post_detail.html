@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 <h2>{{object.title}}</h2>
@@ -10,17 +11,33 @@
     <p><a href="{% url 'delete_post' post.pk %}">delete</a></p>
 </div>
 {% if user.is_authenticated %}
-<form action="{% url 'like_post' post.pk %}" method="post">
-    {% csrf_token %}
-    {% if liked %}
+<!-- likes and dislikes forms -->
+<div>
+    <!-- likes -->
+    <form action="{% url 'like_post' post.pk %}" method="post">
+        {% csrf_token %}
+        {% if liked %}
+        
+        <button type="submit"><img style="width: 2vw;" src="{% static 'icons/unlike.svg' %}" alt=""></button> - {{total_likes}}
+        {% else %}
     
-    <button type="submit">Unlike</button> - {{total_likes}}
-    {% else %}
+        <button type="submit"> <img style="width: 2vw;" src="{% static 'icons/like.svg' %}" alt="">  </button>- {{total_likes}}
+        {% endif %}
+    </form>
+    <!-- dislikes -->
+    <form action="{% url 'dislike_post' post.pk %}" method="post">
+        {% csrf_token %}
+        {% if disliked %}
+        
+        <button type="submit"><img style="width: 2vw;" src="{% static 'icons/undislike.svg' %}" alt=""></button> - {{total_dislikes}}
+        {% else %}
+    
+        <button type="submit"><img style="width: 2vw;" src="{% static 'icons/dislike.svg' %}" alt=""></button> - {{total_dislikes}}
+        {% endif %}
+    </form>
+</div>
 
-    <button type="submit">Like</button> - {{total_likes}}
-    {% endif %}
-</form>
-    
+<!-- comment form -->
 <form action="{% url 'post_comment' post.pk %}" method="post">
     {% csrf_token %}
     <button type="submit">add comment</button>
@@ -35,6 +52,7 @@
     <div>
         {{comment.author}} - {{comment.created_at}}
     </div>
+    <!-- reply form -->
     <form action="{% url 'comment_reply' post.pk comment.pk %}" method="post">
         {% csrf_token %}
         <button type="submit">add comment</button>

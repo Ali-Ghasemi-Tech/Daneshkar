@@ -10,9 +10,13 @@ class Post(models.Model):
     author = models.ForeignKey(CustomeUserModel , on_delete=models.CASCADE)
     date_post = models.DateField(auto_now_add=True)
     like = models.ManyToManyField(CustomeUserModel , related_name='likes')
+    dislike = models.ManyToManyField(CustomeUserModel , related_name='dislikes', null=True )
 
     def total_likes(self):
         return self.like.count()
+    
+    def total_dislikes(self):
+        return self.dislike.count()
     
 
 class CommentModel(models.Model):
