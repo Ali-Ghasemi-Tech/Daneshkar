@@ -21,9 +21,7 @@ class MyProfileView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(MyProfileView , self).get_context_data()
-        user_profile = get_object_or_404(CustomeUserModel , pk = self.kwargs['pk'])
-
-        context['total_followers'] = user_profile.total_followers()
+       
 
         return context
 
@@ -50,12 +48,14 @@ class ProfileView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(ProfileView , self).get_context_data()
+
         user_post = get_object_or_404(CustomeUserModel , pk = self.kwargs['pk'])
         followed = False
         if user_post.follow.filter(id = self.request.user.id).exists():
             followed = True
         context['followed'] = followed
         context['total_followers'] = user_post.total_followers()
+
         return context
 
     # def get_context_data(self, **kwargs):

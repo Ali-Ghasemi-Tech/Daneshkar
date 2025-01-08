@@ -2,13 +2,20 @@
 {% load static %}
 
 {% block content %}
-<h2>{{object.title}}</h2>
-<p>{{object.text}}</p>
+<div class="container-sm border border-primary rounded p-5">
+    <h4>{{object.title}}</h2>
+    <p>{{object.text}}</p>
+    {%if post.image%}
+    <img class="img-fluid" style="width: 15vw;" src="{{post.image.url}}" alt="">
+    {%endif%}
+</div>
+
 <div>
     <p>{{object.date}}</p>
     <p><a href="{% url 'view_profile' post.author.pk %}">{{ post.author.username }}</a> . {{post.date_post}}</p>
-    <p><a href="{% url 'update_post' post.pk %}">update</a></p>
-    <p><a href="{% url 'delete_post' post.pk %}">delete</a></p>
+    {%if user.id == post.author.id%}
+    <a href="{% url 'update_post' post.pk %}">update</a>  <a href="{% url 'delete_post' post.pk %}">delete</a>
+    {% endif %}
 </div>
 {% if user.is_authenticated %}
 <!-- likes and dislikes forms -->
@@ -50,13 +57,17 @@
 <li>
     <p>{{comment.body}}</p>
     <div>
-        {{comment.author}} - {{comment.created_at}}
+        <a href="{%url 'view_profile' comment.author.id%}">{{comment.author}}</a> - {{comment.created_at}}
     </div>
     <!-- reply form -->
     <form action="{% url 'comment_reply' post.pk comment.pk %}" method="post">
         {% csrf_token %}
         <button type="submit">add comment</button>
+        {% if user.id == post.author.id or user.id == comment.author.id%}
+
         <a href="{% url 'delete_comment' post.pk comment.pk%}">delete</a>
+        {% endif %}
+
     </form> 
 </li>
 {% endfor %}

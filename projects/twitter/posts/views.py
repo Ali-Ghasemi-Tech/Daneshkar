@@ -17,7 +17,7 @@ class NewPost(CreateView , LoginRequiredMixin):
     model = Post
     template_name = 'post/new_post.html'
     context_object_name = 'posts'
-    fields = ['title' , 'text']
+    fields = ['title' , 'text' , 'tag' , 'image']
     success_url = reverse_lazy('home')
 
     def form_valid(self, form):

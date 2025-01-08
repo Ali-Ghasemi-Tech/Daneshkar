@@ -9,8 +9,10 @@ class Post(models.Model):
     text = models.TextField(max_length= 600)
     author = models.ForeignKey(CustomeUserModel , on_delete=models.CASCADE)
     date_post = models.DateField(auto_now_add=True)
-    like = models.ManyToManyField(CustomeUserModel , related_name='likes')
-    dislike = models.ManyToManyField(CustomeUserModel , related_name='dislikes', null=True )
+    image = models.ImageField(null=True , blank=True ,upload_to='post_pics/')
+    tag = models.CharField(max_length=100 , null=True , blank=True)
+    like = models.ManyToManyField(CustomeUserModel , related_name='likes' , null=True , blank=True)
+    dislike = models.ManyToManyField(CustomeUserModel , related_name='dislikes' , null=True , blank=True)
 
     def total_likes(self):
         return self.like.count()
