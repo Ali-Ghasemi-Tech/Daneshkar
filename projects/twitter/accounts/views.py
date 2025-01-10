@@ -13,11 +13,12 @@ class SignUpView(CreateView):
     template_name = 'registration/signup.html'
     success_url = reverse_lazy('login')
 
+
 class MyProfileView(UpdateView):
     model = CustomeUserModel
     template_name = 'profile.html'
     success_url = reverse_lazy('home')
-    fields = ['username' , 'first_name' , 'last_name', 'email' , 'bio' , 'picture']
+    fields = ['username' , 'email' , 'bio' , 'picture' , 'first_name' , 'last_name'] 
 
     def get_context_data(self, **kwargs):
         context = super(MyProfileView , self).get_context_data()

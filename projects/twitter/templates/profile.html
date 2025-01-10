@@ -1,11 +1,78 @@
 {%extends 'base.html'%}
-{% block content %} 
-<h1>profile</h1>
-
-<form method="post" enctype="multipart/form-data">
+{%load static%}
+{% block content %}
+<!-- <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{form.as_p}}
     <button class="btn btn-dark" type="submit">update</button>
-</form>
+</form> -->
 
+
+<div class="container">
+  <h1>Edit Profile</h1>
+  <hr>
+  
+  <form class="form-horizontal" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-md-3">
+        <div class="text-center">
+          {%if user.picture%}
+          <img style="width: 15vw;" src="{{user.picture.url}}" class="avatar img-circle" alt="avatar">
+          {%else%}
+          <img style="width: 15vw;" src="{% static 'default_pic.jpg' %}" alt="">
+          {%endif%}
+
+
+          <input name="picture" type="file" class="form-control">
+        </div>
+      </div>
+
+      <div class="col-md-9 personal-info">
+        <h3>Personal info</h3>
+
+        
+          <div class="form-group">
+            <label class="col-lg-3 control-label">First name:</label>
+            <div class="col-lg-8">
+              <input name="first_name" class="form-control" type="text" value={{user.first_name}}>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Last name:</label>
+            <div class="col-lg-8">
+              <input name="last_name" class="form-control" type="text" value={{user.last_name}}>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Email:</label>
+            <div class="col-lg-8">
+              <input name="email" class="form-control" type="text" value={{user.email}}>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-3 control-label">Username:</label>
+            <div class="col-md-8">
+              <input name="username" class="form-control" type="text" value={{user.username}}>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Bio:</label>
+            <div class="col-md-8">
+              <input name="bio" class="form-control" type="text" value={{user.bio}}>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label"></label>
+            <div class="col-md-8">
+              <input type="submit" class="btn btn-primary" value="Save Changes">
+
+            </div>
+          </div>
+      </div>
+    </div>
+  </form>
+</div>
+<hr>
 {% endblock %}
