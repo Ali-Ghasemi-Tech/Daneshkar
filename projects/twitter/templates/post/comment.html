@@ -1,5 +1,9 @@
+{%extends 'base.html'%}
+{% block content%}
+<h2>comment</h2>
 <form method="post">
     {% csrf_token %}
     {{form.as_p}}
-    <button type="submit">submit comment</button>
+    <button class="btn btn-dark" type="submit">submit comment</button>
 </form>
+{%endblock%}

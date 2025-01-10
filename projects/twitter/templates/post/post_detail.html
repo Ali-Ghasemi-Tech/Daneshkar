@@ -8,27 +8,37 @@
     {%if post.image%}
     <img class="img-fluid" style="width: 15vw;" src="{{post.image.url}}" alt="">
     {%endif%}
+    <div>
+        <p>{{object.date}}</p>
+        <p><a href="{% url 'view_profile' post.author.pk %}">{{ post.author.username }}</a> . {{post.date_post}}</p>
+        {%if user.id == post.author.id%}
+        <a href="{% url 'update_post' post.pk %}">update</a>  <a href="{% url 'delete_post' post.pk %}">delete</a>
+        {% endif %}
+    </div>
+    <div class="d-flex align-items-center mt-3">
+        <p style="margin-right: 5;">tags: </p>
+        <form class="d-flex align-items-center" action="{% url 'search_posts' %}" method="get">  
+            {% csrf_token %}
+             
+            <input class="btn btn-primary rounded" name="q" type="submit" value={{post.tag}}>
+        </form>
+    </div>
+    
 </div>
 
-<div>
-    <p>{{object.date}}</p>
-    <p><a href="{% url 'view_profile' post.author.pk %}">{{ post.author.username }}</a> . {{post.date_post}}</p>
-    {%if user.id == post.author.id%}
-    <a href="{% url 'update_post' post.pk %}">update</a>  <a href="{% url 'delete_post' post.pk %}">delete</a>
-    {% endif %}
-</div>
+
 {% if user.is_authenticated %}
 <!-- likes and dislikes forms -->
-<div>
+<div class="d-flex gap-2">
     <!-- likes -->
     <form action="{% url 'like_post' post.pk %}" method="post">
         {% csrf_token %}
         {% if liked %}
         
-        <button type="submit"><img style="width: 2vw;" src="{% static 'icons/unlike.svg' %}" alt=""></button> - {{total_likes}}
+        <button style="background-color: transparent; border: none;" type="submit"><img style="width: 1vw; " src="{% static 'icons/unlike.svg' %}" alt=""></button> - {{total_likes}}
         {% else %}
     
-        <button type="submit"> <img style="width: 2vw;" src="{% static 'icons/like.svg' %}" alt="">  </button>- {{total_likes}}
+        <button style="background-color: transparent; border: none;" type="submit"> <img style="width: 1vw;" src="{% static 'icons/like.svg' %}" alt="">  </button>- {{total_likes}}
         {% endif %}
     </form>
     <!-- dislikes -->
@@ -36,10 +46,10 @@
         {% csrf_token %}
         {% if disliked %}
         
-        <button type="submit"><img style="width: 2vw;" src="{% static 'icons/undislike.svg' %}" alt=""></button> - {{total_dislikes}}
+        <button style="background-color: transparent; border: none;" type="submit"><img style="width: 1vw; " src="{% static 'icons/undislike.svg' %}" alt=""></button> - {{total_dislikes}}
         {% else %}
     
-        <button type="submit"><img style="width: 2vw;" src="{% static 'icons/dislike.svg' %}" alt=""></button> - {{total_dislikes}}
+        <button style="background-color: transparent; border: none;" type="submit"><img style="width: 1vw;" src="{% static 'icons/dislike.svg' %}" alt=""></button> - {{total_dislikes}}
         {% endif %}
     </form>
 </div>
@@ -47,7 +57,7 @@
 <!-- comment form -->
 <form action="{% url 'post_comment' post.pk %}" method="post">
     {% csrf_token %}
-    <button type="submit">add comment</button>
+    <button class="btn btn-dark" type="submit">add comment</button>
 </form>
 {% endif %}
 <br><hr>
@@ -60,9 +70,9 @@
         <a href="{%url 'view_profile' comment.author.id%}">{{comment.author}}</a> - {{comment.created_at}}
     </div>
     <!-- reply form -->
-    <form action="{% url 'comment_reply' post.pk comment.pk %}" method="post">
+    <form class="mt-3" action="{% url 'comment_reply' post.pk comment.pk %}" method="post">
         {% csrf_token %}
-        <button type="submit">add comment</button>
+        <button class="btn btn-primary" type="submit">add comment</button>
         {% if user.id == post.author.id or user.id == comment.author.id%}
 
         <a href="{% url 'delete_comment' post.pk comment.pk%}">delete</a>

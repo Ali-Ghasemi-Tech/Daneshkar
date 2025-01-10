@@ -13,6 +13,7 @@ class HomePageView(ListView):
     template_name= 'home.html'
     context_object_name = 'posts'
 
+
 class NewPost(CreateView , LoginRequiredMixin):
     model = Post
     template_name = 'post/new_post.html'
@@ -22,15 +23,21 @@ class NewPost(CreateView , LoginRequiredMixin):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
+
+        if 'image' in self.request.FILES: 
+            form.instance.image = self.request.FILES['image'] 
+
         return super().form_valid(form)
     
 class PostDetailsView(DetailView):
     model = Post
     template_name = 'post/post_detail.html'
+    
 
     def get_context_data(self, **kwargs):
         context = super(PostDetailsView , self).get_context_data()
         user_post = get_object_or_404(Post , pk = self.kwargs['pk'])
+
         liked = False
         disliked = False
         if user_post.like.filter(id = self.request.user.id).exists():
@@ -42,8 +49,6 @@ class PostDetailsView(DetailView):
         context['total_likes'] = user_post.total_likes()
         context['total_dislikes'] = user_post.total_dislikes()
 
-       
-        
         comments = user_post.comments.all().order_by('-created_at')
         context['comments'] = comments
         return context
@@ -52,8 +57,10 @@ class PostDetailsView(DetailView):
 class PostEditView(UpdateView):
     model = Post
     template_name = 'post/update_post.html'
-    success_url = reverse_lazy('home')
-    fields = ['title' , 'text'] 
+    fields = ['title' , 'text' , 'image' , 'tag'] 
+
+    def get_success_url(self):
+        return reverse_lazy('post_detail' , args = [self.object.pk])
 
 class PostDeleteView(DeleteView):
     model = Post
@@ -136,3 +143,12 @@ class DeleteCommentView(DeleteView):
         return reverse_lazy('post_detail', args=[self.object.post.pk]) 
 
     
+
+def search_posts(request):
+    tag = request.GET.get('q')
+    if tag:
+        posts = Post.objects.filter(tag__icontains=tag) 
+    else:
+        posts = Post.objects.all()
+    context = {'posts': posts}
+    return render(request, 'post/search_results.html', context)

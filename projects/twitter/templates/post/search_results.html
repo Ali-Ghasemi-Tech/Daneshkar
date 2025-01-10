@@ -1,0 +1,15 @@
+{%extends 'base.html'%}
+{% block content%}
+<ul>
+    {%for post in posts%}
+    <li>
+        <h4><a href="{% url 'post_detail' post.pk %}">{{post.title}}</a></h4>
+        {{post.text}}
+        <div>
+            <p><a href="{% url 'view_profile' post.author.pk %}">{{ post.author.username }}</a> . {{post.date_post}}</p>
+        </div>
+    </li>
+    <br>
+    {% endfor %}
+</ul>
+{%endblock%}

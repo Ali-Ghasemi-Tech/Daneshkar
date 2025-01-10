@@ -6,9 +6,9 @@
 {%if profile.pk == user.id%}
 <div class="card mb-3" style="max-width: 540px;">
     <div class="row g-0">
-      <div class="col-md-4">
+      <div class="col-md-4 d-flex">
         {%if profile.picture%} 
-        <img src="{% static 'profile_pic/user.id.jpg' %}" class="img-fluid rounded-start" alt="...">
+        <img src="{{profile.picture.url}}" class="img-fluid rounded-start object-fit-cover" alt="...">
         {%else%}
         <img src="{% static 'default_pic.jpg' %}" class="img-fluid rounded-start" alt="...">
         {%endif%}
