@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {%load static%}
 {%block content %}
-<h1></h1>
 
 {%if profile.pk == user.id%}
 <div class="card mb-3" style="max-width: 540px;">
@@ -30,9 +29,9 @@
 {%else%}
 <div class="card mb-3" style="max-width: 540px;">
     <div class="row g-0">
-      <div class="col-md-4">
+      <div class="col-md-4 d-flex">
         {%if profile.picture%} 
-        <img src="{% static 'profile_pic/user.id.jpg' %}" class="img-fluid rounded-start" alt="...">
+        <img class="img-fluid rounded-start object-fit-cover" src="{{profile.picture.url}}" class="img-fluid rounded-start" alt="...">
         {%else%}
         <img src="{% static 'default_pic.jpg' %}" class="img-fluid rounded-start" alt="...">
         {%endif%}
@@ -46,6 +45,7 @@
       </div>
     </div>
 </div>
+{%if user.is_authenticated%}
 <form action="{% url 'follow' profile.pk %}" method="post">
     {%csrf_token%}
     {% if followed%}
@@ -54,6 +54,10 @@
     <button class="btn btn-primary" type="submit">follow</button>
     {% endif %}
 </form>
+{%else%}
+<a href="{%url 'login'%}">you need to login first</a>
+{%endif%}
+
 {%endif%}
 
 {%endblock%}

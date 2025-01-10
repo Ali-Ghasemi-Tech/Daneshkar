@@ -63,13 +63,20 @@
 <br><hr>
 <h2>comments</h2>
 <ul>
-{% for comment in post.comments.all%}
+{% for comment in comments%}
+{%if comment.reply%}
+<li class="depth-{{comment.level}}"> 
+{%else%}
 <li>
+{%endif%}
+
     <p>{{comment.body}}</p>
     <div>
         <a href="{%url 'view_profile' comment.author.id%}">{{comment.author}}</a> - {{comment.created_at}}
     </div>
     <!-- reply form -->
+    {% if user.is_authenticated %}
+
     <form class="mt-3" action="{% url 'comment_reply' post.pk comment.pk %}" method="post">
         {% csrf_token %}
         <button class="btn btn-primary" type="submit">add comment</button>
@@ -79,7 +86,10 @@
         {% endif %}
 
     </form> 
+    {%endif%}
 </li>
+
+<hr>
 {% endfor %}
 </ul>
 

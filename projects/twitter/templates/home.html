@@ -1,31 +1,17 @@
 {% extends 'base.html' %}
-
+{%load static%}
 {% block content %}
+
 {%if user.is_authenticated%}
 
-<h1 class="home-h1">THE BEST TWITTER APP IN THE <span class="rotating-text">WORLD</span> </h1>
+<a style="position: fixed; bottom: 100px;  right: 100px;" href="{% url 'new_post'%}">
+    <div style="padding-right:15 ;padding-left: 15;; background-color: rgb(97, 97, 235); color: white; border-radius: 2vw; font-size: 2vw;">+</div>
+</a>
+
+<h1 class="home-h1">TWITTER-ish</h1>
 
 <p>hi {{user.username}} </p>
 
-<div>
-    <form action="{% url 'new_post'%}" method="post">
-        {%csrf_token%}
-        <input type="submit" value="new post">
-    </form>
-</div>
-
-<ul>
-    {%for post in posts%}
-    <li>
-        <h4><a href="{% url 'post_detail' post.pk %}">{{post.title}}</a></h4>
-        {{post.text}}
-        <div>
-            <p><a href="{% url 'view_profile' post.author.pk %}">{{ post.author.username }}</a> . {{post.date_post}}</p>
-        </div>
-    </li>
-    <br>
-    {% endfor %}
-</ul>
 {% else %}
 <p>you are not logged in</p>
 <a href="{%url 'login'%}">login</a>
@@ -33,5 +19,111 @@
 
 
 
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+<div class="container">
+    
+    <div class="row">
+       
+        <div class="col-md-12">
+           
+            <div id="content" class="content content-full-width">
+               
+                <!-- begin profile-content -->
+                <div class="profile-content">
+                    
+                    <!-- begin tab-content -->
+                    <div class="tab-content p-0">
+                       
+                        <!-- begin #profile-post tab -->
+                        <div class="tab-pane fade active show" id="profile-post">
+                            {%for post in posts%}
+                            <!-- begin timeline -->
+                            <ul class="timeline">
+                                
+                                <li>
+                                    <!-- begin timeline-time -->
+                                    <div class="timeline-time">
+                                        <span class="date">{{post.date_post}}</span>
+                                        <span class="time">{{post.time_post}}</span>
+                                    </div>
+                                    <!-- end timeline-time -->
+                                    <!-- begin timeline-icon -->
+                                    <div class="timeline-icon">
+                                        <a href="javascript:;">&nbsp;</a>
+                                    </div>
+                                    <!-- end timeline-icon -->
+                                    <!-- begin timeline-body -->
+
+                                    <div class="timeline-body">
+
+                                        <div class="timeline-header">
+                                            <span class="userimage">
+                                                {%if post.author.picure%}
+                                                <img src="{{post.author.picture.url}}" alt="{{post.author.username}}">
+                                                {%else%}
+                                                <img src="{%static 'default_pic.jpg'%}" alt="{{post.author.username}}">
+                                                {%endif%}
+                                            </span>
+                                            <span class="username"><a
+                                                    href="{%url 'view_profile' post.author.id%}">{{post.author.username}}</a>
+                                                <small></small></span>
+
+                                        </div>
+                                        <a  style="text-decoration: none; color: black;" href="{%url 'post_detail' post.pk %}"> 
+                                            <div style="padding-top: 15;" class="timeline-content">
+                                                <p>
+                                                    {{post.text}}
+                                                </p>
+                                            </div>
+                                        </a>
+                                        <div class="timeline-likes">
+                                            <div class="stats-right">
+                                                <span class="stats-text">comments:
+                                                    {{post.comments.all.count}}</span>
+                                            </div>
+                                            <div class="stats">
+                                                <span class="fa-stack fa-fw stats-icon">
+                                                    <i class="fa fa-circle fa-stack-2x text-danger"></i>
+                                                    <i class="fa fa-heart fa-stack-1x fa-inverse t-plus-1"></i>
+                                                </span>
+                                                <span class="fa-stack fa-fw stats-icon">
+                                                    <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                                                    <i class="fa fa-thumbs-up fa-stack-1x fa-inverse"></i>
+                                                </span>
+                                                <span class="stats-total">{{post.total_likes}}</span>
+                                            </div>
+                                        </div>
+
+
+                                        <a style="color: black;" href="{% url 'post_detail' post.id %}">post detail</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- end timeline-body -->
+                                </li>
+
+                                
+                                
+                            </ul>
+                            {%endfor%}
+                            <!-- end timeline -->
+                        </div>
+                       
+                        <!-- end #profile-post tab -->
+                    </div>
+                   
+                    <!-- end tab-content -->
+                </div>
+                <!-- end profile-content -->
+              
+            </div>
+            
+        </div>
+       
+    </div>
+    
+</div>
 
 {% endblock %}

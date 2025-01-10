@@ -3,7 +3,8 @@ from django.views.generic import ListView , CreateView , DeleteView , UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 
-from .models import Post , CommentModel
+from .models import Post , CommentModel 
+from accounts.models import CustomeUserModel
 
 
 # Create your views here.
@@ -12,6 +13,9 @@ class HomePageView(ListView):
     model = Post
     template_name= 'home.html'
     context_object_name = 'posts'
+    ordering = ['-date_post' , '-time_post']
+
+    
 
 
 class NewPost(CreateView , LoginRequiredMixin):
@@ -49,7 +53,7 @@ class PostDetailsView(DetailView):
         context['total_likes'] = user_post.total_likes()
         context['total_dislikes'] = user_post.total_dislikes()
 
-        comments = user_post.comments.all().order_by('-created_at')
+        comments = user_post.comments.all().order_by('created_at')
         context['comments'] = comments
         return context
 
@@ -113,6 +117,7 @@ class CommentReplyView(CreateView):
     model = CommentModel
     fields = ['body']    
     template_name = 'post/comment.html'
+    ordering = ['level']
 
     def form_valid(self, form):
         post_pk = self.kwargs['post_pk']
@@ -147,8 +152,11 @@ class DeleteCommentView(DeleteView):
 def search_posts(request):
     tag = request.GET.get('q')
     if tag:
-        posts = Post.objects.filter(tag__icontains=tag) 
+        posts = Post.objects.filter(tag__icontains=tag)
+        user = CustomeUserModel.objects.filter(username__icontains = tag)
     else:
         posts = Post.objects.all()
     context = {'posts': posts}
+    context = {'users': user}
     return render(request, 'post/search_results.html', context)
+
