@@ -21,16 +21,19 @@
             
             <!-- username input -->
             <div data-mdb-input-init class="form-outline mb-3">
+              <label class="form-label" for="form3Example4">Username</label>
               <input name="username" type="text" id="form3Example4" class="form-control form-control-lg"
                 placeholder="Enter username" />
-              <label class="form-label" for="form3Example4">Password</label>
+              <span style="color: red;">{{from.username.errors}}</span>
             </div>
   
             <!-- Password input -->
             <div data-mdb-input-init class="form-outline mb-3">
+              <label class="form-label" for="form3Example4">Password</label>
+
               <input name="password" type="password" id="form3Example4" class="form-control form-control-lg"
                 placeholder="Enter password" />
-              <label class="form-label" for="form3Example4">Password</label>
+              <span style="color: red;">{{from.password.errors}}</span>
             </div>
   
             

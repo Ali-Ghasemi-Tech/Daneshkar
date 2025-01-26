@@ -24,24 +24,31 @@
                     <div class="d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                       <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                        <input name="username" type="text" id="form3Example1c" class="form-control" required/>
-                        <label class="form-label" for="form3Example1c">User name <span style="color: red;">*</span></label>
+                        <label class="form-label" for="id_username">User name <span style="color: red;">*</span></label>
+                        <input name="username" type="text" id="id_username" class="form-control" required/>
+                        <span style="color: red;">{{ form.username.errors }}</span>
+
+                        
                       </div>
                     </div>
-
+                    
                     <div class="d-flex flex-row align-items-center mb-4">
                         <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                         <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                          <input name="first_name" type="text" id="form3Example1c" class="form-control"/>
-                          <label class="form-label" for="form3Example1c">First name </label>
+                          
+                          <label class="form-label" for="id_firstname">First name </label>
+                          <input name="firstname" type="text" id="id_firstname" class="form-control"/>
+                          <span style="color: red;">{{ form.firstname.errors }}</span>
                         </div>
                     </div>
 
                     <div class="d-flex flex-row align-items-center mb-4">
                         <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                         <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                          <input name="last_name" type="text" id="form3Example1c" class="form-control" />
-                          <label class="form-label" for="form3Example1c">Last name</label>
+                         
+                          <label class="form-label" for="id_lastname">Last name</label>
+                          <input name="lastname" type="text" id="id_lastname" class="form-control" />
+                          <span style="color: red;">{{ form.lastname.errors }}</span>
                         </div>
                       </div>
   
@@ -49,16 +56,19 @@
                     <div class="d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                       <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                        <input name="password" type="password" id="form3Example4c" class="form-control" required/>
-                        <label class="form-label" for="form3Example4c">Password <span style="color: red;">*</span></label>
+                        <label class="form-label" for="id_password">Password <span style="color: red;">*</span></label>
+                        <input name="password" type="password" id="id_password" class="form-control" required/>
+                        <span style="color: red;">{{ form.password.errors }}</span>
                       </div>
                     </div>
   
                     <div class="d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                       <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                        <input name="confirm_password" type="password" id="form3Example4cd" class="form-control" required/>
-                        <label class="form-label" for="form3Example4cd">Repeat your password <span style="color: red;">*</span></label>
+                        
+                        <label class="form-label" for="id_confirm_password">Repeat your password <span style="color: red;">*</span></label>
+                        <input name="confirm_password" type="password" id="id_confirm_password" class="form-control" required/>
+                        <span style="color: red;">{{ form.confirm_password.errors }}</span>
                       </div>
                     </div>
   

@@ -1,6 +1,6 @@
 from django.urls import path , include
-from .views import SignUpView
+from .views import SignUpView , loginView
 urlpatterns =[
     path('signup' , SignUpView.as_view() , name='signup'),
-    path('' , include('django.contrib.auth.urls')),
+    path('login/' , loginView , name='login'),
 ]
