@@ -42,6 +42,10 @@ INSTALLED_APPS = [
     #loacal
     'membership',
     'workspace',
+
+    #3rd party
+    'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -89,6 +93,15 @@ DATABASES = {
         'HOST': '127.0.0.1',
         'PORT': '5432'
     }
+}
+
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    # ]
 }
 
 

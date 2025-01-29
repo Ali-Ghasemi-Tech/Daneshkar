@@ -4,7 +4,7 @@ from django.contrib.auth.hashers import check_password
 from django.utils.timezone import now
 
 class MemberAuthBackend(BaseBackend):
-    def authenticate(self, request, username = ..., password = ..., **kwargs):
+    def authenticate(self, username = ..., password = ..., **kwargs):
         try:
             member = MemberModel.objects.get(username= username)
             if check_password(password , member.password):

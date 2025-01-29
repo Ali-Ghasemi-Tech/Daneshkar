@@ -56,11 +56,4 @@ class SignupForm(forms.ModelForm):
             raise forms.ValidationError('the passwords does not match')
         if len(password) < 8 :
             raise forms.ValidationError('password should be atleast 8 characters long')
-        return cleaned_data
-
-        
-    
-class LoginForm(forms.Form):
-    username = forms.CharField(max_length= 200)
-    password = forms.CharField(widget=forms.PasswordInput())
-    
+        return cleaned_data    

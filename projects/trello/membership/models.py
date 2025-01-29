@@ -4,6 +4,7 @@ from django.contrib.auth.hashers import make_password
 # Create your models here.
 
 class MemberModel(models.Model):
+    
     username = models.CharField(max_length=200 , unique=True)
     firstname= models.CharField(max_length=200 , blank=True , null = True)
     lastname= models.CharField(max_length=200 , blank=True , null = True)
