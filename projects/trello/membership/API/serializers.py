@@ -9,7 +9,7 @@ class SignupSerializer(serializers.ModelSerializer):
     class Meta:
         model = MemberModel
         exclude = ['is_active' , 'last_login']
-        widgets ={
+        extra_kwargs ={
             'password': {'write_only': True},
         }
 
@@ -99,3 +99,9 @@ class UpdateSerializer(serializers.ModelSerializer):
         instance.username = validated_data.get('username', instance.username)
         instance.save()
         return instance
+
+class LoginSerializer(serializers.ModelSerializer):
+    class Meta: 
+        model = MemberModel
+        fields = ['username' , 'password']
+       
