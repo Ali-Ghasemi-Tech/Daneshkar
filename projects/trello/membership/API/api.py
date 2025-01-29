@@ -1,5 +1,5 @@
 from .serializers import SignupSerializer , UpdateSerializer , LoginSerializer, MemberSerializer
-from rest_framework.generics import ListCreateAPIView , RetrieveUpdateAPIView , RetrieveDestroyAPIView 
+from rest_framework.generics import ListCreateAPIView , RetrieveUpdateAPIView , RetrieveDestroyAPIView , RetrieveAPIView , ListAPIView
 from rest_framework import status , permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -33,3 +33,11 @@ class DeleteApiView(RetrieveDestroyAPIView):
     queryset = MemberModel.objects.all()
     serializer_class = MemberSerializer
     # permission_classes = {'post' : [permissions.IsAuthenticated] , 'post': [ permissions.IsAdminUser] }
+
+class DetailApiView(RetrieveAPIView):
+    queryset = MemberModel.objects.all()
+    serializer_class = MemberSerializer
+
+class MemberListApiView(ListAPIView):
+    queryset = MemberModel.objects.all()
+    serializer_class = MemberSerializer
