@@ -31,14 +31,14 @@ class SignUpView(CreateView):
     #         context = {'form': form}
     #         return render(request, self.template_name, context)
 
-def loginView(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        member = authenticate(request , username = username , password = password)
-        if member:
-            login(request , member)
-            return redirect('home')
-        else:
-            return render(request , 'members/login.html' , {'error' : 'invalid username or password'})
-    return render(request , 'members/login.html')
+# def loginView(request):
+#     if request.method == 'POST':
+#         username = request.POST['username']
+#         password = request.POST['password']
+#         member = authenticate(request , username = username , password = password)
+#         if member:
+#             login(request , member)
+#             return redirect('home')
+#         else:
+#             return render(request , 'members/login.html' , {'error' : 'invalid username or password'})
+#     return render(request , 'members/login.html')
