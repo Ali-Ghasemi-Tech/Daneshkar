@@ -87,7 +87,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'trello',
+        'NAME': 'trellodb',
         'USER': 'postgres',
         'PASSWORD': '1234',
         'HOST': '127.0.0.1',

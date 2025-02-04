@@ -4,12 +4,15 @@ from rest_framework.generics import ListCreateAPIView , RetrieveUpdateDestroyAPI
 from ..models import Workspace , Board , Task
 from django.shortcuts import get_object_or_404
 from .permissions import IsOwner
+from django.db.models import Q
 
 class WorkspaceCreateApiView(ListCreateAPIView):
     serializer_class = WorkspaceCreateSerializer
 
     def get_queryset(self):
-        Workspace.objects.filter(owner = self.request.user)
+        # return Workspace.objects.filter(owner = self.request.user )
+        user = self.request.user
+        return Workspace.objects.filter(Q(owner=user) | Q(members=user), is_active=True).distinct()
     
     def perform_create(self, serializer):
         serializer.save(owner = self.request.user)
@@ -23,7 +26,7 @@ class WorkspaceUpdateDeleteView(RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         workspace_id = self.kwargs.get('workspace_id')
         print(workspace_id)
-        return Workspace.objects.filter(id = workspace_id)
+        return Workspace.objects.filter(id = workspace_id) 
 
 class BoardApiView(ListCreateAPIView):
    

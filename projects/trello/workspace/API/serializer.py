@@ -4,23 +4,29 @@ from django.shortcuts import get_object_or_404
 
 
 class WorkspaceCreateSerializer(serializers.ModelSerializer):
-    # owner = serializers.ReadOnlyField(source='owner.username')
-
-    # members = serializers.PrimaryKeyRelatedField(
-    #     queryset=MemberModel.objects.all(),  # All available members
-    #     many=True,  # Important for many-to-many
-    #     widget=serializers.CheckboxSelectMultiple  # Use checkbox widget
-    # )
+    members = serializers.SerializerMethodField()  
+    member_ids = serializers.PrimaryKeyRelatedField(
+        queryset=MemberModel.objects.all(),
+        source='members',
+        write_only=True,
+        many=True
+    )
+   
     class Meta:
         model = Workspace
         exclude = ['is_active']
         read_only_fields = ['owner']
 
+    def get_members(self, obj):
+        return [user.username for user in obj.members.all()]
 
-        # def create(self, validated_data,request):
-        #         validated_data['owner'] = request.user.id
-        #         return super().create(validated_data)
-        
+    def create(self, validated_data):
+        members = validated_data.pop('members', [])
+        workspace = Workspace.objects.create(**validated_data)
+        workspace.members.set(members)
+        return workspace
+
+
 class WorkspaceUpdateDeleteSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
 
