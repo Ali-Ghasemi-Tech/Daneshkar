@@ -40,6 +40,29 @@ class BoardSerializer(serializers.ModelSerializer):
    
     def __init__(self, *args, **kwargs):
         workspace_members = kwargs.get('context').get('members')  # Correct key: workspace_members
+        workspace = kwargs.get('context').get('workspace')
+        # print(kwargs.get('context').get('users'))
+        super().__init__(*args, **kwargs)
+        if workspace_members:
+            print(workspace_members)
+            self.query = workspace_members  # Correct key: workspace_members
+            
+        self.fields['users'] = serializers.PrimaryKeyRelatedField(queryset=self.query, many=True)
+        if workspace:
+            self.fields['workspace'] = serializers.PrimaryKeyRelatedField(queryset = Workspace.objects.filter(id = workspace.id) , many = False)
+            print(self.fields['workspace'])
+    
+
+    class Meta:
+        model = Board
+        exclude = ['start' , 'done' , 'is_active']
+        read_only_fields = ['workspace']
+
+class BoardUpdateDeleteSerializer(serializers.ModelSerializer):
+
+    def __init__(self, *args, **kwargs):
+        workspace_members = kwargs.get('context').get('members')  # Correct key: workspace_members
+        workspace = kwargs.get('context').get('workspace')
         # print(kwargs.get('context').get('users'))
         super().__init__(*args, **kwargs)
         if workspace_members:
@@ -48,11 +71,11 @@ class BoardSerializer(serializers.ModelSerializer):
             
         self.fields['users'] = serializers.PrimaryKeyRelatedField(queryset=self.query, many=True)
         
-           
-
+            
     class Meta:
         model = Board
-        exclude = ['start' , 'done' , 'workspace']
+        fields = '__all__'
+        read_only_fields = ['start' , 'workspace']
 
 class TaskSerializer(serializers.ModelSerializer):
     class Meta:

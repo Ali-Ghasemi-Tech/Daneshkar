@@ -69,7 +69,7 @@ class Workspace(models.Model):
 class Board(models.Model):
     name = models.CharField(max_length=50 , null=True)
     description = models.TextField()
-    active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=True)
     done = models.BooleanField(default=False)
     start = models.DateTimeField(default=timezone.now)
     workspace = models.ForeignKey(Workspace, on_delete=models.CASCADE, related_name='boards' , null=True)
