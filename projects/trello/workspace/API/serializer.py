@@ -26,14 +26,12 @@ class WorkspaceCreateSerializer(serializers.ModelSerializer):
         workspace.members.set(members)
         return workspace
 
-
 class WorkspaceUpdateDeleteSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
 
     class Meta:
         model = Workspace
         fields = ['owner', 'name' , 'members', 'is_active', 'private']
-
         
 class BoardSerializer(serializers.ModelSerializer):
     query = MemberModel.objects.none()
@@ -78,6 +76,17 @@ class BoardUpdateDeleteSerializer(serializers.ModelSerializer):
         read_only_fields = ['start' , 'workspace']
 
 class TaskSerializer(serializers.ModelSerializer):
+    query = MemberModel.objects.none()
+   
+    def __init__(self, *args, **kwargs):
+        board_users = kwargs.get('context').get('users')  # Correct key: workspace_members
+        # print(kwargs.get('context').get('users'))
+        super().__init__(*args, **kwargs)
+        if board_users:
+            self.query = board_users  # Correct key: workspace_members
+            
+        self.fields['assigned_to'] = serializers.PrimaryKeyRelatedField(queryset = self.query, many = False)
+        
     class Meta:
         model = Task
-        exclude = 'start_time'
+        exclude = ['start_time']

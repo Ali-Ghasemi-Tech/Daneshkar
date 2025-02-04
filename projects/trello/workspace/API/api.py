@@ -72,3 +72,39 @@ class BoardUpdateDeleteApiView(RetrieveUpdateDestroyAPIView):
 class TaskApiView(ListCreateAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
+    lookup_url_kwarg = 'board_id'
+
+    def get_queryset(self):
+        board_id = self.kwargs.get('board_id')
+        self.board = get_object_or_404(Board, pk=board_id)
+        return Task.objects.filter(board=self.board)
+    
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        board_id = self.kwargs.get('board_id')
+        self.board = get_object_or_404(Board, pk=board_id)
+
+        # ***KEY CHANGE: Resolve the Many-to-Many relationship***
+        users = self.board.users.all()  # Get the actual Member instances
+
+        context['users'] = users  # Pass the resolved members to the context
+        return context
+    
+class TaskUpdateDeleteApiView(RetrieveUpdateDestroyAPIView):
+    serializer_class = TaskSerializer
+    lookup_url_kwarg = 'task_id'
+
+    def get_queryset(self):
+        task_id = self.kwargs.get('task_id')
+        return Task.objects.filter(id =task_id)
+    
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        board_id = self.kwargs.get('board_id')
+        self.board = get_object_or_404(Board, pk=board_id)
+
+        # ***KEY CHANGE: Resolve the Many-to-Many relationship***
+        users = self.board.users.all()  # Get the actual Member instances
+
+        context['users'] = users  # Pass the resolved members to the context
+        return context
