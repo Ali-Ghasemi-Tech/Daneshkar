@@ -3,7 +3,7 @@ from .serializer import WorkspaceCreateSerializer , BoardSerializer , TaskSerial
 from rest_framework.generics import ListCreateAPIView , RetrieveUpdateDestroyAPIView
 from ..models import Workspace , Board , Task
 from django.shortcuts import get_object_or_404
-from .permissions import IsOwner , IsParentOwner
+from .permissions import IsOwner , IsParentOwner , IsWorkspaceOwner
 from django.db.models import Q
 
 class WorkspaceCreateApiView(ListCreateAPIView):
@@ -93,6 +93,7 @@ class TaskApiView(ListCreateAPIView):
 class TaskUpdateDeleteApiView(RetrieveUpdateDestroyAPIView):
     serializer_class = TaskSerializer
     lookup_url_kwarg = 'task_id'
+    permission_classes = IsWorkspaceOwner
 
     def get_queryset(self):
         task_id = self.kwargs.get('task_id')
