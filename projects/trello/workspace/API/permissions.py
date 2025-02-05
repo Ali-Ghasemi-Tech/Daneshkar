@@ -16,3 +16,6 @@ class IsParentOwner(BasePermission):
 class IsWorkspaceOwner(BasePermission):
     def has_object_permission(self, request, view, obj):
         return request.user == obj.board.workspace.owner
+    
+class IsOwnerOrMemberBoard(BasePermission):
+    pass

@@ -32,10 +32,15 @@ class BoardApiView(ListCreateAPIView):
     serializer_class = BoardSerializer
     permission_classes = [IsParentOwner , permissions.IsAuthenticated]
 
-    def get_queryset(self):
-        workspace_id = self.kwargs.get('workspace_id')
-        self.workspace = get_object_or_404(Workspace, pk=workspace_id)
-        return Board.objects.filter(workspace=self.workspace)
+    def get_permissions(self):
+        if self.request.method in ['POST']:
+            return [IsParentOwner()]
+        # return [IsOwnerOrMemberBoard()]
+
+    # def get_queryset(self):
+    #     workspace_id = self.kwargs.get('workspace_id')
+    #     self.workspace = get_object_or_404(Workspace, pk=workspace_id)
+    #     return Board.objects.filter(workspace=self.workspace)
     
     def get_serializer_context(self):
         context = super().get_serializer_context()
@@ -49,10 +54,19 @@ class BoardApiView(ListCreateAPIView):
         context['workspace'] = self.workspace
         return context
     
+    def perform_create(self, serializer):
+        workspace_id = self.kwargs.get('workspace_id')
+        self.workspace = get_object_or_404(Workspace, pk=workspace_id)
+        serializer.save(workspace = self.workspace)
+
+    
 class BoardUpdateDeleteApiView(RetrieveUpdateDestroyAPIView):
     serializer_class = BoardUpdateDeleteSerializer
-    permission_classes = [IsParentOwner]
     lookup_url_kwarg = 'board_id'
+    # def get_permissions(self):
+    #     if self.request.method in ['PUT', 'PATCH', 'DELETE']:
+    #         return [IsParentOwner()]
+    #     # return [IsOwnerOrMemberBoard()]
 
     def get_queryset(self):
         board_id = self.kwargs.get('board_id')

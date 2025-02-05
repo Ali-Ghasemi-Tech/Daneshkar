@@ -46,9 +46,6 @@ class BoardSerializer(serializers.ModelSerializer):
             self.query = workspace_members  # Correct key: workspace_members
             
         self.fields['users'] = serializers.PrimaryKeyRelatedField(queryset=self.query, many=True)
-        if workspace:
-            self.fields['workspace'] = serializers.PrimaryKeyRelatedField(queryset = Workspace.objects.filter(id = workspace.id) , many = False)
-            print(self.fields['workspace'])
     
 
     class Meta:
@@ -90,3 +87,9 @@ class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
         exclude = ['start_time']
+
+        def create(self , validated_data):
+            if validated_data['title'] in Task.objects.filter(board = validated_data['board']).values_list('title'):
+                raise serializers.ValidationError("task already exists.")
+            else:
+                return super().create(validated_data)
