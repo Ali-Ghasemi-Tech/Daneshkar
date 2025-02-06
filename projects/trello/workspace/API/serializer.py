@@ -88,11 +88,13 @@ class TaskSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ['board' , 'start_time']
 
-        def create(self , validated_data):
-            if validated_data['title'] in Task.objects.filter(board = validated_data['board']).values_list('title'):
-                raise serializers.ValidationError("task already exists.")
-            else:
-                return super().create(validated_data)
+    def create(self , validated_data):
+        if validated_data['title'] in Task.objects.filter(board = validated_data['board']).values_list('title' , flat= True):
+            raise serializers.ValidationError("task already exists.")
+        else:
+            return super().create(validated_data)
+        # print((validated_data['title'] , ) in Task.objects.filter(board = validated_data['board']).values_list('title'))
+        # return super().create(validated_data)
 
 class TaskStatusUpdate(serializers.ModelSerializer):
     class Meta:
