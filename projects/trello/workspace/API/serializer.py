@@ -38,7 +38,6 @@ class BoardSerializer(serializers.ModelSerializer):
    
     def __init__(self, *args, **kwargs):
         workspace_members = kwargs.get('context').get('members')  # Correct key: workspace_members
-        workspace = kwargs.get('context').get('workspace')
         # print(kwargs.get('context').get('users'))
         super().__init__(*args, **kwargs)
         if workspace_members:
@@ -76,20 +75,27 @@ class TaskSerializer(serializers.ModelSerializer):
     query = MemberModel.objects.none()
    
     def __init__(self, *args, **kwargs):
-        board_users = kwargs.get('context').get('users')  # Correct key: workspace_members
-        # print(kwargs.get('context').get('users'))
+        board_users = kwargs.get('context').get('users') 
         super().__init__(*args, **kwargs)
+
         if board_users:
-            self.query = board_users  # Correct key: workspace_members
-            
+            self.query = board_users  
         self.fields['assigned_to'] = serializers.PrimaryKeyRelatedField(queryset = self.query, many = False)
+
         
     class Meta:
         model = Task
-        exclude = ['start_time']
+        fields = '__all__'
+        read_only_fields = ['board' , 'start_time']
 
         def create(self , validated_data):
             if validated_data['title'] in Task.objects.filter(board = validated_data['board']).values_list('title'):
                 raise serializers.ValidationError("task already exists.")
             else:
                 return super().create(validated_data)
+
+class TaskStatusUpdate(serializers.ModelSerializer):
+    class Meta:
+        model = Task
+        fields = '__all__'
+        read_only_fields = ['title' , 'assigned_to' , 'description' , 'start_time' , 'deadline' , 'board']

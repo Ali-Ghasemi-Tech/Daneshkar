@@ -85,19 +85,19 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': 'trellodb',
-    #     'USER': 'postgres',
-    #     'PASSWORD': '1234',
-    #     'HOST': '127.0.0.1',
-    #     'PORT': '5432'
-    # }
-     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'mydatabase', # This is where you put the name of the db file. 
-                 # If one doesn't exist, it will be created at migration time.
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'trellodb',
+        'USER': 'postgres',
+        'PASSWORD': '1234',
+        'HOST': '127.0.0.1',
+        'PORT': '5432'
     }
+    #  'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': 'mydatabase', # This is where you put the name of the db file. 
+    #              # If one doesn't exist, it will be created at migration time.
+    # }
 }
 
 

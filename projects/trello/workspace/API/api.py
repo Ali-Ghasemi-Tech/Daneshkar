@@ -1,9 +1,9 @@
 from rest_framework import serializers , status , permissions
-from .serializer import WorkspaceCreateSerializer , BoardSerializer , TaskSerializer , WorkspaceUpdateDeleteSerializer , BoardUpdateDeleteSerializer
-from rest_framework.generics import ListCreateAPIView , RetrieveUpdateDestroyAPIView
+from .serializer import WorkspaceCreateSerializer , BoardSerializer , TaskSerializer , WorkspaceUpdateDeleteSerializer , BoardUpdateDeleteSerializer , TaskStatusUpdate
+from rest_framework.generics import ListCreateAPIView , RetrieveUpdateDestroyAPIView , UpdateAPIView , RetrieveUpdateAPIView
 from ..models import Workspace , Board , Task
 from django.shortcuts import get_object_or_404
-from .permissions import IsOwner , IsParentOwner , IsWorkspaceOwner
+from .permissions import IsOwner  , IsWorkspaceOwner , IsOwnerOrMember , IsOwnerOrMemberBoard , CanUpdateStatus
 from django.db.models import Q
 
 class WorkspaceCreateApiView(ListCreateAPIView):
@@ -27,20 +27,19 @@ class WorkspaceUpdateDeleteView(RetrieveUpdateDestroyAPIView):
         workspace_id = self.kwargs.get('workspace_id')
         return Workspace.objects.filter(id = workspace_id) 
 
-class BoardApiView(ListCreateAPIView):
+class BoardCreateApiView(ListCreateAPIView):
    
     serializer_class = BoardSerializer
-    permission_classes = [IsParentOwner , permissions.IsAuthenticated]
 
     def get_permissions(self):
-        if self.request.method in ['POST']:
-            return [IsParentOwner()]
-        # return [IsOwnerOrMemberBoard()]
+        if self.request.method  == 'POST':
+            return [IsWorkspaceOwner()] 
+        return [IsOwnerOrMember()]
 
-    # def get_queryset(self):
-    #     workspace_id = self.kwargs.get('workspace_id')
-    #     self.workspace = get_object_or_404(Workspace, pk=workspace_id)
-    #     return Board.objects.filter(workspace=self.workspace)
+    def get_queryset(self):
+        workspace_id = self.kwargs.get('workspace_id')
+        self.workspace = get_object_or_404(Workspace, pk=workspace_id)
+        return Board.objects.filter(workspace=self.workspace)
     
     def get_serializer_context(self):
         context = super().get_serializer_context()
@@ -58,15 +57,15 @@ class BoardApiView(ListCreateAPIView):
         workspace_id = self.kwargs.get('workspace_id')
         self.workspace = get_object_or_404(Workspace, pk=workspace_id)
         serializer.save(workspace = self.workspace)
-
-    
+  
 class BoardUpdateDeleteApiView(RetrieveUpdateDestroyAPIView):
     serializer_class = BoardUpdateDeleteSerializer
     lookup_url_kwarg = 'board_id'
-    # def get_permissions(self):
-    #     if self.request.method in ['PUT', 'PATCH', 'DELETE']:
-    #         return [IsParentOwner()]
-    #     # return [IsOwnerOrMemberBoard()]
+
+    def get_permissions(self):
+        if self.request.method in ['PUT', 'PATCH', 'DELETE']:
+            return [IsWorkspaceOwner()]
+        return [IsOwnerOrMember()]
 
     def get_queryset(self):
         board_id = self.kwargs.get('board_id')
@@ -83,10 +82,15 @@ class BoardUpdateDeleteApiView(RetrieveUpdateDestroyAPIView):
         context['members'] = members  # Pass the resolved members to the context
         return context
 
-class TaskApiView(ListCreateAPIView):
+class TaskCreateApiView(ListCreateAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
     lookup_url_kwarg = 'board_id'
+
+    def get_permissions(self):
+        if self.request.method == 'POST':
+            return [IsWorkspaceOwner()]
+        return [IsOwnerOrMemberBoard()]
 
     def get_queryset(self):
         board_id = self.kwargs.get('board_id')
@@ -101,13 +105,23 @@ class TaskApiView(ListCreateAPIView):
         # ***KEY CHANGE: Resolve the Many-to-Many relationship***
         users = self.board.users.all()  # Get the actual Member instances
 
-        context['users'] = users  # Pass the resolved members to the context
+        context['users'] = users
+        context['board'] = self.board
         return context
+    
+    def perform_create(self, serializer):
+        board_id = self.kwargs.get('board_id')
+        self.board = get_object_or_404(Board, pk=board_id)
+        serializer.save(board = self.board)
     
 class TaskUpdateDeleteApiView(RetrieveUpdateDestroyAPIView):
     serializer_class = TaskSerializer
     lookup_url_kwarg = 'task_id'
-    permission_classes = IsWorkspaceOwner
+
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return[IsOwnerOrMemberBoard()]
+        return [IsWorkspaceOwner()]
 
     def get_queryset(self):
         task_id = self.kwargs.get('task_id')
@@ -123,3 +137,12 @@ class TaskUpdateDeleteApiView(RetrieveUpdateDestroyAPIView):
 
         context['users'] = users  # Pass the resolved members to the context
         return context
+    
+class TaskStatusUpdateApiView(RetrieveUpdateAPIView):
+    serializer_class = TaskStatusUpdate
+    permission_classes = [CanUpdateStatus]
+    lookup_url_kwarg = 'task_id'
+
+    def get_queryset(self):
+        task_id = self.kwargs.get('task_id')
+        return Task.objects.filter(id =task_id)
