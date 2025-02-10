@@ -12,8 +12,7 @@ class MemberModel(AbstractUser):
     def __repr__(self):
         return self.username
     
-    class Meta:
-        app_label = 'membership'
+
    
 
 

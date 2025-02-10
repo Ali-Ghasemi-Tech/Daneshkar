@@ -13,9 +13,10 @@ class SignupSerializerTest(TestCase):
             'last_name': 'User',
             'password': 'testpassword123',
             'confirm_password': 'testpassword123',
-            'email': 'testuser@example.com'
+            'email': 'testuser@example.com',
         }
-
+    
+   
     def test_valid_signup(self):
         serializer = SignupSerializer(data=self.valid_data)
         self.assertTrue(serializer.is_valid())

@@ -15,6 +15,9 @@ import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+AUTH_USER_MODEL = "membership.MemberModel"
+
+ALLOWED_HOSTS = ['0.0.0.0' , '127.0.0.1']
 
 
 # Quick-start development settings - unsuitable for production
@@ -85,22 +88,28 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': 'trellodb',
-    #     'USER': 'postgres',
-    #     'PASSWORD': '1234',
-    #     'HOST': '127.0.0.1',
-    #     'PORT': '5432'
-    # }
-      'default': {
+    'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('POSTGRES_DB', 'trellodb'),
-        'USER': os.getenv('POSTGRES_USER', 'postgres'),
-        'PASSWORD': os.getenv('POSTGRES_PASSWORD', '1234'),
-        'HOST': os.getenv('POSTGRES_HOST', 'db'),
-        'PORT': os.getenv('POSTGRES_PORT', '5432'),
+        'NAME': 'trellodb',
+        'USER': 'postgres',
+        'PASSWORD': '1234',
+        'HOST': '127.0.0.1',
+        'PORT': '5432'
     }
+
+    #if you want to run the docker compose up command first comment the above default and uncomment the below default
+
+    #   'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': os.getenv('POSTGRES_DB', 'trellodb'),
+    #     'USER': os.getenv('POSTGRES_USER', 'postgres'),
+    #     'PASSWORD': os.getenv('POSTGRES_PASSWORD', '1234'),
+    #     'HOST': os.getenv('POSTGRES_HOST', 'db'),
+    #     'PORT': os.getenv('POSTGRES_PORT', '5432'),
+    # }
+
+    #this is for the sqlite3 database
+
     #  'default': {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': 'mydatabase', # This is where you put the name of the db file. 
@@ -170,6 +179,3 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SESSION_ENGINE = 'django.contrib.sessions.backends.db' 
 
-AUTH_USER_MODEL = "membership.MemberModel"
-
-ALLOWED_HOSTS = ['0.0.0.0']
