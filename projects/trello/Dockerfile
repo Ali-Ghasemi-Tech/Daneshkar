@@ -1,26 +1,29 @@
-# operatin system and python version
+# Use an official Python runtime as a parent image
 FROM python:3.12-slim
 
-# set working directory
-WORKDIR /app
-
-# update packages (optional, can be removed if already updated)
-# RUN apt-get update && apt-get install -y libpq-dev
-
-# upgrade pip
-RUN pip install --upgrade pip
-
-# copy requirements (assuming your file is named requirements.txt)
-COPY ./requirements.txt ./requirements.txt
-
-# install packages (use psycopg2-binary instead)
-RUN pip install -r requirements.txt psycopg2
-
-# copy required files
-COPY . .
-
-# set env variables
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-# run command
-CMD [ "python" , 'manage.py' , 'runserver' , '127.0.0.1:8000' ]
+# Set the working directory in the container
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    libpq-dev \
+    build-essential \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
+COPY requirements.txt /app/
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the Django project into the container
+COPY . /app/
+
+# Expose the port the app runs on
+EXPOSE 8000
+
+# Command to run the application
+# CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

@@ -92,9 +92,7 @@ class TaskSerializer(serializers.ModelSerializer):
         if validated_data['title'] in Task.objects.filter(board = validated_data['board']).values_list('title' , flat= True):
             raise serializers.ValidationError("task already exists.")
         else:
-            return super().create(validated_data)
-        # print((validated_data['title'] , ) in Task.objects.filter(board = validated_data['board']).values_list('title'))
-        # return super().create(validated_data)
+            return super().create(validated_data)     
 
 class TaskStatusUpdate(serializers.ModelSerializer):
     class Meta:

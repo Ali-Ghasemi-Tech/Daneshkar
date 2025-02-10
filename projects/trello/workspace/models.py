@@ -101,6 +101,12 @@ class Task(models.Model):
         ('suspend', 'suspend'),
         ('done', 'done')
     ]
+    TAGS = [
+        ('new feature' , 'New Feature'),
+        ('refactoring' , 'Refactoring'),
+        ('bug fix' , 'Bug Fix'),
+        ('r&d' , 'R&D')
+    ]
 
     title = models.CharField(max_length=100)
     description = models.TextField()
@@ -110,6 +116,7 @@ class Task(models.Model):
     assigned_to = models.ForeignKey(MemberModel, on_delete=models.SET_NULL,
                                     related_name='assigned_tasks', null=True, blank=True)
     status = models.CharField(max_length=10, choices=DO_CHOICES, default='todo')
+    tag =models.CharField(max_length=20 , choices=TAGS , null= True , blank= True)
 
     # def clean(self):
     #     if self.assigned_to and not self.board.users.filter(id=self.assigned_to.id).exists():

@@ -90,7 +90,7 @@ class TaskCreateApiView(ListCreateAPIView):
     def get_permissions(self):
         if self.request.method == 'POST':
             return [IsWorkspaceOwner()]
-        return [IsOwnerOrMemberBoard()]
+        return [CanUpdateStatus()]
 
     def get_queryset(self):
         board_id = self.kwargs.get('board_id')
@@ -120,7 +120,7 @@ class TaskUpdateDeleteApiView(RetrieveUpdateDestroyAPIView):
 
     def get_permissions(self):
         if self.request.method == 'GET':
-            return[IsOwnerOrMemberBoard()]
+            return[CanUpdateStatus()]
         return [IsWorkspaceOwner()]
 
     def get_queryset(self):

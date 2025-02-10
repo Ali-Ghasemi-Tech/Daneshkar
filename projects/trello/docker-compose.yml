@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: trellodb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - "5433:5432"
+
+  web:
+    build: .
+    command: sh -c "python manage.py makemigrations membership && python manage.py migrate membership && python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000 "
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    # environment:
+    #   DATABASE_URL: postgres://myprojectuser:myprojectpassword@db:5432/myprojectdb
+
+volumes:
+  postgres_data:

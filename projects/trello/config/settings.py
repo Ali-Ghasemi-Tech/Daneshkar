@@ -85,13 +85,21 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'trellodb',
+    #     'USER': 'postgres',
+    #     'PASSWORD': '1234',
+    #     'HOST': '127.0.0.1',
+    #     'PORT': '5432'
+    # }
+      'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'trellodb',
-        'USER': 'postgres',
-        'PASSWORD': '1234',
-        'HOST': '127.0.0.1',
-        'PORT': '5432'
+        'NAME': os.getenv('POSTGRES_DB', 'trellodb'),
+        'USER': os.getenv('POSTGRES_USER', 'postgres'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD', '1234'),
+        'HOST': os.getenv('POSTGRES_HOST', 'db'),
+        'PORT': os.getenv('POSTGRES_PORT', '5432'),
     }
     #  'default': {
     #     'ENGINE': 'django.db.backends.sqlite3',
@@ -163,3 +171,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SESSION_ENGINE = 'django.contrib.sessions.backends.db' 
 
 AUTH_USER_MODEL = "membership.MemberModel"
+
+ALLOWED_HOSTS = ['0.0.0.0']
