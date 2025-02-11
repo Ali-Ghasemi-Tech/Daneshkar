@@ -3,15 +3,19 @@ from rest_framework.generics import ListCreateAPIView , RetrieveUpdateAPIView , 
 from rest_framework import status , permissions 
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.permissions import IsAuthenticated , AllowAny
+from rest_framework.permissions import IsAuthenticated , AllowAny 
 from ..models import MemberModel 
-from .permissions import IsSuperUserOrSelf , IsSelf , IsSuper
+from .permissions import IsSuperUserOrSelf , IsSelf , IsSuper , IsSuperUserOrNotAuthenticated
 from ..backends import MemberAuthBackend
 from django.contrib.auth import logout
 
 class SignupApiView(ListCreateAPIView):
     serializer_class = SignupSerializer
-    permission_classes = [IsSuperUserOrSelf ]
+    def get_permissions(self):
+        if self.request.method == 'POST':
+            return [IsSuperUserOrNotAuthenticated()]
+        return [IsAuthenticated()]
+    
     def get_queryset(self):
         if self.request.user.is_superuser:
             return MemberModel.objects.all()
