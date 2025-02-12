@@ -37,16 +37,14 @@ class BoardSerializer(serializers.ModelSerializer):
     query = MemberModel.objects.none()
    
     def __init__(self, *args, **kwargs):
-        workspace_members = kwargs.get('context').get('members')  # Correct key: workspace_members
-        # print(kwargs.get('context').get('users'))
+        workspace_members = kwargs.get('context').get('members')  
         super().__init__(*args, **kwargs)
         if workspace_members:
             print(workspace_members)
-            self.query = workspace_members  # Correct key: workspace_members
+            self.query = workspace_members  
             
         self.fields['users'] = serializers.PrimaryKeyRelatedField(queryset=self.query, many=True)
-    
-
+        
     class Meta:
         model = Board
         exclude = ['start' , 'done' , 'is_active']
@@ -86,13 +84,19 @@ class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
         fields = '__all__'
-        read_only_fields = ['board' , 'start_time']
+        read_only_fields = ['start_time']
+
+    def validate(self, data):
+        # Check for duplicate task titles within the same board
+        title = data.get('title')
+        board = data.get('board')
+        if Task.objects.filter(board=board, title=title).exists():
+            raise serializers.ValidationError({"title": "task already exists."})
+        return data
 
     def create(self , validated_data):
-        if validated_data['title'] in Task.objects.filter(board = validated_data['board']).values_list('title' , flat= True):
-            raise serializers.ValidationError("task already exists.")
-        else:
-            return super().create(validated_data)     
+        return super().create(validated_data)
+
 
 class TaskStatusUpdate(serializers.ModelSerializer):
     class Meta:

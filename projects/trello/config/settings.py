@@ -46,8 +46,10 @@ INSTALLED_APPS = [
     'workspace',
 
     #3rd party
+    'rest_framework_swagger', 
     'rest_framework',
     'rest_framework.authtoken',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [

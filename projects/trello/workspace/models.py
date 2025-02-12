@@ -72,7 +72,7 @@ class Board(models.Model):
     is_active = models.BooleanField(default=True)
     done = models.BooleanField(default=False)
     start = models.DateTimeField(default=timezone.now)
-    workspace = models.ForeignKey(Workspace, on_delete=models.CASCADE, related_name='boards' , null=True)
+    workspace = models.ForeignKey(Workspace, on_delete=models.CASCADE, related_name='workspace' , null=True)
     users = models.ManyToManyField(MemberModel, related_name='boards')
 
     # def clean(self):
