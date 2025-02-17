@@ -1,16 +1,16 @@
-from ..models import Workspace , Board , Task , MemberModel
+from .models import Workspace , Board , Task , MemberModel
 from rest_framework import serializers , status , permissions
 from django.shortcuts import get_object_or_404
 
 
 class WorkspaceCreateSerializer(serializers.ModelSerializer):
-    members = serializers.SerializerMethodField()  
-    member_ids = serializers.PrimaryKeyRelatedField(
-        queryset=MemberModel.objects.all(),
-        source='members',
-        write_only=True,
-        many=True
-    )
+    # members = serializers.SerializerMethodField()  
+    # member_ids = serializers.PrimaryKeyRelatedField(
+    #     queryset=MemberModel.objects.all(),
+    #     source='members',
+    #     write_only=True,
+    #     many=True
+    # )
    
     class Meta:
         model = Workspace
@@ -51,10 +51,9 @@ class BoardSerializer(serializers.ModelSerializer):
         read_only_fields = ['workspace']
 
 class BoardUpdateDeleteSerializer(serializers.ModelSerializer):
-
+    query = MemberModel.objects.none()
     def __init__(self, *args, **kwargs):
         workspace_members = kwargs.get('context').get('members')  # Correct key: workspace_members
-        workspace = kwargs.get('context').get('workspace')
         # print(kwargs.get('context').get('users'))
         super().__init__(*args, **kwargs)
         if workspace_members:

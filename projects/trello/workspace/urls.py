@@ -1,5 +1,5 @@
 from django.urls import path 
-from .API.api import WorkspaceCreateApiView , BoardCreateApiView , TaskCreateApiView , WorkspaceUpdateDeleteView , BoardUpdateDeleteApiView , TaskUpdateDeleteApiView , TaskStatusUpdateApiView
+from .views import WorkspaceCreateApiView , BoardCreateApiView , TaskCreateApiView , WorkspaceUpdateDeleteView , BoardUpdateDeleteApiView , TaskUpdateDeleteApiView , TaskStatusUpdateApiView
  
 urlpatterns = [
     path('' , WorkspaceCreateApiView.as_view() , name='workspace'),

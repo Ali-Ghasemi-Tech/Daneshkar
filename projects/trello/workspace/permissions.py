@@ -1,5 +1,5 @@
 from rest_framework.permissions import BasePermission
-from ..models import Workspace , Board , Task
+from .models import Workspace , Board , Task
 
 
 class IsOwner(BasePermission):
@@ -35,5 +35,7 @@ class CanUpdateStatus(BasePermission):
         workspace_id = request.data.get('workspace') or view.kwargs.get('workspace_id')
         workspace = Workspace.objects.get(id=workspace_id)
         task_id = request.data.get('task') or view.kwargs.get('task_id')
-        task = Task.objects.get(id= task_id)
-        return request.user == workspace.owner or request.user == task.assigned_to
+        if task_id:
+            task = Task.objects.get(id= task_id)
+            return request.user == task.assigned_to
+        return request.user == workspace.owner

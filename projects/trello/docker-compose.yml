@@ -11,6 +11,8 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     ports:
       - "5433:5432"
+    expose:
+      - 5432
 
   web:
     build: .
@@ -21,8 +23,8 @@ services:
       - "8000:8000"
     depends_on:
       - db
-    # environment:
-    #   DATABASE_URL: postgres://myprojectuser:myprojectpassword@db:5432/myprojectdb
+    environment:
+      DATABASE_URL: postgres://myprojectuser:myprojectpassword@db:5432/myprojectdb
 
 volumes:
   postgres_data:
